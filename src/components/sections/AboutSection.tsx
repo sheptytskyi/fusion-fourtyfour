@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import AnimatedBackground from '../AnimatedBackground';
 
 // Tech stack icons (using simple SVG paths for now)
 const techStack = [
@@ -73,9 +74,10 @@ const AboutSection = () => {
     <section 
       id="about" 
       ref={sectionRef} 
-      className="section-light min-h-screen flex items-center px-8 md:px-16 py-20"
+      className="section-light min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden snap-start"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <AnimatedBackground variant="light" />
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
         {/* Left side - Team Image */}
         <div ref={imageRef} className="relative">
           <div className="relative w-full h-96 md:h-[500px] rounded-glass overflow-hidden glass-card group">

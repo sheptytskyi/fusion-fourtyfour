@@ -15,17 +15,18 @@ const FooterSection = () => {
     if (!footer || !content) return;
 
     // Set initial state
-    gsap.set(content, { opacity: 0, y: 60 });
+    gsap.set(content, { opacity: 0, y: 50 });
 
     // ScrollTrigger animation
     gsap.to(content, {
       opacity: 1,
       y: 0,
-      duration: 1,
+      duration: 1.2,
       ease: 'power2.out',
       scrollTrigger: {
         trigger: footer,
-        start: 'top 90%',
+        start: 'top 80%',
+        end: 'bottom 20%',
         toggleActions: 'play none none reverse'
       }
     });
@@ -34,7 +35,7 @@ const FooterSection = () => {
     const particles = footer.querySelectorAll('.floating-particle');
     particles.forEach((particle, index) => {
       gsap.to(particle, {
-        y: -40,
+        y: -20,
         duration: 4 + index * 0.5,
         repeat: -1,
         yoyo: true,
@@ -57,131 +58,170 @@ const FooterSection = () => {
 
   return (
     <footer 
-      id="footer" 
+      id="footer"
       ref={footerRef} 
-      className="section-light relative py-20 px-8 md:px-16 overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black overflow-hidden snap-start"
+      style={{
+        background: 'linear-gradient(135deg, #000 0%, #1a0033 25%, #000066 50%, #0033cc 75%, #000 100%)',
+        position: 'relative'
+      }}
     >
+      {/* Electrified Background Effects */}
+      <div className="absolute inset-0">
+        {/* Electric Grid */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(0, 255, 255, 0.3) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px)
+            `,
+            backgroundSize: '100px 100px',
+            animation: 'pulse 4s ease-in-out infinite'
+          }}
+        />
+        
+        {/* Neon Orbs */}
+        <div className="absolute top-20 left-20 w-40 h-40 rounded-full opacity-20 animate-pulse"
+             style={{ 
+               background: 'radial-gradient(circle, #00ffff 0%, transparent 70%)',
+               filter: 'blur(20px)',
+               animation: 'glow-pulse 3s ease-in-out infinite'
+             }} />
+        <div className="absolute bottom-40 right-32 w-32 h-32 rounded-full opacity-25 animate-pulse"
+             style={{ 
+               background: 'radial-gradient(circle, #ff00ff 0%, transparent 70%)',
+               filter: 'blur(15px)',
+               animation: 'glow-pulse 2.5s ease-in-out infinite 1s'
+             }} />
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 rounded-full opacity-30 animate-pulse"
+             style={{ 
+               background: 'radial-gradient(circle, #ffff00 0%, transparent 70%)',
+               filter: 'blur(10px)',
+               animation: 'glow-pulse 3.5s ease-in-out infinite 0.5s'
+             }} />
+      </div>
+
       {/* Glassmorphic overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-light-bg/90 to-light-bg/70 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 backdrop-blur-sm bg-gradient-to-br from-white/5 to-transparent"></div>
       
-      <div ref={contentRef} className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <div ref={contentRef} className="relative z-10 container mx-auto px-8 md:px-16 py-20 min-h-screen flex flex-col justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
-          <div className="md:col-span-2">
-            <div className="mb-6">
-              <h3 className="text-3xl font-jetbrains font-bold text-light-fg neon-text mb-4">
-                44 FINGERS
-              </h3>
-              <p className="text-light-fg/70 font-jetbrains font-light leading-relaxed max-w-md">
-                Transforming ideas into digital solutions that drive real results. 
-                Your success is our mission.
+          <div className="space-y-6">
+            <h3 className="text-3xl font-jetbrains font-bold neon-text mb-4">
+              44 FINGERS
+            </h3>
+            <p className="text-white/80 font-jetbrains font-light leading-relaxed">
+              Cutting-edge digital solutions that electrify your business and leave competitors in the dark.
+            </p>
+            <div className="space-y-3 text-white/70">
+              <p className="flex items-center space-x-3">
+                <span className="text-cyan-400">📧</span>
+                <span>contact@44fingers.com</span>
               </p>
-            </div>
-            
-            <div className="space-y-2 text-light-fg/60 font-jetbrains font-light">
-              <p>📧 hello@44fingers.com</p>
-              <p>📞 +1 (555) 123-4567</p>
-              <p>🌍 Serving clients globally</p>
+              <p className="flex items-center space-x-3">
+                <span className="text-cyan-400">📱</span>
+                <span>+1 (555) 044-4444</span>
+              </p>
+              <p className="flex items-center space-x-3">
+                <span className="text-cyan-400">🌍</span>
+                <span>Worldwide</span>
+              </p>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-jetbrains font-semibold text-light-fg mb-6">
+          <div className="space-y-6">
+            <h4 className="text-xl font-jetbrains font-semibold text-cyan-400 mb-4 tracking-wider">
               QUICK LINKS
             </h4>
             <div className="space-y-3">
-              <button
-                onClick={() => scrollToSection('hero')}
-                className="block text-light-fg/70 hover:text-neon-blue transition-colors duration-300 font-jetbrains font-light"
-              >
-                Home
-              </button>
-              <button
-                onClick={() => scrollToSection('about')}
-                className="block text-light-fg/70 hover:text-neon-blue transition-colors duration-300 font-jetbrains font-light"
-              >
-                About
-              </button>
-              <button
-                onClick={() => scrollToSection('portfolio')}
-                className="block text-light-fg/70 hover:text-neon-blue transition-colors duration-300 font-jetbrains font-light"
-              >
-                Portfolio
-              </button>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="block text-light-fg/70 hover:text-neon-blue transition-colors duration-300 font-jetbrains font-light"
-              >
-                Contact
-              </button>
+              {['hero', 'about', 'portfolio', 'contact'].map((section) => (
+                <button
+                  key={section}
+                  onClick={() => scrollToSection(section)}
+                  className="block text-white/70 hover:text-cyan-400 transition-colors duration-300 font-jetbrains capitalize tracking-wide"
+                >
+                  {section}
+                </button>
+              ))}
             </div>
           </div>
 
           {/* Services */}
-          <div>
-            <h4 className="text-lg font-jetbrains font-semibold text-light-fg mb-6">
+          <div className="space-y-6">
+            <h4 className="text-xl font-jetbrains font-semibold text-magenta-400 mb-4 tracking-wider">
               SERVICES
             </h4>
-            <div className="space-y-3 text-light-fg/70 font-jetbrains font-light">
-              <p>Web Development</p>
-              <p>Mobile Apps</p>
-              <p>Desktop Solutions</p>
-              <p>Web3 & Blockchain</p>
-              <p>AI Integration</p>
-              <p>UI/UX Design</p>
+            <div className="space-y-3 text-white/70">
+              {[
+                'Web Development',
+                'Mobile Apps',
+                'AI Solutions', 
+                'Blockchain',
+                'UI/UX Design',
+                'Digital Strategy'
+              ].map((service) => (
+                <div key={service} className="font-jetbrains tracking-wide hover:text-magenta-400 transition-colors duration-300">
+                  {service}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Social Links */}
+          <div className="space-y-6">
+            <h4 className="text-xl font-jetbrains font-semibold text-yellow-400 mb-4 tracking-wider">
+              CONNECT
+            </h4>
+            <div className="flex space-x-4">
+              {[
+                { name: 'LinkedIn', icon: '🔗', color: 'hover:text-blue-400' },
+                { name: 'Twitter', icon: '🐦', color: 'hover:text-blue-300' },
+                { name: 'GitHub', icon: '💻', color: 'hover:text-gray-300' }
+              ].map((social) => (
+                <a
+                  key={social.name}
+                  href="#"
+                  className={`text-2xl ${social.color} transition-all duration-300 transform hover:scale-110 hover:glow-pulse`}
+                  aria-label={social.name}
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+            
+            <div className="mt-8 p-4 rounded-lg border border-cyan-400/30 bg-cyan-400/5">
+              <p className="text-sm text-white/60 font-jetbrains leading-relaxed">
+                Ready to electrify your business? Let's create something that sparks innovation.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Social Links */}
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-light-fg/20">
-          <div className="flex space-x-6 mb-6 md:mb-0">
-            <a
-              href="#"
-              className="w-10 h-10 glass-card flex items-center justify-center text-light-fg/60 hover:text-neon-blue transition-all duration-300 hover:scale-110"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.405.042-3.441.219-.937 1.404-5.965 1.404-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.357-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-12C24.007 5.367 18.641.001 12.017.001z"/>
-              </svg>
-            </a>
-            
-            <a
-              href="#"
-              className="w-10 h-10 glass-card flex items-center justify-center text-light-fg/60 hover:text-neon-blue transition-all duration-300 hover:scale-110"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-              </svg>
-            </a>
-            
-            <a
-              href="#"
-              className="w-10 h-10 glass-card flex items-center justify-center text-light-fg/60 hover:text-neon-blue transition-all duration-300 hover:scale-110"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </a>
-          </div>
-
-          <div className="text-center md:text-right">
-            <p className="text-light-fg/60 font-jetbrains font-light text-sm">
-              © 2024 44 Fingers. All rights reserved.
-            </p>
-            <p className="text-light-fg/40 font-jetbrains font-light text-xs mt-1">
-              Built with passion and cutting-edge technology
-            </p>
-          </div>
+        {/* Copyright */}
+        <div className="border-t border-cyan-400/20 pt-8 text-center">
+          <p className="text-white/50 font-jetbrains text-sm tracking-wider">
+            © 2024 44 FINGERS. All rights electrified. ⚡
+          </p>
+          <p className="text-white/30 font-jetbrains text-xs mt-2">
+            Powered by innovation, driven by excellence.
+          </p>
         </div>
       </div>
 
-      {/* Floating background particles */}
-      <div className="absolute top-20 left-10 w-2 h-2 bg-neon-blue rounded-full floating-particle opacity-30"></div>
-      <div className="absolute top-40 right-20 w-3 h-3 bg-neon-purple rounded-full floating-particle opacity-20"></div>
-      <div className="absolute bottom-40 left-1/4 w-1 h-1 bg-neon-orange rounded-full floating-particle opacity-40"></div>
-      <div className="absolute bottom-20 right-1/3 w-2 h-2 bg-neon-red rounded-full floating-particle opacity-25"></div>
-      <div className="absolute top-60 left-1/2 w-1 h-1 bg-neon-blue rounded-full floating-particle opacity-35"></div>
+      {/* Electrified Floating particles */}
+      <div className="absolute top-32 left-16 w-3 h-3 rounded-full floating-particle opacity-60"
+           style={{ background: 'radial-gradient(circle, #00ffff 0%, transparent 70%)', filter: 'blur(1px)' }} />
+      <div className="absolute bottom-32 right-24 w-4 h-4 rounded-full floating-particle opacity-50"
+           style={{ background: 'radial-gradient(circle, #ff00ff 0%, transparent 70%)', filter: 'blur(1px)' }} />
+      <div className="absolute top-2/3 left-1/3 w-2 h-2 rounded-full floating-particle opacity-70"
+           style={{ background: 'radial-gradient(circle, #ffff00 0%, transparent 70%)', filter: 'blur(1px)' }} />
+      <div className="absolute top-1/4 right-1/3 w-5 h-5 rounded-full floating-particle opacity-40"
+           style={{ background: 'radial-gradient(circle, #00ff00 0%, transparent 70%)', filter: 'blur(2px)' }} />
+      <div className="absolute bottom-1/4 left-2/3 w-3 h-3 rounded-full floating-particle opacity-55"
+           style={{ background: 'radial-gradient(circle, #ff6600 0%, transparent 70%)', filter: 'blur(1px)' }} />
     </footer>
   );
 };

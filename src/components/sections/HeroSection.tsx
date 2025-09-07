@@ -122,7 +122,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
     <section 
       id="hero" 
       ref={heroRef} 
-      className="relative h-screen flex items-center justify-between px-8 md:px-16 overflow-hidden"
+      className="relative h-screen flex items-center justify-between px-8 md:px-16 overflow-hidden snap-start"
       style={{ backgroundColor: '#000' }}
     >
       {/* Spline 3D Background */}

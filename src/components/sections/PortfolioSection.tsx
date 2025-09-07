@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import AnimatedBackground from '../AnimatedBackground';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -180,9 +181,10 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
     <section 
       id="portfolio" 
       ref={sectionRef} 
-      className="section-gray min-h-screen px-8 md:px-16 py-20"
+      className="section-gray min-h-screen px-8 md:px-16 py-20 relative overflow-hidden snap-start"
     >
-      <div className="max-w-7xl mx-auto">
+      <AnimatedBackground variant="gray" />
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Title */}
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-gray-fg mb-4">
