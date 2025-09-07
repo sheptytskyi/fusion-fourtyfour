@@ -2,41 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Futuristic design system for 44 Fingers - All colors in HSL */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    /* Base Colors */
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
+    
+    /* Glass morphism backgrounds */
+    --glass-bg: 0 0% 10%;
+    --glass-border: 0 0% 20%;
+    
+    /* Neon Colors */
+    --neon-blue: 217 91% 60%;
+    --neon-purple: 262 83% 70%;
+    --neon-orange: 25 95% 65%;
+    --neon-red: 0 100% 65%;
+    
+    /* Primary Brand Colors */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 91% 60%;
+    
+    /* Secondary Colors */
+    --secondary: 262 83% 70%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-glow: 262 83% 70%;
+    
+    /* Theme Variants */
+    --light-bg: 0 0% 98%;
+    --light-fg: 0 0% 10%;
+    --dark-bg: 0 0% 8%;
+    --dark-fg: 0 0% 90%;
+    --gray-bg: 220 13% 18%;
+    --gray-fg: 0 0% 95%;
+    
+    /* Interactive Elements */
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    --card-border: 0 0% 20%;
+    
+    --button-glass: 0 0% 15%;
+    --button-glass-hover: 0 0% 20%;
+    --button-border: 0 0% 30%;
+    
+    --input: 0 0% 15%;
+    --input-border: 0 0% 25%;
+    --input-focus: 217 91% 60%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60% / 0.1), hsl(262 83% 70% / 0.1));
+    --gradient-neon: linear-gradient(135deg, hsl(217 91% 60%), hsl(262 83% 70%));
+    --gradient-orange: linear-gradient(135deg, hsl(25 95% 65%), hsl(0 100% 65%));
+    --gradient-glow: radial-gradient(circle, hsl(217 91% 60% / 0.3), transparent 70%);
+    
+    /* Shadows and Glows */
+    --shadow-neon: 0 0 20px hsl(217 91% 60% / 0.5);
+    --shadow-purple: 0 0 20px hsl(262 83% 70% / 0.5);
+    --shadow-glass: 0 8px 32px hsl(0 0% 0% / 0.3);
+    --glow-intense: 0 0 40px hsl(217 91% 60% / 0.8);
+    
+    /* Border Radius */
+    --radius: 0.75rem;
+    --radius-glass: 1rem;
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -55,42 +90,6 @@ All colors MUST be HSL.
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -101,5 +100,244 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  /* Glass morphism components */
+  .glass {
+    background: hsl(var(--glass-bg) / 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid hsl(var(--glass-border) / 0.3);
+    border-radius: var(--radius-glass);
+    box-shadow: var(--shadow-glass);
+  }
+  
+  .glass-card {
+    @apply glass;
+    background: hsl(var(--card) / 0.7);
+    backdrop-filter: blur(15px);
+    transition: var(--transition-smooth);
+  }
+  
+  .glass-card:hover {
+    background: hsl(var(--card) / 0.9);
+    box-shadow: var(--shadow-neon);
+    transform: translateY(-5px);
+  }
+  
+  /* Neon glow effects */
+  .neon-glow {
+    box-shadow: var(--shadow-neon);
+    transition: var(--transition-smooth);
+  }
+  
+  .neon-glow:hover {
+    box-shadow: var(--glow-intense);
+  }
+  
+  .neon-text {
+    color: hsl(var(--neon-blue));
+    text-shadow: 0 0 10px hsl(var(--neon-blue) / 0.8);
+  }
+  
+  /* Button variants */
+  .btn-neon {
+    background: var(--gradient-neon);
+    color: hsl(var(--primary-foreground));
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: var(--transition-bounce);
+    box-shadow: var(--shadow-neon);
+  }
+  
+  .btn-neon:hover {
+    transform: scale(1.05);
+    box-shadow: var(--glow-intense);
+  }
+  
+  .btn-glass {
+    @apply glass;
+    color: hsl(var(--foreground));
+    padding: 0.75rem 2rem;
+    font-weight: 400;
+    transition: var(--transition-smooth);
+    border: 1px solid hsl(var(--button-border));
+  }
+  
+  .btn-glass:hover {
+    background: hsl(var(--button-glass-hover));
+    box-shadow: var(--shadow-neon);
+  }
+  
+  /* Input styles */
+  .input-glass {
+    @apply glass;
+    background: hsl(var(--input) / 0.8);
+    border: 1px solid hsl(var(--input-border));
+    color: hsl(var(--foreground));
+    padding: 0.75rem 1rem;
+    transition: var(--transition-smooth);
+  }
+  
+  .input-glass:focus {
+    outline: none;
+    border-color: hsl(var(--input-focus));
+    box-shadow: 0 0 0 2px hsl(var(--input-focus) / 0.3);
+  }
+  
+  /* Theme sections */
+  .section-light {
+    background: hsl(var(--light-bg));
+    color: hsl(var(--light-fg));
+  }
+  
+  .section-dark {
+    background: hsl(var(--dark-bg));
+    color: hsl(var(--dark-fg));
+  }
+  
+  .section-gray {
+    background: hsl(var(--gray-bg));
+    color: hsl(var(--gray-fg));
+  }
+  
+  /* Loading animation */
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: hsl(var(--background));
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .progress-container {
+    width: 300px;
+    height: 2px;
+    background: hsl(var(--glass-border));
+    border-radius: 1px;
+    overflow: hidden;
+    margin-top: 2rem;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--gradient-neon);
+    box-shadow: var(--shadow-neon);
+    transition: width 0.1s ease;
+  }
+  
+  /* Floating animations */
+  .floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+  
+  .floating-delayed {
+    animation: floating 6s ease-in-out infinite;
+    animation-delay: -2s;
+  }
+  
+  /* Cursor-reactive background */
+  .cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: var(--gradient-glow);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease;
+    z-index: 0;
+  }
+}
+
+@layer utilities {
+  .text-shadow-neon {
+    text-shadow: 0 0 10px hsl(var(--neon-blue) / 0.8);
+  }
+  
+  .backdrop-blur-glass {
+    backdrop-filter: blur(20px);
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+/* Keyframe animations */
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: var(--shadow-neon);
+  }
+  50% {
+    box-shadow: var(--glow-intense);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

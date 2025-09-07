@@ -1,11 +1,71 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect } from 'react';
+import Loader from '../components/Loader';
+import Navbar from '../components/Navbar';
+import CursorGlow from '../components/CursorGlow';
+import HeroSection from '../components/sections/HeroSection';
+import AboutSection from '../components/sections/AboutSection';
+import PortfolioSection from '../components/sections/PortfolioSection';
+import ContactSection from '../components/sections/ContactSection';
+import FooterSection from '../components/sections/FooterSection';
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Preload critical resources
+    const preloadResources = async () => {
+      // Preload JetBrains Mono font
+      const font = new FontFace('JetBrains Mono', 'url(https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;600;700&display=swap)');
+      
+      try {
+        await font.load();
+        document.fonts.add(font);
+      } catch (error) {
+        console.warn('Font preload failed:', error);
+      }
+    };
+
+    preloadResources();
+  }, []);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
+    
+    // Initialize smooth scrolling after loading
+    setTimeout(() => {
+      // Add smooth scroll behavior
+      document.documentElement.style.scrollBehavior = 'smooth';
+    }, 100);
+  };
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="relative">
+      {/* Loading Screen */}
+      {isLoading && <Loader onComplete={handleLoadingComplete} />}
+      
+      {/* Main Content */}
+      <div className={isLoading ? 'hidden' : 'block'}>
+        {/* Cursor Glow Effect */}
+        <CursorGlow />
+        
+        {/* Navigation */}
+        <Navbar onContactClick={scrollToContact} />
+        
+        {/* Sections */}
+        <main>
+          <HeroSection onGrowWithUsClick={scrollToContact} />
+          <AboutSection />
+          <PortfolioSection onWantSameClick={scrollToContact} />
+          <ContactSection />
+          <FooterSection />
+        </main>
       </div>
     </div>
   );
