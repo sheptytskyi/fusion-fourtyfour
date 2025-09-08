@@ -189,6 +189,23 @@
     background: hsl(var(--button-glass-hover));
     box-shadow: var(--shadow-neon);
   }
+
+  .btn-glass-dark {
+    @apply glass;
+    background: hsl(var(--light-bg) / 0.8);
+    backdrop-filter: blur(15px);
+    border: 1px solid hsl(var(--light-fg) / 0.2);
+    color: hsl(var(--light-fg));
+    padding: 0.75rem 2rem;
+    font-weight: 400;
+    transition: var(--transition-smooth);
+  }
+  
+  .btn-glass-dark:hover {
+    background: hsl(var(--light-fg) / 0.1);
+    border-color: hsl(var(--light-fg) / 0.3);
+    box-shadow: 0 4px 15px hsl(var(--light-fg) / 0.2);
+  }
   
   /* Input styles */
   .input-glass {

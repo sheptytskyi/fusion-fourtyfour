@@ -14,13 +14,14 @@ const FooterSection = () => {
 
     if (!footer || !content) return;
 
-    // Set initial state
-    gsap.set(content, { opacity: 0, y: 50 });
+    // Set initial state - fade + slide-up with blur
+    gsap.set(content, { opacity: 0, y: 60, filter: 'blur(10px)' });
 
     // ScrollTrigger animation
     gsap.to(content, {
       opacity: 1,
       y: 0,
+      filter: 'blur(0px)',
       duration: 1.2,
       ease: 'power2.out',
       scrollTrigger: {

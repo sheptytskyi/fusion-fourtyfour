@@ -31,6 +31,7 @@ const AboutSection = () => {
     if (!section || !image || !content || !icons) return;
 
     // Set initial states
+    gsap.set(section, { opacity: 0, filter: 'blur(20px)' });
     gsap.set(image, { opacity: 0, x: -100 });
     gsap.set(content, { opacity: 0, y: 50 });
     gsap.set(icons.children, { opacity: 0, y: 30 });
@@ -45,23 +46,36 @@ const AboutSection = () => {
       }
     });
 
-    tl.to(image, {
+    // Section fade + blur-clear
+    tl.to(section, {
+      opacity: 1,
+      filter: 'blur(0px)',
+      duration: 1.5,
+      ease: 'power2.out'
+    })
+    
+    // Image enters from left  
+    .to(image, {
       opacity: 1,
       x: 0,
       duration: 1.2,
       ease: 'power2.out'
-    })
+    }, '-=1.2')
+    
+    // Content appears
     .to(content, {
       opacity: 1,
       y: 0,
       duration: 1,
       ease: 'power2.out'
     }, '-=0.8')
+    
+    // Icons appear staggered
     .to(icons.children, {
       opacity: 1,
       y: 0,
       duration: 0.6,
-      stagger: 0.1,
+      stagger: 0.2,
       ease: 'power2.out'
     }, '-=0.4');
 

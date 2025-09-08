@@ -8,6 +8,7 @@ interface NavbarProps {
 const Navbar = ({ onContactClick }: NavbarProps) => {
   const navRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [isOnAboutSection, setIsOnAboutSection] = useState(false);
 
   useEffect(() => {
     const nav = navRef.current;
@@ -19,9 +20,11 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
       { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power2.out' }
     );
 
-    // Handle scroll visibility
+    // Handle scroll visibility and section detection
     const handleScroll = () => {
       const heroSection = document.getElementById('hero');
+      const aboutSection = document.getElementById('about');
+      
       if (heroSection) {
         const heroHeight = heroSection.offsetHeight;
         const scrollY = window.scrollY;
@@ -30,6 +33,19 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
           setIsVisible(false);
         } else {
           setIsVisible(true);
+        }
+      }
+
+      // Check if on About section
+      if (aboutSection) {
+        const aboutTop = aboutSection.offsetTop;
+        const aboutHeight = aboutSection.offsetHeight;
+        const scrollY = window.scrollY;
+        
+        if (scrollY >= aboutTop - 100 && scrollY < aboutTop + aboutHeight - 100) {
+          setIsOnAboutSection(true);
+        } else {
+          setIsOnAboutSection(false);
         }
       }
     };
@@ -67,19 +83,25 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
         <div className="flex space-x-8">
           <button
             onClick={() => scrollToSection('about')}
-            className="font-jetbrains text-sm font-light text-foreground/80 hover:text-neon-blue transition-all duration-300 hover:text-shadow-neon tracking-wider"
+            className={`font-jetbrains text-sm font-light transition-all duration-300 hover:text-shadow-neon tracking-wider ${
+              isOnAboutSection ? 'text-black hover:text-gray-700' : 'text-foreground/80 hover:text-neon-blue'
+            }`}
           >
             ABOUT
           </button>
           <button
             onClick={() => scrollToSection('portfolio')}
-            className="font-jetbrains text-sm font-light text-foreground/80 hover:text-neon-blue transition-all duration-300 hover:text-shadow-neon tracking-wider"
+            className={`font-jetbrains text-sm font-light transition-all duration-300 hover:text-shadow-neon tracking-wider ${
+              isOnAboutSection ? 'text-black hover:text-gray-700' : 'text-foreground/80 hover:text-neon-blue'
+            }`}
           >
             PORTFOLIO
           </button>
           <button
             onClick={() => scrollToSection('contact')}
-            className="font-jetbrains text-sm font-light text-foreground/80 hover:text-neon-blue transition-all duration-300 hover:text-shadow-neon tracking-wider"
+            className={`font-jetbrains text-sm font-light transition-all duration-300 hover:text-shadow-neon tracking-wider ${
+              isOnAboutSection ? 'text-black hover:text-gray-700' : 'text-foreground/80 hover:text-neon-blue'
+            }`}
           >
             CONTACT
           </button>
@@ -88,7 +110,9 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
         {/* Right side CTA */}
         <button
           onClick={onContactClick}
-          className="btn-glass font-jetbrains text-xs tracking-widest"
+          className={`font-jetbrains text-xs tracking-widest transition-all duration-300 ${
+            isOnAboutSection ? 'btn-glass-dark' : 'btn-glass'
+          }`}
         >
           CONTACT US
         </button>

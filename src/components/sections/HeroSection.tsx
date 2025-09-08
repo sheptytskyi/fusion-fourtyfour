@@ -111,7 +111,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
     const timer = setTimeout(() => {
       const iframe = document.getElementById('spline-iframe') as HTMLIFrameElement;
       if (iframe) {
-        iframe.src = 'https://my.spline.design/boxeshover-KTp2w2sS2EjmPOLo0XCIdxvL/';
+        iframe.src = 'https://my.spline.design/orb-6b0fiDVcWjz6a7jDbCTTtO8g/';
       }
     }, 1500);
 
@@ -122,7 +122,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
     <section 
       id="hero" 
       ref={heroRef} 
-      className="relative h-screen flex items-center justify-between px-8 md:px-16 overflow-hidden snap-start"
+      className="relative h-screen flex items-center justify-center px-8 md:px-16 overflow-hidden snap-start"
       style={{ backgroundColor: '#000' }}
     >
       {/* Spline 3D Background */}
@@ -137,10 +137,10 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       </div>
 
       {/* Background overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/20 z-10"></div>
+      <div className="absolute inset-0 bg-black/30 z-10"></div>
 
-      {/* Left side - Headline */}
-      <div className="relative z-20 flex flex-col justify-end h-full pb-20 max-w-2xl">
+      {/* Centered Content */}
+      <div className="relative z-20 text-center max-w-4xl">
         <div ref={headlineRef} className="mb-6">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-jetbrains font-bold text-white leading-tight tracking-tight">
             STAY AHEAD OF YOUR
@@ -153,11 +153,8 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
             AI \ MOBILE \ WEB \ CRYPTO
           </p>
         </div>
-      </div>
 
-      {/* Right side - Subtitle and CTA */}
-      <div className="relative z-20 flex flex-col justify-end h-full pb-20 max-w-lg">
-        <div ref={subtitleRef} className="mb-8">
+        <div ref={subtitleRef} className="mb-8 max-w-2xl mx-auto">
           <p className="text-lg md:text-xl font-jetbrains font-light text-white/80 leading-relaxed">
             We design and develop digital products that help you scale faster and dominate your industry while others try to catch up.
           </p>
@@ -166,7 +163,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
         <button
           ref={ctaRef}
           onClick={onGrowWithUsClick}
-          className="btn-neon font-jetbrains text-sm tracking-widest self-start"
+          className="btn-neon font-jetbrains text-sm tracking-widest"
         >
           GROW WITH US
         </button>

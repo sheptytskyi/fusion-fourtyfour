@@ -26,7 +26,9 @@ const ContactSection = () => {
     if (!section || !title || !form || !social) return;
 
     // Set initial states
-    gsap.set([title, form, social], { opacity: 0, y: 50 });
+    gsap.set(title, { opacity: 0, y: 50 });
+    gsap.set(form.children, { opacity: 0, x: -50 });
+    gsap.set(social, { opacity: 0, y: 50 });
 
     // ScrollTrigger animation
     const tl = gsap.timeline({
@@ -44,13 +46,20 @@ const ContactSection = () => {
       duration: 1,
       ease: 'power2.out'
     })
-    .to([form, social], {
+    // Inputs fade from left
+    .to(form.children, {
       opacity: 1,
-      y: 0,
+      x: 0,
       duration: 0.8,
       stagger: 0.2,
       ease: 'power2.out'
-    }, '-=0.6');
+    }, '-=0.6')
+    .to(social, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, '-=0.4');
 
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
