@@ -30,8 +30,8 @@ const AboutSection = () => {
 
     if (!section || !image || !content || !icons) return;
 
-    // Set initial states
-    gsap.set(section, { opacity: 0, filter: 'blur(20px)' });
+    // Set initial states - fade + slide-up + blur
+    gsap.set(section, { opacity: 0, y: 60, filter: 'blur(10px)' });
     gsap.set(image, { opacity: 0, x: -100 });
     gsap.set(content, { opacity: 0, y: 50 });
     gsap.set(icons.children, { opacity: 0, y: 30 });
@@ -46,9 +46,10 @@ const AboutSection = () => {
       }
     });
 
-    // Section fade + blur-clear
+    // Section fade + blur-clear + slide-up
     tl.to(section, {
       opacity: 1,
+      y: 0,
       filter: 'blur(0px)',
       duration: 1.5,
       ease: 'power2.out'

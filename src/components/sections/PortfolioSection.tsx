@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import AnimatedBackground from '../AnimatedBackground';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -265,6 +266,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
   const titleRef = useRef<HTMLDivElement>(null);
   const filtersRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   
   const [activeFilter, setActiveFilter] = useState<keyof typeof portfolioData>('Web');
   const [visibleProjects, setVisibleProjects] = useState(6);
@@ -332,6 +334,18 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
     setActiveFilter(filter);
   };
 
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section 
       id="portfolio" 
@@ -352,12 +366,12 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
 
         {/* Filter Buttons */}
         <div ref={filtersRef} className="flex justify-center mb-12">
-          <div className="glass-card p-2 flex space-x-2">
+          <div className="glass-card p-1 flex space-x-1">
             {Object.keys(portfolioData).map((filter) => (
               <button
                 key={filter}
                 onClick={() => handleFilterChange(filter as keyof typeof portfolioData)}
-                className={`px-6 py-3 font-jetbrains text-sm tracking-wider transition-all duration-300 rounded-lg ${
+                className={`px-3 py-2 font-jetbrains text-xs tracking-wider transition-all duration-300 rounded-md ${
                   activeFilter === filter
                     ? 'bg-gradient-neon text-white'
                     : 'text-gray-fg/70 hover:text-neon-blue'
@@ -370,100 +384,117 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
         </div>
 
         {/* Project Cards - Horizontal Scroll */}
-        <div className="overflow-hidden">
+        <div className="relative overflow-hidden">
+          {/* Scroll Arrows */}
+          <button
+            onClick={scrollLeft}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-neon-blue/20 transition-all duration-300"
+          >
+            <ChevronLeft className="w-5 h-5 text-neon-blue" />
+          </button>
+          
+          <button
+            onClick={scrollRight}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-neon-blue/20 transition-all duration-300"
+          >
+            <ChevronRight className="w-5 h-5 text-neon-blue" />
+          </button>
+
           <div 
-            ref={cardsRef} 
-            className="flex space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neon-blue/30"
+            ref={scrollContainerRef}
+            className="flex space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neon-blue/30 scroll-smooth mx-16"
             style={{ scrollSnapType: 'x mandatory' }}
           >
-            {currentProjects.map((project) => (
-              <div 
-                key={project.id} 
-                className="glass-card group cursor-pointer flex-shrink-0 w-80 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
-                style={{ scrollSnapAlign: 'start' }}
-                onMouseEnter={(e) => {
-                  gsap.to(e.currentTarget, { 
-                    y: -10, 
-                    scale: 1.05,
-                    boxShadow: '0 20px 40px rgba(0,255,255,0.3)',
-                    duration: 0.3, 
-                    ease: 'power2.out' 
-                  });
-                }}
-                onMouseLeave={(e) => {
-                  gsap.to(e.currentTarget, { 
-                    y: 0, 
-                    scale: 1,
-                    boxShadow: '0 0 0 rgba(0,255,255,0)',
-                    duration: 0.3, 
-                    ease: 'power2.out' 
-                  });
-                }}
-              >
-                <div className="relative overflow-hidden rounded-t-glass">
-                  <img 
-                    src={project.image} 
-                    alt={project.name}
-                    className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <span className="glass-card px-2 py-1 text-xs font-jetbrains text-gray-fg/80">
-                      {activeFilter}
-                    </span>
+            <div ref={cardsRef} className="flex space-x-6">
+              {currentProjects.map((project) => (
+                <div 
+                  key={project.id} 
+                  className="glass-card group cursor-pointer flex-shrink-0 w-80 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
+                  style={{ scrollSnapAlign: 'start' }}
+                  onMouseEnter={(e) => {
+                    gsap.to(e.currentTarget, { 
+                      y: -10, 
+                      scale: 1.05,
+                      boxShadow: '0 20px 40px rgba(0,255,255,0.3)',
+                      duration: 0.3, 
+                      ease: 'power2.out' 
+                    });
+                  }}
+                  onMouseLeave={(e) => {
+                    gsap.to(e.currentTarget, { 
+                      y: 0, 
+                      scale: 1,
+                      boxShadow: '0 0 0 rgba(0,255,255,0)',
+                      duration: 0.3, 
+                      ease: 'power2.out' 
+                    });
+                  }}
+                >
+                  <div className="relative overflow-hidden rounded-t-glass">
+                    <img 
+                      src={project.image} 
+                      alt={project.name}
+                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="glass-card px-2 py-1 text-xs font-jetbrains text-gray-fg/80">
+                        {activeFilter}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 space-y-3">
+                    <h3 className="text-lg font-jetbrains font-semibold text-gray-fg">
+                      {project.name}
+                    </h3>
+                    
+                    <p className="text-gray-fg/70 font-jetbrains font-light leading-relaxed text-sm line-clamp-2">
+                      {project.description}
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="text-gray-fg/60">Team:</span>
+                        <span className="text-neon-blue ml-1">{project.teamSize}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-fg/60">Duration:</span>
+                        <span className="text-neon-blue ml-1">{project.duration}</span>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <span className="text-gray-fg/60 text-xs">Problems:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {project.problems.slice(0, 2).map((problem, index) => (
+                          <span key={index} className="glass px-1 py-0.5 text-xs text-gray-fg/80">
+                            {problem}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <span className="text-gray-fg/60 text-xs">Tech:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {project.tech.slice(0, 3).map((tech, index) => (
+                          <span key={index} className="glass px-1 py-0.5 text-xs text-neon-blue">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <button
+                      onClick={onWantSameClick}
+                      className="btn-neon w-full mt-4 text-xs"
+                    >
+                      I WANT THE SAME
+                    </button>
                   </div>
                 </div>
-                
-                <div className="p-4 space-y-3">
-                  <h3 className="text-lg font-jetbrains font-semibold text-gray-fg">
-                    {project.name}
-                  </h3>
-                  
-                  <p className="text-gray-fg/70 font-jetbrains font-light leading-relaxed text-sm line-clamp-2">
-                    {project.description}
-                  </p>
-                  
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                      <span className="text-gray-fg/60">Team:</span>
-                      <span className="text-neon-blue ml-1">{project.teamSize}</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-fg/60">Duration:</span>
-                      <span className="text-neon-blue ml-1">{project.duration}</span>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <span className="text-gray-fg/60 text-xs">Problems:</span>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {project.problems.slice(0, 2).map((problem, index) => (
-                        <span key={index} className="glass px-1 py-0.5 text-xs text-gray-fg/80">
-                          {problem}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <span className="text-gray-fg/60 text-xs">Tech:</span>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {project.tech.slice(0, 3).map((tech, index) => (
-                        <span key={index} className="glass px-1 py-0.5 text-xs text-neon-blue">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <button
-                    onClick={onWantSameClick}
-                    className="btn-neon w-full mt-4 text-xs"
-                  >
-                    I WANT THE SAME
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

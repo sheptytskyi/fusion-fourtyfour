@@ -25,7 +25,8 @@ const ContactSection = () => {
 
     if (!section || !title || !form || !social) return;
 
-    // Set initial states
+    // Set initial states - fade + slide-up + blur
+    gsap.set(section, { opacity: 0, y: 60, filter: 'blur(10px)' });
     gsap.set(title, { opacity: 0, y: 50 });
     gsap.set(form.children, { opacity: 0, x: -50 });
     gsap.set(social, { opacity: 0, y: 50 });
@@ -40,18 +41,25 @@ const ContactSection = () => {
       }
     });
 
-    tl.to(title, {
+    tl.to(section, {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      duration: 1.2,
+      ease: 'power2.out'
+    })
+    .to(title, {
       opacity: 1,
       y: 0,
       duration: 1,
       ease: 'power2.out'
-    })
+    }, '-=0.8')
     // Inputs fade from left
     .to(form.children, {
       opacity: 1,
       x: 0,
       duration: 0.8,
-      stagger: 0.2,
+      stagger: 0.15,
       ease: 'power2.out'
     }, '-=0.6')
     .to(social, {

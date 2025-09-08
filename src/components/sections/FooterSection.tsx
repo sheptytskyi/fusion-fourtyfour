@@ -14,10 +14,10 @@ const FooterSection = () => {
 
     if (!footer || !content) return;
 
-    // Set initial state - fade + slide-up with blur
+    // Set initial state - fade + slide-up + blur
     gsap.set(content, { opacity: 0, y: 60, filter: 'blur(10px)' });
 
-    // ScrollTrigger animation
+    // ScrollTrigger animation for footer entrance
     gsap.to(content, {
       opacity: 1,
       y: 0,
@@ -26,8 +26,7 @@ const FooterSection = () => {
       ease: 'power2.out',
       scrollTrigger: {
         trigger: footer,
-        start: 'top 80%',
-        end: 'bottom 20%',
+        start: 'top 90%',
         toggleActions: 'play none none reverse'
       }
     });
