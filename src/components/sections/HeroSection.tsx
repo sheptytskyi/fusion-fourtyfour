@@ -142,8 +142,8 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       {/* Centered Content */}
       <div className="relative z-20 text-center max-w-4xl">
         <div ref={headlineRef} className="mb-6">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-jetbrains font-bold text-white leading-tight tracking-tight">
-            STAY AHEAD OF YOUR
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-jetbrains font-bold leading-tight tracking-tight">
+            <span className="neon-text">STAY AHEAD OF YOUR</span>
             <span className="block neon-text">COMPETITORS</span>
           </h1>
         </div>
@@ -155,7 +155,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
         </div>
 
         <div ref={subtitleRef} className="mb-8 max-w-2xl mx-auto">
-          <p className="text-lg md:text-xl font-jetbrains font-light text-white/80 leading-relaxed">
+          <p className="text-lg md:text-xl font-jetbrains font-light leading-relaxed" style={{ color: '#FFF' }}>
             We design and develop digital products that help you scale faster and dominate your industry while others try to catch up.
           </p>
         </div>

@@ -7,9 +7,13 @@ import AboutSection from '../components/sections/AboutSection';
 import PortfolioSection from '../components/sections/PortfolioSection';
 import ContactSection from '../components/sections/ContactSection';
 import FooterSection from '../components/sections/FooterSection';
+import { useScrollLinkedAnimations } from '../hooks/useScrollLinkedAnimations';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Initialize scroll-linked animations
+  useScrollLinkedAnimations();
 
   useEffect(() => {
     // Preload critical resources

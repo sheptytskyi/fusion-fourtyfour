@@ -355,7 +355,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
       <AnimatedBackground variant="gray" />
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Title */}
-        <div ref={titleRef} className="text-center mb-16">
+        <div ref={titleRef} className="text-center mb-8">
           <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-gray-fg mb-4">
             OUR <span className="neon-text">PORTFOLIO</span>
           </h2>
@@ -365,7 +365,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
         </div>
 
         {/* Filter Buttons */}
-        <div ref={filtersRef} className="flex justify-center mb-12">
+        <div ref={filtersRef} className="flex justify-center mb-8">
           <div className="glass-card p-1 flex space-x-1">
             {Object.keys(portfolioData).map((filter) => (
               <button
