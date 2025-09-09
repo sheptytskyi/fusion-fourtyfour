@@ -149,9 +149,9 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       {/* Centered Content */}
       <div className="relative z-20 text-center max-w-4xl">
         <div ref={headlineRef} className="mb-6">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-jetbrains font-bold leading-tight tracking-tight text-center">
-            <span className="neon-text">STAY AHEAD OF YOUR</span>
-            <span className="block neon-text">COMPETITORS</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-jetbrains font-bold leading-tight tracking-tight text-center text-white">
+            <span>STAY AHEAD OF YOUR</span>
+            <span className="block neon-purple-gradient">COMPETITORS</span>
           </h1>
         </div>
         
