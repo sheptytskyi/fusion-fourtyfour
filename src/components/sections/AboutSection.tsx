@@ -89,7 +89,7 @@ const AboutSection = () => {
     <section 
       id="about" 
       ref={sectionRef} 
-      className="section-light min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden snap-start"
+      className="section-light min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden"
     >
       <AnimatedBackground variant="light" />
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">

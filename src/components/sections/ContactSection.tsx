@@ -108,7 +108,7 @@ const ContactSection = () => {
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="section-dark min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden snap-start"
+      className="section-dark min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden"
     >
       <AnimatedBackground variant="dark" />
       
@@ -135,7 +135,7 @@ const ContactSection = () => {
                   placeholder="YOUR NAME"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="input-glass w-full"
+                  className="glassmorphic-input w-full"
                   required
                 />
               </div>
@@ -147,7 +147,7 @@ const ContactSection = () => {
                   placeholder="YOUR EMAIL"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="input-glass w-full"
+                  className="glassmorphic-input w-full"
                   required
                 />
               </div>
@@ -159,14 +159,14 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={5}
-                  className="input-glass w-full resize-none"
+                  className="glassmorphic-input w-full resize-none"
                   required
                 />
               </div>
               
               <button
                 type="submit"
-                className="btn-neon w-full font-jetbrains text-sm tracking-widest"
+                className="btn-neon w-full font-jetbrains text-sm tracking-widest pulse-hover"
               >
                 SEND MESSAGE
               </button>
@@ -215,20 +215,20 @@ const ContactSection = () => {
               </h3>
               
               <div className="flex space-x-6">
-                {[
-                  { name: 'LinkedIn', icon: '🔗', url: '#' },
-                  { name: 'Twitter', icon: '🐦', url: '#' },
-                  { name: 'GitHub', icon: '💻', url: '#' }
-                ].map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    className="flex items-center justify-center w-12 h-12 glass rounded-lg text-2xl hover:text-neon-blue transition-all duration-300 hover:scale-110"
-                    aria-label={social.name}
-                  >
-                    {social.icon}
-                  </a>
-                ))}
+                  {[
+                    { name: 'LinkedIn', icon: '🔗', url: '#' },
+                    { name: 'Twitter', icon: '🐦', url: '#' },
+                    { name: 'GitHub', icon: '💻', url: '#' }
+                  ].map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      className="flex items-center justify-center w-12 h-12 glass rounded-lg text-2xl hover:text-neon-blue transition-all duration-300 hover:scale-110 glow-hover"
+                      aria-label={social.name}
+                    >
+                      {social.icon}
+                    </a>
+                  ))}
               </div>
               
               <div className="mt-6 p-4 rounded-lg border border-neon-blue/20 bg-neon-blue/5">

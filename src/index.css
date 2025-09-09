@@ -223,6 +223,32 @@
     box-shadow: 0 0 0 2px hsl(var(--input-focus) / 0.3);
   }
   
+  /* Glassmorphic inputs with glow focus */
+  .glassmorphic-input {
+    @apply px-6 py-4 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm;
+    @apply text-white placeholder-white/60 font-jetbrains tracking-wide;
+    @apply transition-all duration-300 outline-none;
+    @apply focus:border-neon-blue/50 focus:bg-white/15;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .glassmorphic-input:focus {
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.3),
+      0 0 20px rgba(0, 191, 255, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  /* Pulse hover effect */
+  .pulse-hover:hover {
+    animation: pulse-glow 1s ease-in-out infinite;
+  }
+
+  /* Glow hover effect for icons */
+  .glow-hover:hover {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+  
   /* Theme sections */
   .section-light {
     background: hsl(var(--light-bg));
@@ -326,6 +352,11 @@
   50% {
     box-shadow: var(--glow-intense);
   }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 @keyframes fadeInUp {

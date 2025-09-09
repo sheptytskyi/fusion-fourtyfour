@@ -66,7 +66,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       ease: 'power2.out'
     }, '-=0.6')
     
-    // Animate Spline
+    // Animate Spline fades in from right
     .to(spline, {
       opacity: 1,
       x: 0,
@@ -74,12 +74,19 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       ease: 'power2.out'
     }, '-=1');
 
-    // CTA hover animation
+    // CTA hover animation with scale pulse
     const handleCTAHover = () => {
-      gsap.to(cta, { scale: 1.05, duration: 0.3, ease: 'power2.out' });
+      gsap.to(cta, { 
+        scale: 1.05, 
+        duration: 0.3, 
+        ease: 'power2.out',
+        repeat: -1,
+        yoyo: true
+      });
     };
 
     const handleCTALeave = () => {
+      gsap.killTweensOf(cta);
       gsap.to(cta, { scale: 1, duration: 0.3, ease: 'power2.out' });
     };
 
@@ -122,7 +129,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
     <section 
       id="hero" 
       ref={heroRef} 
-      className="relative h-screen flex items-center justify-center px-8 md:px-16 overflow-hidden snap-start"
+      className="relative h-screen flex items-center justify-center px-8 md:px-16 overflow-hidden"
       style={{ backgroundColor: '#000' }}
     >
       {/* Spline 3D Background */}
@@ -142,7 +149,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       {/* Centered Content */}
       <div className="relative z-20 text-center max-w-4xl">
         <div ref={headlineRef} className="mb-6">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-jetbrains font-bold leading-tight tracking-tight">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-jetbrains font-bold leading-tight tracking-tight text-center">
             <span className="neon-text">STAY AHEAD OF YOUR</span>
             <span className="block neon-text">COMPETITORS</span>
           </h1>
@@ -155,7 +162,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
         </div>
 
         <div ref={subtitleRef} className="mb-8 max-w-2xl mx-auto">
-          <p className="text-lg md:text-xl font-jetbrains font-light leading-relaxed" style={{ color: '#FFF' }}>
+          <p className="text-lg md:text-xl font-jetbrains font-light leading-relaxed text-center text-white">
             We design and develop digital products that help you scale faster and dominate your industry while others try to catch up.
           </p>
         </div>
@@ -163,17 +170,49 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
         <button
           ref={ctaRef}
           onClick={onGrowWithUsClick}
-          className="btn-neon font-jetbrains text-sm tracking-widest"
+          className="btn-neon font-jetbrains text-sm tracking-widest mx-auto block"
         >
           GROW WITH US
         </button>
       </div>
 
-      {/* Floating neon orbs */}
-      <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-neon-blue rounded-full floating-orb opacity-60 z-15"></div>
-      <div className="absolute top-3/4 right-1/4 w-6 h-6 bg-neon-purple rounded-full floating-orb opacity-40 z-15"></div>
-      <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-neon-orange rounded-full floating-orb opacity-80 z-15"></div>
-      <div className="absolute top-1/2 right-1/3 w-3 h-3 bg-neon-red rounded-full floating-orb opacity-50 z-15"></div>
+      {/* Floating neon orbs with enhanced glow */}
+      <div className="absolute top-1/4 left-1/4 w-4 h-4 rounded-full floating-orb opacity-60 z-15" 
+           style={{ 
+             background: 'radial-gradient(circle, #00ffff 0%, #0066ff 50%, transparent 100%)',
+             filter: 'blur(1px)',
+             boxShadow: '0 0 20px #00ffff, 0 0 40px #0066ff' 
+           }}></div>
+      <div className="absolute top-3/4 right-1/4 w-6 h-6 rounded-full floating-orb opacity-40 z-15"
+           style={{ 
+             background: 'radial-gradient(circle, #ff00ff 0%, #6600ff 50%, transparent 100%)',
+             filter: 'blur(2px)',
+             boxShadow: '0 0 25px #ff00ff, 0 0 50px #6600ff' 
+           }}></div>
+      <div className="absolute bottom-1/4 left-1/3 w-2 h-2 rounded-full floating-orb opacity-80 z-15"
+           style={{ 
+             background: 'radial-gradient(circle, #ffaa00 0%, #ff6600 50%, transparent 100%)',
+             filter: 'blur(0.5px)',
+             boxShadow: '0 0 15px #ffaa00, 0 0 30px #ff6600' 
+           }}></div>
+      <div className="absolute top-1/2 right-1/3 w-3 h-3 rounded-full floating-orb opacity-50 z-15"
+           style={{ 
+             background: 'radial-gradient(circle, #ff0066 0%, #cc0044 50%, transparent 100%)',
+             filter: 'blur(1px)',
+             boxShadow: '0 0 18px #ff0066, 0 0 35px #cc0044' 
+           }}></div>
+      
+      {/* Additional floating glow elements */}
+      <div className="absolute top-1/6 right-1/5 w-8 h-8 rounded-full floating-orb opacity-20 z-10"
+           style={{ 
+             background: 'radial-gradient(circle, #00ff88 0%, transparent 70%)',
+             filter: 'blur(4px)'
+           }}></div>
+      <div className="absolute bottom-1/6 left-1/5 w-5 h-5 rounded-full floating-orb opacity-30 z-10"
+           style={{ 
+             background: 'radial-gradient(circle, #8800ff 0%, transparent 70%)',
+             filter: 'blur(3px)'
+           }}></div>
     </section>
   );
 };

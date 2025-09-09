@@ -60,7 +60,7 @@ const FooterSection = () => {
     <footer 
       id="footer"
       ref={footerRef} 
-      className="relative min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black overflow-hidden snap-start"
+      className="relative min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, #000 0%, #1a0033 25%, #000066 50%, #0033cc 75%, #000 100%)',
         position: 'relative'

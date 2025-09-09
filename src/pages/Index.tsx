@@ -55,7 +55,7 @@ const Index = () => {
       {isLoading && <Loader onComplete={handleLoadingComplete} />}
       
       {/* Main Content */}
-      <div className={`${isLoading ? 'hidden' : 'block'} snap-y snap-mandatory h-screen overflow-y-scroll`}>
+      <div className={`${isLoading ? 'hidden' : 'block'} h-screen overflow-y-scroll`}>
         {/* Cursor Glow Effect */}
         <CursorGlow />
         
