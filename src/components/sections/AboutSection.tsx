@@ -1,17 +1,18 @@
 import { useEffect, useRef } from 'react';
+import { SiPython, SiGoland, SiJavascript, SiSharp, SiShopify, SiSwift, SiPhp } from 'react-icons/si';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedBackground from '../AnimatedBackground';
 
 // Tech stack icons (using simple SVG paths for now)
 const techStack = [
-  { name: 'Python', color: '#3776ab' },
-  { name: 'Golang', color: '#00add8' },
-  { name: 'JavaScript', color: '#f7df1e' },
-  { name: 'C#', color: '#239120' },
-  { name: 'Shopify', color: '#7ab55c' },
-  { name: 'Swift', color: '#fa7343' },
-  { name: 'PHP', color: '#777bb4' },
+  { name: "Python", icon: SiPython, color: "#3776AB" },
+  { name: "Go", icon: SiGoland, color: "#00ADD8" },
+  { name: "JS", icon: SiJavascript, color: "#F7DF1E" },
+  { name: "C#", icon: SiSharp, color: "#239120" },
+  { name: "Shopify", icon: SiShopify, color: "#96BF48" },
+  { name: "Swift", icon: SiSwift, color: "#FA7343" },
+  { name: "PHP", icon: SiPhp, color: "#777BB4" },
 ];
 
 gsap.registerPlugin(ScrollTrigger);
@@ -89,7 +90,7 @@ const AboutSection = () => {
     <section 
       id="about" 
       ref={sectionRef} 
-      className="section-light min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden"
+      className="section-light min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden snap-start"
     >
       <AnimatedBackground variant="light" />
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
@@ -97,7 +98,7 @@ const AboutSection = () => {
         <div ref={imageRef} className="relative">
           <div className="relative w-full h-96 md:h-[500px] rounded-glass overflow-hidden glass-card group">
             <img 
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop&crop=faces"
+              src="https://images.unsplash.com/photo-1603189751032-7d5b09d9c8ca"
               alt="44 Fingers Team"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
@@ -112,7 +113,8 @@ const AboutSection = () => {
         <div ref={contentRef} className="space-y-8">
           <div>
             <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-light-fg mb-6">
-              WHO WE <span className="neon-text">ARE</span>
+              WHO WE <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
+              text-transparent bg-clip-text">ARE</span>
             </h2>
             <p className="text-lg md:text-xl font-jetbrains font-light text-light-fg/70 leading-relaxed">
               With 7+ years of experience, 220+ projects delivered across 15+ countries, we help businesses turn ideas into digital solutions that drive real results.
@@ -128,20 +130,26 @@ const AboutSection = () => {
               OUR TECH STACK
             </h3>
             <div ref={iconsRef} className="grid grid-cols-4 md:grid-cols-7 gap-4">
-              {techStack.map((tech, index) => (
-                <div 
-                  key={tech.name}
-                  className="glass-card p-4 flex flex-col items-center justify-center aspect-square group cursor-pointer"
-                >
+              {techStack.map((tech) => {
+                const IconComponent = tech.icon;
+                return (
                   <div 
-                    className="w-8 h-8 rounded-full mb-2 group-hover:scale-110 transition-transform duration-300"
-                    style={{ backgroundColor: tech.color }}
-                  ></div>
-                  <span className="text-xs font-jetbrains text-light-fg/60 text-center">
-                    {tech.name}
-                  </span>
-                </div>
-              ))}
+                    key={tech.name}
+                    className="relative group cursor-pointer rounded-2xl overflow-hidden p-[1px]"
+                    style={{
+                      background: `${tech.color}`
+                    }}
+                  >
+                    {/* glass card inside with gradient border */}
+                    <div className="flex flex-col items-center justify-center aspect-square rounded-2xl p-4 transition-transform duration-500 group-hover:scale-105">
+                      <IconComponent size={32} color="white" className="mb-2" />
+                      <span className="text-xs font-jetbrains text-white text-center">
+                        {tech.name}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

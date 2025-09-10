@@ -110,9 +110,10 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
         {/* Right side CTA */}
         <button
           onClick={onContactClick}
-          className={`font-jetbrains text-xs tracking-widest transition-all duration-300 ${
-            isOnAboutSection ? 'btn-glass-dark' : 'btn-glass'
-          }`}
+          className="font-jetbrains text-xs tracking-widest px-6 py-2 rounded-lg
+                    bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
+                    text-white font-bold transition-transform duration-300
+                    hover:scale-105 hover:shadow-lg"
         >
           CONTACT US
         </button>

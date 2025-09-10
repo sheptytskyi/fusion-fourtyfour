@@ -357,7 +357,8 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
         {/* Title */}
         <div ref={titleRef} className="text-center mb-8">
           <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-gray-fg mb-4">
-            OUR <span className="neon-text">PORTFOLIO</span>
+            OUR <span className="bg-gradient-to-r from-pink-300 via-purple-400 to-purple-500
+              text-transparent bg-clip-text">PORTFOLIO</span>
           </h2>
           <p className="text-lg font-jetbrains font-light text-gray-fg/70">
             Showcasing our best work across different domains
@@ -388,21 +389,21 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
           {/* Scroll Arrows */}
           <button
             onClick={scrollLeft}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-neon-blue/20 transition-all duration-300"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300"
           >
-            <ChevronLeft className="w-5 h-5 text-neon-blue" />
+            <ChevronLeft className="w-5 h-5 text-purple-blue" />
           </button>
           
           <button
             onClick={scrollRight}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-neon-blue/20 transition-all duration-300"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300"
           >
-            <ChevronRight className="w-5 h-5 text-neon-blue" />
+            <ChevronRight className="w-5 h-5 text-purple-blue" />
           </button>
 
           <div 
             ref={scrollContainerRef}
-            className="flex space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neon-blue/30 scroll-smooth mx-16"
+            className="flex space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-blue/30 scroll-smooth mx-16"
             style={{ scrollSnapType: 'x mandatory' }}
           >
             <div ref={cardsRef} className="flex space-x-6">
@@ -414,9 +415,9 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                   onMouseEnter={(e) => {
                     gsap.to(e.currentTarget, { 
                       y: -10, 
-                      scale: 1.05,
-                      boxShadow: '0 20px 40px rgba(0,255,255,0.3)',
-                      duration: 0.3, 
+                      scale: 1.02,
+                      boxShadow: '0 20px 40px rgba(174, 0, 255, 0.3)',
+                      duration: 0.1, 
                       ease: 'power2.out' 
                     });
                   }}
@@ -425,7 +426,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                       y: 0, 
                       scale: 1,
                       boxShadow: '0 0 0 rgba(0,255,255,0)',
-                      duration: 0.3, 
+                      duration: 0.1, 
                       ease: 'power2.out' 
                     });
                   }}
@@ -434,7 +435,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                     <img 
                       src={project.image} 
                       alt={project.name}
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-102"
                     />
                     <div className="absolute top-3 left-3">
                       <span className="glass-card px-2 py-1 text-xs font-jetbrains text-gray-fg/80">
@@ -484,13 +485,37 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                         ))}
                       </div>
                     </div>
-                    
-                    <button
-                      onClick={onWantSameClick}
-                      className="btn-neon w-full mt-4 text-xs"
-                    >
-                      I WANT THE SAME
-                    </button>
+
+                    <div className="flex items-center gap-2 mt-4">
+                      {/* Кнопка "I WANT THE SAME" */}
+                      <button
+                        onClick={onWantSameClick}
+                        className="btn-neon flex-1 text-xs"
+                      >
+                        I WANT THE SAME
+                      </button>
+
+                      {/* Кругла мінімалістична кнопка для результату */}
+                      <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 flex items-center justify-center rounded-full border border-neon-blue text-neon-blue hover:bg-neon-blue/10 transition"
+                        title="View Result"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7m0 0L10 21l-7-7L14 3z" />
+                        </svg>
+                      </a>
+                    </div>
+
                   </div>
                 </div>
               ))}

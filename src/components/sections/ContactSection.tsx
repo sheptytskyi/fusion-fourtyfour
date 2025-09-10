@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedBackground from '../AnimatedBackground';
+import { FaLinkedin, FaInstagram, FaFacebook } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -108,7 +109,7 @@ const ContactSection = () => {
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="section-dark min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden"
+      className="section-dark min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden snap-start"
     >
       <AnimatedBackground variant="dark" />
       
@@ -116,9 +117,10 @@ const ContactSection = () => {
         {/* Title */}
         <div ref={titleRef} className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-dark-fg mb-6">
-            LET'S <span className="neon-text">CONNECT</span>
+            LET'S <span className="bg-gradient-to-r from-pink-300 via-purple-400 to-purple-500
+              text-transparent bg-clip-text">CONNECT</span>
           </h2>
-          <p className="text-lg font-jetbrains font-light text-dark-fg/70 max-w-2xl mx-auto">
+          <p className="text-lg font-jetbrains font-light text-white max-w-2xl mx-auto">
             Ready to transform your digital presence? Let's discuss how we can help you dominate your market.
           </p>
         </div>
@@ -127,7 +129,7 @@ const ContactSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Form */}
           <div ref={formRef} className="glass-card p-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
               <div>
                 <input
                   type="text"
@@ -135,7 +137,7 @@ const ContactSection = () => {
                   placeholder="YOUR NAME"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="glassmorphic-input w-full"
+                  className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-500/70 focus:border-pink-400 transition"
                   required
                 />
               </div>
@@ -147,7 +149,7 @@ const ContactSection = () => {
                   placeholder="YOUR EMAIL"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="glassmorphic-input w-full"
+                  className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:border-indigo-400 transition"
                   required
                 />
               </div>
@@ -159,16 +161,16 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={5}
-                  className="glassmorphic-input w-full resize-none"
+                  className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/70 focus:border-purple-400 transition"
                   required
                 />
-              </div>
-              
+              </div>          
               <button
                 type="submit"
-                className="btn-neon w-full font-jetbrains text-sm tracking-widest pulse-hover"
+                className="relative w-full py-3 rounded-lg overflow-hidden font-jetbrains tracking-widest text-sm text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(168,85,247,0.7)] hover:shadow-[0_0_30px_rgba(236,72,153,0.8)] transition-all duration-500"
               >
-                SEND MESSAGE
+                <span className="relative z-10">SEND MESSAGE</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 animate-gradient-x opacity-50"></span>
               </button>
             </form>
           </div>
@@ -215,20 +217,41 @@ const ContactSection = () => {
               </h3>
               
               <div className="flex space-x-6">
-                  {[
-                    { name: 'LinkedIn', icon: '🔗', url: '#' },
-                    { name: 'Twitter', icon: '🐦', url: '#' },
-                    { name: 'GitHub', icon: '💻', url: '#' }
-                  ].map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      className="flex items-center justify-center w-12 h-12 glass rounded-lg text-2xl hover:text-neon-blue transition-all duration-300 hover:scale-110 glow-hover"
-                      aria-label={social.name}
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
+                {[
+                  { 
+                    name: 'LinkedIn', 
+                    icon: <FaLinkedin className="text-[#0A66C2]" />, 
+                    url: 'https://linkedin.com' 
+                  },
+                  { 
+                    name: 'Facebook', 
+                    icon: <FaFacebook className="text-[#1877F2]" />, 
+                    url: 'https://facebook.com' 
+                  },
+                  { 
+                    name: 'Instagram', 
+                    icon: (
+                      <div className="w-8 h-8 flex items-center justify-center rounded-lg"
+                           style={{
+                             background: "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)"
+                           }}>
+                        <FaInstagram className="text-white" />
+                      </div>
+                    ), 
+                    url: 'https://instagram.com' 
+                  }  
+                ].map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-3xl transition-all duration-300 transform hover:scale-125"
+                    aria-label={social.name}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
               </div>
               
               <div className="mt-6 p-4 rounded-lg border border-neon-blue/20 bg-neon-blue/5">

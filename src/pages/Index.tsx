@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
 import CursorGlow from '../components/CursorGlow';
+import CustomCursor from '../components/CustomCursor';
 import HeroSection from '../components/sections/HeroSection';
 import AboutSection from '../components/sections/AboutSection';
 import PortfolioSection from '../components/sections/PortfolioSection';
@@ -55,7 +56,10 @@ const Index = () => {
       {isLoading && <Loader onComplete={handleLoadingComplete} />}
       
       {/* Main Content */}
-      <div className={`${isLoading ? 'hidden' : 'block'} h-screen overflow-y-scroll`}>
+      <div className={`${isLoading ? 'hidden' : 'block'} h-screen overflow-y-scroll snap-y snap-mandatory`}>
+        {/* Custom Cursor */}
+        <CustomCursor />
+        
         {/* Cursor Glow Effect */}
         <CursorGlow />
         
