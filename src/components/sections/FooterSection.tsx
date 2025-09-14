@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FaLinkedin, FaTwitter, FaGithub, FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -110,7 +110,8 @@ const FooterSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
           <div className="space-y-6">
-            <h3 className="text-3xl font-jetbrains font-bold neon-text mb-4">
+            <h3 className="text-3xl font-jetbrains font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
+              text-transparent bg-clip-text mb-4">
               44 FINGERS
             </h3>
             <p className="text-white/80 font-jetbrains font-light leading-relaxed">

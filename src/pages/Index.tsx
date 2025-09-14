@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
 import CursorGlow from '../components/CursorGlow';
-import CustomCursor from '../components/CustomCursor';
 import HeroSection from '../components/sections/HeroSection';
 import AboutSection from '../components/sections/AboutSection';
 import PortfolioSection from '../components/sections/PortfolioSection';
@@ -19,8 +18,10 @@ const Index = () => {
   useEffect(() => {
     // Preload critical resources
     const preloadResources = async () => {
-      // Preload JetBrains Mono font
-      const font = new FontFace('JetBrains Mono', 'url(https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;600;700&display=swap)');
+      const font = new FontFace(
+        'JetBrains Mono',
+        'url(https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@200;300;400;500;600;700&display=swap)'
+      );
       
       try {
         await font.load();
@@ -38,7 +39,6 @@ const Index = () => {
     
     // Initialize smooth scrolling after loading
     setTimeout(() => {
-      // Add smooth scroll behavior
       document.documentElement.style.scrollBehavior = 'smooth';
     }, 100);
   };
@@ -57,9 +57,6 @@ const Index = () => {
       
       {/* Main Content */}
       <div className={`${isLoading ? 'hidden' : 'block'} h-screen overflow-y-scroll snap-y snap-mandatory`}>
-        {/* Custom Cursor */}
-        <CustomCursor />
-        
         {/* Cursor Glow Effect */}
         <CursorGlow />
         

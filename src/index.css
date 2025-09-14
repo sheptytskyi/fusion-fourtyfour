@@ -105,13 +105,9 @@
     font-family: 'JetBrains Mono', monospace;
     font-weight: 300;
     overflow-x: hidden;
-    cursor: none; /* Hide default cursor globally */
   }
   
-  /* Ensure interactive elements show pointer cursor when custom cursor is disabled */
-  button, a, input, textarea, [role="button"], .cursor-pointer, .glass-card, .btn-neon, .btn-glass {
-    cursor: none;
-  }
+  /* Ensure interactive elements show pointer cursor when custom cursor is disabled *
   
   /* Smooth scroll behavior and scroll snap */
   html {

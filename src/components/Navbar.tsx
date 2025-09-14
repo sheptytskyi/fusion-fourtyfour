@@ -117,6 +117,8 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
         >
           CONTACT US
         </button>
+
+        
       </div>
     </nav>
   );

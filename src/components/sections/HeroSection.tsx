@@ -129,7 +129,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
         </div>
 
         <div ref={techStackRef} className="mb-8">
-          <p className="text-lg md:text-l font-jetbrains font-light leading-relaxed text-center bg-gradient-to-r from-pink-300 via-purple-400 to-purple-500 text-transparent bg-clip-text tracking-widest">
+          <p className="text-lg md:text-l font-jetbrains font-light leading-relaxed text-center text-white tracking-widest">
             AI \ MOBILE \ WEB \ CRYPTO
           </p>
         </div>
