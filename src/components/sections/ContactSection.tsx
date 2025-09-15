@@ -109,26 +109,26 @@ const ContactSection = () => {
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="section-dark min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden snap-start"
+      className="section-dark min-h-screen flex items-center px-4 md:px-8 lg:px-16 py-16 md:py-20 relative overflow-hidden snap-start"
     >
       <AnimatedBackground variant="dark" />
       
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Title */}
-        <div ref={titleRef} className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-dark-fg mb-6">
+        <div ref={titleRef} className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-6xl font-jetbrains font-bold text-dark-fg mb-4 md:mb-6">
             LET'S <span className="bg-gradient-to-r from-pink-300 via-purple-400 to-purple-500
               text-transparent bg-clip-text">CONNECT</span>
           </h2>
-          <p className="text-lg font-jetbrains font-light text-white max-w-2xl mx-auto">
+          <p className="text-base md:text-lg font-jetbrains font-light text-white max-w-2xl mx-auto">
             Ready to transform your digital presence? Let's discuss how we can help you dominate your market.
           </p>
         </div>
 
         {/* Contact Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Contact Form */}
-          <div ref={formRef} className="glass-card p-8">
+          <div ref={formRef} className="glass-card p-6 md:p-8">
             <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
               <div>
                 <input
@@ -176,10 +176,10 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Info & Social */}
-          <div ref={socialRef} className="space-y-8">
+          <div ref={socialRef} className="space-y-6 md:space-y-8">
             {/* Contact Info */}
-            <div className="glass-card p-8">
-              <h3 className="text-2xl font-jetbrains font-semibold text-dark-fg mb-6 tracking-wider">
+            <div className="glass-card p-6 md:p-8">
+              <h3 className="text-xl md:text-2xl font-jetbrains font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
                 GET IN TOUCH
               </h3>
               
@@ -211,8 +211,8 @@ const ContactSection = () => {
             </div>
 
             {/* Social Links */}
-            <div className="glass-card p-8">
-              <h3 className="text-2xl font-jetbrains font-semibold text-dark-fg mb-6 tracking-wider">
+            <div className="glass-card p-6 md:p-8">
+              <h3 className="text-xl md:text-2xl font-jetbrains font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
                 FOLLOW US
               </h3>
               

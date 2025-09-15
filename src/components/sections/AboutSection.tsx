@@ -90,10 +90,10 @@ const AboutSection = () => {
     <section 
       id="about" 
       ref={sectionRef} 
-      className="section-light min-h-screen flex items-center px-8 md:px-16 py-20 relative overflow-hidden snap-start"
+      className="section-light min-h-screen flex items-center px-4 md:px-8 lg:px-16 py-16 md:py-20 relative overflow-hidden snap-start"
     >
       <AnimatedBackground variant="light" />
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center relative z-10">
         {/* Left side - Team Image */}
         <div ref={imageRef} className="relative">
           <div className="relative w-full h-96 md:h-[500px] rounded-glass overflow-hidden glass-card group">
@@ -110,26 +110,26 @@ const AboutSection = () => {
         </div>
 
         {/* Right side - Content */}
-        <div ref={contentRef} className="space-y-8">
+        <div ref={contentRef} className="space-y-6 md:space-y-8">
           <div>
-            <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-light-fg mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-6xl font-jetbrains font-bold text-light-fg mb-4 md:mb-6">
               WHO WE <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
               text-transparent bg-clip-text">ARE</span>
             </h2>
-            <p className="text-lg md:text-xl font-jetbrains font-light text-light-fg/70 leading-relaxed">
+            <p className="text-base md:text-lg lg:text-xl font-jetbrains font-light text-light-fg/70 leading-relaxed">
               With 7+ years of experience, 220+ projects delivered across 15+ countries, we help businesses turn ideas into digital solutions that drive real results.
             </p>
-            <p className="text-lg md:text-xl font-jetbrains font-light text-light-fg/70 leading-relaxed mt-4">
+            <p className="text-base md:text-lg lg:text-xl font-jetbrains font-light text-light-fg/70 leading-relaxed mt-3 md:mt-4">
               Our mission is simple — to make you stand out and stay ahead of competitors through technology, creativity, and smart strategy.
             </p>
           </div>
 
           {/* Tech Stack Icons */}
           <div>
-            <h3 className="text-xl font-jetbrains font-medium text-light-fg mb-6 tracking-wider">
+            <h3 className="text-lg md:text-xl font-jetbrains font-medium text-light-fg mb-4 md:mb-6 tracking-wider">
               OUR TECH STACK
             </h3>
-            <div ref={iconsRef} className="grid grid-cols-4 md:grid-cols-7 gap-4">
+            <div ref={iconsRef} className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3 md:gap-4">
               {techStack.map((tech) => {
                 const IconComponent = tech.icon;
                 return (
@@ -141,8 +141,8 @@ const AboutSection = () => {
                     }}
                   >
                     {/* glass card inside with gradient border */}
-                    <div className="flex flex-col items-center justify-center aspect-square rounded-2xl p-4 transition-transform duration-500 group-hover:scale-105">
-                      <IconComponent size={32} color="white" className="mb-2" />
+                    <div className="flex flex-col items-center justify-center aspect-square rounded-2xl p-2 md:p-4 transition-transform duration-500 group-hover:scale-105">
+                      <IconComponent size={24} className="mb-1 md:mb-2 md:w-8 md:h-8" color="white" />
                       <span className="text-xs font-jetbrains text-white text-center">
                         {tech.name}
                       </span>

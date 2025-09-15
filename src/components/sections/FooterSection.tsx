@@ -244,8 +244,11 @@ const FooterSection = () => {
 
         {/* Copyright */}
         <div className="mt-10 border-t border-cyan-400/20 pt-8 text-center">
-          <p className="text-white/50 font-jetbrains text-sm tracking-wider">
-            © 2025 44 FINGERS. All rights electrified. ⚡
+          <p className="text-white/70 font-jetbrains text-sm tracking-wider">
+            © 2025 44 FINGERS. All rights electrified.
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500">
+              ⚡
+            </span>
           </p>
           <p className="text-white/30 font-jetbrains text-xs mt-2">
             Powered by innovation, driven by excellence.

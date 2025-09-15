@@ -267,6 +267,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
   const filtersRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const mobileScrollContainerRef = useRef<HTMLDivElement>(null);
   
   const [activeFilter, setActiveFilter] = useState<keyof typeof portfolioData>('Web');
   const [visibleProjects, setVisibleProjects] = useState(6);
@@ -335,14 +336,16 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
   };
 
   const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+    const container = window.innerWidth < 768 ? mobileScrollContainerRef.current : scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: -320, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+    const container = window.innerWidth < 768 ? mobileScrollContainerRef.current : scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: 320, behavior: 'smooth' });
     }
   };
 
@@ -350,29 +353,29 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
     <section 
       id="portfolio" 
       ref={sectionRef} 
-      className="section-gray min-h-screen px-8 md:px-16 py-20 relative overflow-hidden snap-start"
+      className="section-gray min-h-screen px-4 md:px-8 lg:px-16 py-16 md:py-20 relative overflow-hidden snap-start"
     >
       <AnimatedBackground variant="gray" />
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Title */}
-        <div ref={titleRef} className="text-center mb-8">
-          <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-gray-fg mb-4">
+        <div ref={titleRef} className="text-center mb-6 md:mb-8">
+          <h2 className="text-3xl md:text-4xl lg:text-6xl font-jetbrains font-bold text-gray-fg mb-4">
             OUR <span className="bg-gradient-to-r from-pink-300 via-purple-400 to-purple-500
               text-transparent bg-clip-text">PORTFOLIO</span>
           </h2>
-          <p className="text-lg font-jetbrains font-light text-gray-fg/70">
+          <p className="text-base md:text-lg font-jetbrains font-light text-gray-fg/70">
             Showcasing our best work across different domains
           </p>
         </div>
 
         {/* Filter Buttons */}
-        <div ref={filtersRef} className="flex justify-center mb-8">
-          <div className="glass-card p-1 flex space-x-1">
+        <div ref={filtersRef} className="flex justify-center mb-6 md:mb-8">
+          <div className="glass-card p-1 flex flex-wrap justify-center gap-1">
             {Object.keys(portfolioData).map((filter) => (
               <button
                 key={filter}
                 onClick={() => handleFilterChange(filter as keyof typeof portfolioData)}
-                className={`px-3 py-2 font-jetbrains text-xs tracking-wider transition-all duration-300 rounded-md ${
+                className={`px-2 md:px-3 py-2 font-jetbrains text-xs tracking-wider transition-all duration-300 rounded-md ${
                   activeFilter === filter
                     ? 'bg-gradient-neon text-white'
                     : 'text-gray-fg/70 hover:text-neon-blue'
@@ -384,44 +387,182 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
           </div>
         </div>
 
-        {/* Project Cards - Horizontal Scroll */}
+        {/* Project Cards - Responsive Layout */}
         <div className="relative overflow-hidden">
-          {/* Scroll Arrows */}
+          {/* Desktop Scroll Arrows */}
           <button
             onClick={scrollLeft}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300 hidden md:block"
           >
             <ChevronLeft className="w-5 h-5 text-purple-blue" />
           </button>
           
           <button
             onClick={scrollRight}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300 hidden md:block"
           >
             <ChevronRight className="w-5 h-5 text-purple-blue" />
           </button>
 
-          <div 
-            ref={scrollContainerRef}
-            className="flex space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-blue/30 scroll-smooth mx-16"
-            style={{ scrollSnapType: 'x mandatory' }}
-          >
-            <div ref={cardsRef} className="flex space-x-6">
-              {currentProjects.map((project) => (
-                <div 
-                  key={project.id} 
-                  className="glass-card group cursor-pointer flex-shrink-0 w-80 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
-                  style={{ scrollSnapAlign: 'start' }}
+          {/* Mobile: Horizontal Scroll Layout */}
+          <div className="block md:hidden relative">
+            {/* Mobile Scroll Arrows */}
+            <button
+              onClick={scrollLeft}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-2 hover:bg-purple-blue/20 transition-all duration-300"
+            >
+              <ChevronLeft className="w-4 h-4 text-purple-blue" />
+            </button>
+            
+            <button
+              onClick={scrollRight}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-2 hover:bg-purple-blue/20 transition-all duration-300"
+            >
+              <ChevronRight className="w-4 h-4 text-purple-blue" />
+            </button>
+
+            <div 
+              ref={mobileScrollContainerRef}
+              className="flex space-x-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-blue/30 scroll-smooth mx-8"
+              style={{ scrollSnapType: 'x mandatory' }}
+            >
+              <div ref={cardsRef} className="flex space-x-4">
+                {currentProjects.map((project) => (
+                  <div 
+                    key={project.id} 
+                    className="glass-card group cursor-pointer flex-shrink-0 w-72 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
+                    style={{ scrollSnapAlign: 'start' }}
                   onMouseEnter={(e) => {
                     gsap.to(e.currentTarget, { 
-                      y: -10, 
-                      scale: 1.02,
-                      boxShadow: '0 20px 40px rgba(174, 0, 255, 0.3)',
-                      duration: 0.1, 
+                      y: -5, 
+                      scale: 1.01,
+                      boxShadow: '0 10px 20px rgba(174, 0, 255, 0.2)',
+                      duration: 0.2, 
                       ease: 'power2.out' 
                     });
                   }}
                   onMouseLeave={(e) => {
+                    gsap.to(e.currentTarget, { 
+                      y: 0, 
+                      scale: 1,
+                      boxShadow: '0 0 0 rgba(0,255,255,0)',
+                      duration: 0.2, 
+                      ease: 'power2.out' 
+                    });
+                  }}
+                >
+                  <div className="relative overflow-hidden rounded-t-glass">
+                    <img 
+                      src={project.image} 
+                      alt={project.name}
+                      className="w-full h-48 sm:h-56 object-cover transition-transform duration-300 group-hover:scale-102"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="glass-card px-2 py-1 text-xs font-jetbrains text-gray-fg/80">
+                        {activeFilter}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 space-y-3">
+                    <h3 className="text-lg font-jetbrains font-semibold text-gray-fg">
+                      {project.name}
+                    </h3>
+                    
+                    <p className="text-gray-fg/70 font-jetbrains font-light leading-relaxed text-sm line-clamp-2">
+                      {project.description}
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="text-gray-fg/60">Team:</span>
+                        <span className="text-neon-blue ml-1">{project.teamSize}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-fg/60">Duration:</span>
+                        <span className="text-neon-blue ml-1">{project.duration}</span>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <span className="text-gray-fg/60 text-xs">Problems:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {project.problems.slice(0, 2).map((problem, index) => (
+                          <span key={index} className="glass px-1 py-0.5 text-xs text-gray-fg/80">
+                            {problem}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <span className="text-gray-fg/60 text-xs">Tech:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {project.tech.slice(0, 3).map((tech, index) => (
+                          <span key={index} className="glass px-1 py-0.5 text-xs text-neon-blue">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 mt-4">
+                      <button
+                        onClick={onWantSameClick}
+                        className="btn-neon flex-1 text-xs"
+                      >
+                        I WANT THE SAME
+                      </button>
+
+                      <a
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 flex items-center justify-center rounded-full border border-neon-blue text-neon-blue hover:bg-neon-blue/10 transition"
+                        title="View Result"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-4 h-4"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M14 3h7v7m0 0L10 21l-7-7L14 3z" />
+                        </svg>
+                      </a>
+                    </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop: Horizontal Scroll Layout */}
+          <div className="hidden md:block">
+            <div 
+              ref={scrollContainerRef}
+              className="flex space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-blue/30 scroll-smooth mx-16"
+              style={{ scrollSnapType: 'x mandatory' }}
+            >
+              <div className="flex space-x-6">
+                {currentProjects.map((project) => (
+                  <div 
+                    key={project.id} 
+                    className="glass-card group cursor-pointer flex-shrink-0 w-80 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
+                    style={{ scrollSnapAlign: 'start' }}
+                    onMouseEnter={(e) => {
+                      gsap.to(e.currentTarget, { 
+                        y: -10, 
+                        scale: 1.02,
+                        boxShadow: '0 20px 40px rgba(174, 0, 255, 0.3)',
+                        duration: 0.1, 
+                        ease: 'power2.out' 
+                      });
+                    }}
+                    onMouseLeave={(e) => {
                     gsap.to(e.currentTarget, { 
                       y: 0, 
                       scale: 1,
@@ -519,6 +660,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                   </div>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </div>

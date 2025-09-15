@@ -14,6 +14,48 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
   const splineRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
+  // Handle responsive Spline positioning
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+  
+    const updateSplineTransform = () => {
+      if (window.innerWidth < 768) {
+        // Mobile: зменшена модель без обрізання
+        const scaleFactor = 0.3; // обираєш масштаб
+        const width = 150 / scaleFactor; // робимо ширше для зменшення моделі
+        const height = 100 / scaleFactor;
+  
+        iframe.style.position = 'absolute';
+        iframe.style.left = `${-(width - 50) / 2}vw`; // центруємо по горизонталі
+        iframe.style.top = `${-(height - 250) / 2}dvh`; // центруємо по вертикалі
+        iframe.style.width = `${width}vw`;
+        iframe.style.height = `${height}dvh`;
+        iframe.style.transform = 'none';
+        iframe.style.transformOrigin = 'center center';
+        iframe.style.margin = '0';
+      } else {
+        // Desktop: стандартне положення
+        iframe.style.position = 'relative';
+        iframe.style.left = 'auto';
+        iframe.style.top = 'auto';
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.transform = 'scale(1)';
+        iframe.style.transformOrigin = 'center center';
+        iframe.style.margin = '0';
+      }
+    };
+  
+    updateSplineTransform();
+    window.addEventListener('resize', updateSplineTransform);
+  
+    return () => {
+      window.removeEventListener('resize', updateSplineTransform);
+    };
+  }, []);
+  
+
   // GSAP animation
   useEffect(() => {
     const hero = heroRef.current;
@@ -87,7 +129,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
 
     window.addEventListener('message', handleMessage);
 
-    // Lazy load Spline
+    // Lazy load Spline                             
     const timer = setTimeout(() => { iframe.src = 'https://my.spline.design/worldplanet-jU7yqiRaHhcnNY4EcyCYHnBr/'; }, 500);
 
     return () => {
@@ -97,50 +139,63 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative h-screen flex items-center justify-center px-8 md:px-16 overflow-hidden snap-start" style={{ backgroundColor: '#000' }}>
+    <section ref={heroRef} className="relative h-screen flex items-center justify-center px-4 md:px-8 lg:px-16 overflow-hidden snap-start" style={{ backgroundColor: '#000' }}>
       
       {/* Spline 3D Background */}
       <div ref={splineRef} className="absolute inset-0 z-0">
-        <iframe id="spline-iframe" ref={iframeRef} frameBorder="0" width="100%" height="100%" className="w-full h-full" />
+  {/* Spline iframe як фон */}
+  <iframe
+    id="spline-iframe"
+    ref={iframeRef}
+    frameBorder="0"
+    className="absolute inset-0 w-full h-[100dvh] md:h-screen block"
+  />
 
-        {/* Чорний блок для водяного знака */}
-        <div style={{
-          position: 'absolute',
-          bottom: 15,
-          right: 10,
-          width: 145,
-          height: 45,
-          backgroundColor: 'black',
-          pointerEvents: 'none',
-          zIndex: 5
-        }} />
-      </div>
+  {/* Чорний блок для водяного знака */}
+  <div
+    className="hidden md:block"
+    style={{
+      position: 'absolute',
+      bottom: 15,
+      right: 10,
+      width: 145,
+      height: 45,
+      backgroundColor: 'black',
+      pointerEvents: 'none',
+      zIndex: 5,
+    }}
+  />
+</div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/30 z-10"></div>
+{/* Overlay */}
+<div className="absolute inset-0 bg-black/30 z-10"></div>
 
-      {/* Content */}
-      <div className="relative z-20 text-center max-w-4xl">
-        <div ref={headlineRef} className="mb-6">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-jetbrains font-bold leading-tight tracking-tight text-center text-white">
-            <span>STAY AHEAD OF YOUR </span>
-            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">COMPETITORS</span>
-          </h1>
-        </div>
+{/* Content */}
+<div className="relative z-20 text-center max-w-4xl px-2">
+  <div ref={headlineRef} className="mb-4 md:mb-6">
+    <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-jetbrains font-bold leading-tight tracking-tight text-center text-white">
+      <span>STAY AHEAD OF YOUR</span>
+      <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
+        {" "}
+        COMPETITORS
+      </span>
+    </h1>
+  </div>
 
-        <div ref={techStackRef} className="mb-8">
-          <p className="text-lg md:text-l font-jetbrains font-light leading-relaxed text-center text-white tracking-widest">
+
+        <div ref={techStackRef} className="mb-6 md:mb-8">
+          <p className="text-sm sm:text-base md:text-lg font-jetbrains font-light leading-relaxed text-center text-white tracking-widest">
             AI \ MOBILE \ WEB \ CRYPTO
           </p>
         </div>
 
-        <div ref={subtitleRef} className="mb-8 max-w-2xl mx-auto">
-          <p className="text-lg md:text-xl font-jetbrains font-light leading-relaxed text-center text-white">
+        <div ref={subtitleRef} className="mb-6 md:mb-8 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl font-jetbrains font-light leading-relaxed text-center text-white">
             We design and develop digital products that help you scale faster and dominate your industry while others try to catch up.
           </p>
         </div>
 
-        <button ref={ctaRef} onClick={onGrowWithUsClick} className="btn-neon font-jetbrains text-sm tracking-widest mx-auto block">
+        <button ref={ctaRef} onClick={onGrowWithUsClick} className="btn-neon font-jetbrains text-xs sm:text-sm tracking-widest mx-auto block">
           GROW WITH US
         </button>
       </div>
