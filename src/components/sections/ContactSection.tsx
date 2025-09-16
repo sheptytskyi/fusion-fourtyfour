@@ -18,6 +18,12 @@ const ContactSection = () => {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+
   useEffect(() => {
     const section = sectionRef.current;
     const title = titleRef.current;
@@ -81,10 +87,75 @@ const ContactSection = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Clear any previous status messages when user starts typing
+    if (submitStatus.type) {
+      setSubmitStatus({ type: null, message: '' });
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // API configuration
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+
+  // Submit form data to backend API
+  const submitToAPI = async (data: typeof formData) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/leads/create/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          description: data.message,
+          source: 'website'
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        return {
+          success: true,
+          message: result.message || 'Thank you for your inquiry! We will contact you soon.',
+          leadId: result.lead_id
+        };
+      } else {
+        return {
+          success: false,
+          message: result.message || 'Please check your form data.',
+          errors: result.errors || []
+        };
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      return {
+        success: false,
+        message: 'Network error. Please try again later.',
+        errors: []
+      };
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Prevent double submission
+    if (isSubmitting) return;
+    
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Please fill in all required fields.'
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
     
     // Animate button
     const submitButton = e.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement;
@@ -98,11 +169,45 @@ const ContactSection = () => {
       });
     }
     
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+    try {
+      // Submit to backend API
+      const result = await submitToAPI(formData);
+      
+      if (result.success) {
+        // Success - show success message and reset form
+        setSubmitStatus({
+          type: 'success',
+          message: result.message
+        });
+        
+        // Reset form
+        setFormData({ name: '', email: '', message: '' });
+        
+        // Optional: Log successful submission
+        console.log('✅ Lead submitted successfully:', result.leadId);
+        
+      } else {
+        // Error - show error message
+        setSubmitStatus({
+          type: 'error',
+          message: result.message
+        });
+        
+        // Log errors for debugging
+        if (result.errors && result.errors.length > 0) {
+          console.error('Validation errors:', result.errors);
+        }
+      }
+    } catch (error) {
+      // Unexpected error
+      console.error('Form submission error:', error);
+      setSubmitStatus({
+        type: 'error',
+        message: 'An unexpected error occurred. Please try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -164,13 +269,36 @@ const ContactSection = () => {
                   className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/70 focus:border-purple-400 transition"
                   required
                 />
-              </div>          
+              </div>
+              
+              {/* Status Message */}
+              {submitStatus.type && (
+                <div className={`p-4 rounded-lg border ${
+                  submitStatus.type === 'success' 
+                    ? 'border-green-500/30 bg-green-500/10 text-green-400' 
+                    : 'border-red-500/30 bg-red-500/10 text-red-400'
+                }`}>
+                  <p className="text-sm font-jetbrains">
+                    {submitStatus.type === 'success' ? '✅' : '❌'} {submitStatus.message}
+                  </p>
+                </div>
+              )}
+              
               <button
                 type="submit"
-                className="relative w-full py-3 rounded-lg overflow-hidden font-jetbrains tracking-widest text-sm text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(168,85,247,0.7)] hover:shadow-[0_0_30px_rgba(236,72,153,0.8)] transition-all duration-500"
+                disabled={isSubmitting}
+                className={`relative w-full py-3 rounded-lg overflow-hidden font-jetbrains tracking-widest text-sm text-white transition-all duration-500 ${
+                  isSubmitting 
+                    ? 'bg-gray-600 cursor-not-allowed opacity-70' 
+                    : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(168,85,247,0.7)] hover:shadow-[0_0_30px_rgba(236,72,153,0.8)]'
+                }`}
               >
-                <span className="relative z-10">SEND MESSAGE</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 animate-gradient-x opacity-50"></span>
+                <span className="relative z-10">
+                  {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
+                </span>
+                {!isSubmitting && (
+                  <span className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 animate-gradient-x opacity-50"></span>
+                )}
               </button>
             </form>
           </div>
