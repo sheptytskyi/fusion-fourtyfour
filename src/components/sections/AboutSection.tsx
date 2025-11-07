@@ -1,19 +1,48 @@
 import { useEffect, useRef } from 'react';
-import { SiPython, SiGoland, SiJavascript, SiSharp, SiShopify, SiSwift, SiPhp } from 'react-icons/si';
+import { SiPython, SiGoland, SiJavascript, SiShopify, SiSwift, SiPhp, SiFlutter, SiNodedotjs } from 'react-icons/si';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedBackground from '../AnimatedBackground';
 
 // Tech stack icons (using simple SVG paths for now)
 const techStack = [
-  { name: "Python", icon: SiPython, color: "#3776AB" },
-  { name: "Go", icon: SiGoland, color: "#00ADD8" },
-  { name: "JS", icon: SiJavascript, color: "#F7DF1E" },
-  { name: "C#", icon: SiSharp, color: "#239120" },
-  { name: "Shopify", icon: SiShopify, color: "#96BF48" },
-  { name: "Swift", icon: SiSwift, color: "#FA7343" },
-  { name: "PHP", icon: SiPhp, color: "#777BB4" },
+  { 
+    name: "Python", 
+    icon: SiPython, 
+    color: "linear-gradient(135deg, #008cffff, #28527A)" 
+  },
+  { 
+    name: "Go", 
+    icon: SiGoland, 
+    color: "linear-gradient(135deg, #00ccffff, #0099bfff)" 
+  },
+  { 
+    name: "NodeJS", 
+    icon: SiNodedotjs, 
+    color: "linear-gradient(135deg, #a6ff00ff, #398b03ff)" 
+  },
+  { 
+    name: "Flutter", 
+    icon: SiFlutter, 
+    color: "linear-gradient(135deg, #008CFF, #00BFFF)" 
+  },
+  { 
+    name: "Shopify", 
+    icon: SiShopify, 
+    color: "linear-gradient(135deg, #a6ff00ff, #398b03ff)" 
+  },
+  { 
+    name: "Swift", 
+    icon: SiSwift, 
+    color: "linear-gradient(135deg, #FA7343, #FF4E00)" 
+  },
+  { 
+    name: "PHP", 
+    icon: SiPhp, 
+    color: "linear-gradient(135deg, #777BB4, #5A5E9A)" 
+  },
 ];
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,11 +60,23 @@ const AboutSection = () => {
 
     if (!section || !image || !content || !icons) return;
 
-    // Set initial states - fade + slide-up + blur
-    gsap.set(section, { opacity: 0, y: 60, filter: 'blur(10px)' });
-    gsap.set(image, { opacity: 0, x: -100 });
-    gsap.set(content, { opacity: 0, y: 50 });
-    gsap.set(icons.children, { opacity: 0, y: 30 });
+    // Ensure sections are visible by default
+    gsap.set(section, { opacity: 1, y: 0, filter: 'blur(0px)' });
+    gsap.set(image, { opacity: 1, x: 0 });
+    gsap.set(content, { opacity: 1, y: 0 });
+    gsap.set(icons.children, { opacity: 1, y: 0 });
+    
+    // Check if section is already in viewport - if not, hide and animate
+    const rect = section.getBoundingClientRect();
+    const isBelowViewport = rect.top > window.innerHeight * 0.5;
+    
+    if (isBelowViewport) {
+      // Only animate if section is below viewport
+      gsap.set(section, { opacity: 0, y: 60, filter: 'blur(10px)' });
+      gsap.set(image, { opacity: 0, x: -100 });
+      gsap.set(content, { opacity: 0, y: 50 });
+      gsap.set(icons.children, { opacity: 0, y: 30 });
+    }
 
     // ScrollTrigger animation
     const tl = gsap.timeline({
@@ -81,7 +122,22 @@ const AboutSection = () => {
       ease: 'power2.out'
     }, '-=0.4');
 
+    // Fallback: ensure section is visible after 2 seconds if ScrollTrigger didn't fire
+    const fallbackTimeout = setTimeout(() => {
+      if (section && window.getComputedStyle(section).opacity === '0') {
+        gsap.to([section, image, content, icons.children], {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          filter: 'blur(0px)',
+          duration: 0.8,
+          ease: 'power2.out'
+        });
+      }
+    }, 2000);
+
     return () => {
+      clearTimeout(fallbackTimeout);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -98,7 +154,7 @@ const AboutSection = () => {
         <div ref={imageRef} className="relative">
           <div className="relative w-full h-96 md:h-[500px] rounded-glass overflow-hidden glass-card group">
             <img 
-              src="https://images.unsplash.com/photo-1603189751032-7d5b09d9c8ca"
+             src="/team.png"
               alt="44 Fingers Team"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
@@ -129,28 +185,42 @@ const AboutSection = () => {
             <h3 className="text-lg md:text-xl font-jetbrains font-medium text-light-fg mb-4 md:mb-6 tracking-wider">
               OUR TECH STACK
             </h3>
-            <div ref={iconsRef} className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3 md:gap-4">
-              {techStack.map((tech) => {
-                const IconComponent = tech.icon;
-                return (
-                  <div 
-                    key={tech.name}
-                    className="relative group cursor-pointer rounded-2xl overflow-hidden p-[1px]"
-                    style={{
-                      background: `${tech.color}`
-                    }}
-                  >
-                    {/* glass card inside with gradient border */}
-                    <div className="flex flex-col items-center justify-center aspect-square rounded-2xl p-2 md:p-4 transition-transform duration-500 group-hover:scale-105">
-                      <IconComponent size={24} className="mb-1 md:mb-2 md:w-8 md:h-8" color="white" />
-                      <span className="text-xs font-jetbrains text-white text-center">
-                        {tech.name}
-                      </span>
-                    </div>
+            <div
+            ref={iconsRef}
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-3 md:gap-4"
+          >
+            {techStack.map((tech) => {
+              const IconComponent = tech.icon;
+              const isJs = tech.name === "JS"; // перевірка на JS
+
+              return (
+                <div
+                  key={tech.name}
+                  className="relative group cursor-pointer rounded-2xl overflow-hidden p-[1px]"
+                  style={{
+                    background: `${tech.color}`,
+                  }}
+                >
+                  {/* glass card inside with gradient border */}
+                  <div className="flex flex-col items-center justify-center aspect-square rounded-2xl p-2 md:p-4 transition-transform duration-500 group-hover:scale-105">
+                    <IconComponent
+                      size={24}
+                      className="mb-1 md:mb-2 md:w-8 md:h-8"
+                      color={isJs ? "grey" : "white"} // іконка чорна для JS
+                    />
+                    <span
+                      className={`text-xs font-jetbrains text-center font-bold ${
+                        isJs ? "text-black" : "text-white"
+                      }`}
+                    >
+                      {tech.name}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
+          </div>
+
           </div>
         </div>
       </div>

@@ -32,11 +32,23 @@ const ContactSection = () => {
 
     if (!section || !title || !form || !social) return;
 
-    // Set initial states - fade + slide-up + blur
-    gsap.set(section, { opacity: 0, y: 60, filter: 'blur(10px)' });
-    gsap.set(title, { opacity: 0, y: 50 });
-    gsap.set(form.children, { opacity: 0, x: -50 });
-    gsap.set(social, { opacity: 0, y: 50 });
+    // Ensure sections are visible by default
+    gsap.set(section, { opacity: 1, y: 0, filter: 'blur(0px)' });
+    gsap.set(title, { opacity: 1, y: 0 });
+    gsap.set(form.children, { opacity: 1, x: 0 });
+    gsap.set(social, { opacity: 1, y: 0 });
+    
+    // Check if section is already in viewport - if not, hide and animate
+    const rect = section.getBoundingClientRect();
+    const isBelowViewport = rect.top > window.innerHeight * 0.5;
+    
+    if (isBelowViewport) {
+      // Only animate if section is below viewport
+      gsap.set(section, { opacity: 0, y: 60, filter: 'blur(10px)' });
+      gsap.set(title, { opacity: 0, y: 50 });
+      gsap.set(form.children, { opacity: 0, x: -50 });
+      gsap.set(social, { opacity: 0, y: 50 });
+    }
 
     // ScrollTrigger animation
     const tl = gsap.timeline({
@@ -76,7 +88,22 @@ const ContactSection = () => {
       ease: 'power2.out'
     }, '-=0.4');
 
+    // Fallback: ensure section is visible after 2 seconds if ScrollTrigger didn't fire
+    const fallbackTimeout = setTimeout(() => {
+      if (section && window.getComputedStyle(section).opacity === '0') {
+        gsap.to([section, title, form.children, social], {
+          opacity: 1,
+          y: 0,
+          x: 0,
+          filter: 'blur(0px)',
+          duration: 0.8,
+          ease: 'power2.out'
+        });
+      }
+    }, 2000);
+
     return () => {
+      clearTimeout(fallbackTimeout);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -316,7 +343,7 @@ const ContactSection = () => {
                   <span className="text-neon-blue text-xl">📧</span>
                   <div>
                     <p className="text-dark-fg/60 text-sm">Email</p>
-                    <p className="text-dark-fg font-jetbrains">contact@44fingers.com</p>
+                    <p className="text-dark-fg font-jetbrains">clients.44fingers@gmail.com</p>
                   </div>
                 </div>
                 
@@ -366,7 +393,7 @@ const ContactSection = () => {
                         <FaInstagram className="text-white" />
                       </div>
                     ), 
-                    url: 'https://instagram.com' 
+                    url: 'https://www.instagram.com/44fingers.it/' 
                   }  
                 ].map((social) => (
                   <a

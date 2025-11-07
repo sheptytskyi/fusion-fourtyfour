@@ -110,18 +110,17 @@
   /* Ensure interactive elements show pointer cursor when custom cursor is disabled *
   
   /* Smooth scroll behavior and scroll snap */
-  html {
-    scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
-  }
-  
-  /* Smooth theme transitions */
-  section {
-    position: relative;
-    transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: none; /* 👈 вимикає snap */
+}
+
+section {
+  position: relative;
+  transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
+  scroll-snap-align: none; /* 👈 не прилипає */
+  scroll-snap-stop: normal;
+}
 }
 
 @layer components {
@@ -447,4 +446,10 @@
 .animate-gradient-x {
   background-size: 200% 200%;
   animation: gradient-x 5s ease infinite;
+}
+
+html, body, section, div {
+  scroll-snap-type: none !important;
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
 }

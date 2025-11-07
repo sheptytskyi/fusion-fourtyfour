@@ -15,8 +15,17 @@ const FooterSection = () => {
 
     if (!footer || !content) return;
 
-    // Set initial state - fade + slide-up + blur
-    gsap.set(content, { opacity: 0, y: 60, filter: 'blur(10px)' });
+    // Ensure footer is visible by default
+    gsap.set(content, { opacity: 1, y: 0, filter: 'blur(0px)' });
+    
+    // Check if footer is already in viewport - if not, hide and animate
+    const rect = footer.getBoundingClientRect();
+    const isBelowViewport = rect.top > window.innerHeight * 0.5;
+    
+    if (isBelowViewport) {
+      // Only animate if footer is below viewport
+      gsap.set(content, { opacity: 0, y: 60, filter: 'blur(10px)' });
+    }
 
     // ScrollTrigger animation for footer entrance
     gsap.to(content, {
@@ -45,7 +54,21 @@ const FooterSection = () => {
       });
     });
 
+    // Fallback: ensure footer is visible after 2 seconds if ScrollTrigger didn't fire
+    const fallbackTimeout = setTimeout(() => {
+      if (footer && content && window.getComputedStyle(content).opacity === '0') {
+        gsap.to(content, {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 0.8,
+          ease: 'power2.out'
+        });
+      }
+    }, 2000);
+
     return () => {
+      clearTimeout(fallbackTimeout);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -120,7 +143,7 @@ const FooterSection = () => {
             <div className="space-y-3 text-white/70">
               <p className="flex items-center space-x-3">
                 <span className="text-cyan-400">📧</span>
-                <span>contact@44fingers.com</span>
+                <span>clients.44fingers@gmail.com</span>
               </p>
               <p className="flex items-center space-x-3">
                 <span className="text-cyan-400">📱</span>
@@ -199,7 +222,7 @@ const FooterSection = () => {
                       <FaInstagram className="text-white" />
                     </div>
                   ), 
-                  url: 'https://instagram.com' 
+                  url: 'https://www.instagram.com/44fingers.it/' 
                 }  
               ].map((social) => (
                 <a
