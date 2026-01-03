@@ -107,16 +107,20 @@
     overflow-x: hidden;
   }
   
-  /* Smooth scroll behavior and scroll snap */
-  html {
-    scroll-behavior: smooth;
-  }
+  /* Ensure interactive elements show pointer cursor when custom cursor is disabled *
   
-  /* Smooth theme transitions */
-  section {
-    position: relative;
-    transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
-  }
+  /* Smooth scroll behavior and scroll snap */
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: none; /* 👈 вимикає snap */
+}
+
+section {
+  position: relative;
+  transition: background-color 0.8s ease-in-out, color 0.8s ease-in-out;
+  scroll-snap-align: none; /* 👈 не прилипає */
+  scroll-snap-stop: normal;
+}
 }
 
 @layer components {
@@ -160,20 +164,20 @@
   /* Neon purple gradient text */
   .neon-purple-gradient {
     background: linear-gradient(135deg, 
-      hsl(var(--neon-purple)), 
-      hsl(262 83% 80%), 
-      hsl(280 100% 70%), 
-      hsl(var(--neon-purple)));
+      hsl(280 100% 40%), 
+      hsl(270 100% 35%), 
+      hsl(260 100% 30%), 
+      hsl(250 100% 25%));
     background-size: 300% 300%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow: 
-      0 0 10px hsl(var(--neon-purple) / 0.8),
-      0 0 20px hsl(var(--neon-purple) / 0.6),
-      0 0 30px hsl(var(--neon-purple) / 0.4),
-      0 0 40px hsl(var(--neon-purple) / 0.3);
-    filter: drop-shadow(0 0 15px hsl(var(--neon-purple) / 0.7));
+      0 0 15px hsl(280 100% 50% / 0.9),
+      0 0 25px hsl(270 100% 45% / 0.7),
+      0 0 35px hsl(260 100% 40% / 0.5),
+      0 0 45px hsl(250 100% 35% / 0.3);
+    filter: drop-shadow(0 0 20px hsl(280 100% 50% / 0.8));
     animation: neon-purple-glow 3s ease-in-out infinite alternate;
   }
   
@@ -426,10 +430,26 @@
 @keyframes neon-purple-glow {
   0% {
     background-position: 0% 50%;
-    filter: drop-shadow(0 0 15px hsl(var(--neon-purple) / 0.7));
+    filter: drop-shadow(0 0 20px hsl(280 100% 50% / 0.8));
   }
   100% {
     background-position: 100% 50%;
-    filter: drop-shadow(0 0 25px hsl(var(--neon-purple) / 0.9));
+    filter: drop-shadow(0 0 30px hsl(280 100% 60% / 1));
   }
+}
+
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 5s ease infinite;
+}
+
+html, body, section, div {
+  scroll-snap-type: none !important;
+  scroll-snap-align: none !important;
+  scroll-snap-stop: normal !important;
 }

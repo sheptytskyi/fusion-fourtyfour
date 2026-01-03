@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +15,17 @@ const FooterSection = () => {
 
     if (!footer || !content) return;
 
-    // Set initial state - fade + slide-up + blur
-    gsap.set(content, { opacity: 0, y: 60, filter: 'blur(10px)' });
+    // Ensure footer is visible by default
+    gsap.set(content, { opacity: 1, y: 0, filter: 'blur(0px)' });
+    
+    // Check if footer is already in viewport - if not, hide and animate
+    const rect = footer.getBoundingClientRect();
+    const isBelowViewport = rect.top > window.innerHeight * 0.5;
+    
+    if (isBelowViewport) {
+      // Only animate if footer is below viewport
+      gsap.set(content, { opacity: 0, y: 60, filter: 'blur(10px)' });
+    }
 
     // ScrollTrigger animation for footer entrance
     gsap.to(content, {
@@ -44,7 +54,21 @@ const FooterSection = () => {
       });
     });
 
+    // Fallback: ensure footer is visible after 2 seconds if ScrollTrigger didn't fire
+    const fallbackTimeout = setTimeout(() => {
+      if (footer && content && window.getComputedStyle(content).opacity === '0') {
+        gsap.to(content, {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          duration: 0.8,
+          ease: 'power2.out'
+        });
+      }
+    }, 2000);
+
     return () => {
+      clearTimeout(fallbackTimeout);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -60,7 +84,7 @@ const FooterSection = () => {
     <footer 
       id="footer"
       ref={footerRef} 
-      className="relative min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black overflow-hidden snap-start"
       style={{
         background: 'linear-gradient(135deg, #000 0%, #1a0033 25%, #000066 50%, #0033cc 75%, #000 100%)',
         position: 'relative'
@@ -109,7 +133,8 @@ const FooterSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
           <div className="space-y-6">
-            <h3 className="text-3xl font-jetbrains font-bold neon-text mb-4">
+            <h3 className="text-3xl font-jetbrains font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
+              text-transparent bg-clip-text mb-4">
               44 FINGERS
             </h3>
             <p className="text-white/80 font-jetbrains font-light leading-relaxed">
@@ -118,7 +143,7 @@ const FooterSection = () => {
             <div className="space-y-3 text-white/70">
               <p className="flex items-center space-x-3">
                 <span className="text-cyan-400">📧</span>
-                <span>contact@44fingers.com</span>
+                <span>clients.44fingers@gmail.com</span>
               </p>
               <p className="flex items-center space-x-3">
                 <span className="text-cyan-400">📱</span>
@@ -175,16 +200,37 @@ const FooterSection = () => {
             <h4 className="text-xl font-jetbrains font-semibold text-yellow-400 mb-4 tracking-wider">
               CONNECT
             </h4>
-            <div className="flex space-x-4">
+            <div className="flex space-x-6">
               {[
-                { name: 'LinkedIn', icon: '🔗', color: 'hover:text-blue-400' },
-                { name: 'Twitter', icon: '🐦', color: 'hover:text-blue-300' },
-                { name: 'GitHub', icon: '💻', color: 'hover:text-gray-300' }
+                { 
+                  name: 'LinkedIn', 
+                  icon: <FaLinkedin className="text-[#0A66C2]" />, 
+                  url: 'https://linkedin.com' 
+                },
+                { 
+                  name: 'Facebook', 
+                  icon: <FaFacebook className="text-[#1877F2]" />, 
+                  url: 'https://facebook.com' 
+                },
+                { 
+                  name: 'Instagram', 
+                  icon: (
+                    <div className="w-8 h-8 flex items-center justify-center rounded-lg"
+                         style={{
+                           background: "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)"
+                         }}>
+                      <FaInstagram className="text-white" />
+                    </div>
+                  ), 
+                  url: 'https://www.instagram.com/44fingers.it/' 
+                }  
               ].map((social) => (
                 <a
                   key={social.name}
-                  href="#"
-                  className={`text-2xl ${social.color} transition-all duration-300 transform hover:scale-110 hover:glow-pulse`}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-3xl transition-all duration-300 transform hover:scale-125"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -200,10 +246,32 @@ const FooterSection = () => {
           </div>
         </div>
 
+        {/* CTA Section (Motivational phrase) */}
+        <div className="mt-10 text-center">
+          <h3 className="text-2xl md:text-3xl font-jetbrains font-bold text-cyan-400 mb-4">
+            Let’s Build the Future Together 🚀
+          </h3>
+          <p className="text-white/70 font-jetbrains max-w-2xl mx-auto leading-relaxed">
+            Partner with <span className="text-magenta-400">44 FINGERS</span> and take your business 
+            beyond limits — innovative solutions, bold ideas, and results that stand out. 
+          </p>
+          <button 
+            onClick={() => scrollToSection('contact')}
+            className="mt-6 px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-magenta-500 
+                      text-white font-jetbrains font-semibold shadow-lg hover:scale-105 
+                      transition-all duration-300"
+          >
+            Start Collaboration
+          </button>
+        </div>
+
         {/* Copyright */}
-        <div className="border-t border-cyan-400/20 pt-8 text-center">
-          <p className="text-white/50 font-jetbrains text-sm tracking-wider">
-            © 2024 44 FINGERS. All rights electrified. ⚡
+        <div className="mt-10 border-t border-cyan-400/20 pt-8 text-center">
+          <p className="text-white/70 font-jetbrains text-sm tracking-wider">
+            © 2025 44 FINGERS. All rights electrified.
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500">
+              ⚡
+            </span>
           </p>
           <p className="text-white/30 font-jetbrains text-xs mt-2">
             Powered by innovation, driven by excellence.

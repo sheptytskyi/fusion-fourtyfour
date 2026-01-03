@@ -7,11 +7,73 @@ import AnimatedBackground from '../AnimatedBackground';
 gsap.registerPlugin(ScrollTrigger);
 
 const portfolioData = {
+  Mobile: [
+    {
+      id: 7,
+      name: 'Online Grocery Shop App',
+      image: 'mobile/tosim.png',
+      description: 'Easy grocery shopping with secure payments and fast delivery',
+      teamSize: 4,
+      duration: '3 months',
+      problems: ['Delivery tracking', 'Product search', 'User Engagement'],
+      tech: ['Flutter', 'Firebase', 'Node.js']
+    },
+    {
+      id: 8,
+      name: 'Neobank for telecom App',
+      image: 'mobile/vodafone.png',
+      description: 'Digital banking with instant payments for telecom users',
+      teamSize: 6,
+      duration: '5 months',
+      problems: ['Telecom Integration', 'Instant Payments', 'Data Security', 'Service Automation', ''],
+      tech: ['Flutter', 'Dart', 'WebRTC']
+    },
+    {
+      id: 9,
+      name: 'Online Banking App',
+      image: 'mobile/sense.png',
+      description: 'Secure digital banking with instant transfers and expense tracking',
+      teamSize: 8,
+      duration: '12 months',
+      problems: ['Real-time Transactions', 'Security', 'User Authentication', 'Scalability'],
+      tech: ['Swift', 'Kotlin', 'Blockchain']
+    },
+    {
+      id: 10,
+      name: 'Online Alcohol Shop App',
+      image: 'mobile/okwine.png',
+      description: 'Convenient online alcohol ordering with delivery and age verification',
+      teamSize: 5,
+      duration: '3 months',
+      problems: ['Product Discovery', 'Secure Payments', 'Age Verification', 'Delivery Tracking'],
+      tech: ['Flutter', 'Python', 'Maps API']
+    },
+    {
+      id: 11,
+      name: 'Gas Station App',
+      image: 'mobile/ukrnafta.png',
+      description: 'Smart fuel management with contactless payments and loyalty rewards',
+      teamSize: 5,
+      duration: '4 months',
+      problems: ['Contactless Payments', 'Loyalty Integration', 'Real-time prices'],
+      tech: ['React Native', 'Python', 'Websockets']
+    },
+    {
+      id: 12,
+      name: 'Online Payment Transaction',
+      image: 'mobile/portmone.png',
+      description: 'Fast and secure online payment processing for businesses and users',
+      teamSize: 7,
+      duration: '9 months',
+      problems: ['Transaction Speed', 'Data Security', 'Fraud Prevention'],
+      tech: ['Flutter', 'Node.js', 'MongoDB', 'WebRTC']
+    }
+  ],
   Web: [
     {
       id: 1,
       name: 'E-Commerce Platform',
-      image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop',
+      image: 'web/ecomerce.jpg',
       description: 'Modern e-commerce solution with AI-powered recommendations',
       teamSize: 5,
       duration: '4 months',
@@ -21,17 +83,17 @@ const portfolioData = {
     {
       id: 2,
       name: 'Banking Dashboard',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
+      image: 'web/bank.jpg',
       description: 'Secure financial management system with real-time analytics',
       teamSize: 8,
       duration: '6 months',
-      problems: ['Security', 'Real-time Data', 'Compliance'],
+      problems: ['Data Security', 'Real-time Data', 'Compliance'],
       tech: ['Vue.js', 'Python', 'PostgreSQL', 'Docker']
     },
     {
       id: 3,
       name: 'SaaS Analytics',
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
+      image: 'web/saas.jpg',
       description: 'Advanced analytics platform for business intelligence',
       teamSize: 6,
       duration: '5 months',
@@ -41,17 +103,17 @@ const portfolioData = {
     {
       id: 4,
       name: 'CRM System',
-      image: 'https://images.unsplash.com/photo-1553484771-371a605b060b?w=400&h=300&fit=crop',
+      image: 'web/crm.jpg',
       description: 'Complete customer relationship management solution',
       teamSize: 7,
       duration: '8 months',
-      problems: ['Automation', 'Integration', 'Scalability'],
+      problems: ['AI Automation', 'Integration', 'System Scalability'],
       tech: ['React', 'Django', 'PostgreSQL', 'Celery']
     },
     {
       id: 5,
       name: 'Learning Management',
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop',
+      image: 'web/edu.jpg',
       description: 'Interactive learning platform with gamification',
       teamSize: 5,
       duration: '6 months',
@@ -61,7 +123,7 @@ const portfolioData = {
     {
       id: 6,
       name: 'Healthcare Portal',
-      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=300&fit=crop',
+      image: 'web/health.jpg',
       description: 'Secure patient management and telemedicine platform',
       teamSize: 9,
       duration: '10 months',
@@ -69,135 +131,63 @@ const portfolioData = {
       tech: ['React', 'Node.js', 'MongoDB', 'WebRTC']
     }
   ],
-  Mobile: [
+  AI: [
     {
-      id: 7,
-      name: 'Fitness Tracker App',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop',
-      description: 'AI-powered fitness tracking with personalized workouts',
-      teamSize: 4,
-      duration: '3 months',
-      problems: ['Battery Optimization', 'Data Sync', 'User Engagement'],
-      tech: ['React Native', 'Firebase', 'TensorFlow', 'Node.js']
-    },
-    {
-      id: 8,
-      name: 'Social Media App',
-      image: 'https://images.unsplash.com/photo-1611262588024-d12430b98920?w=400&h=300&fit=crop',
-      description: 'Next-gen social platform with AR filters and real-time chat',
-      teamSize: 6,
-      duration: '5 months',
-      problems: ['Real-time Communication', 'AR Integration', 'Scalability'],
-      tech: ['Flutter', 'Dart', 'WebRTC', 'ARCore']
-    },
-    {
-      id: 9,
-      name: 'Food Delivery App',
-      image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop',
-      description: 'Real-time food delivery with GPS tracking and payments',
-      teamSize: 8,
-      duration: '7 months',
-      problems: ['Real-time Tracking', 'Payment Integration', 'Driver Management'],
-      tech: ['React Native', 'Node.js', 'Socket.io', 'Stripe']
-    },
-    {
-      id: 10,
-      name: 'Banking Mobile App',
-      image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=300&fit=crop',
-      description: 'Secure mobile banking with biometric authentication',
-      teamSize: 10,
-      duration: '12 months',
-      problems: ['Security', 'Biometric Auth', 'Regulatory Compliance'],
-      tech: ['Flutter', 'Kotlin', 'Swift', 'Blockchain']
-    },
-    {
-      id: 11,
-      name: 'Travel Companion',
-      image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop',
-      description: 'AI-powered travel planning and booking assistant',
+      id: 1,
+      name: 'SmartResume Analyzer',
+      image: 'ai/cv.jpg',
+      description: 'Manual monitoring, delayed alerts, scalability',
       teamSize: 5,
       duration: '4 months',
-      problems: ['API Integration', 'Offline Functionality', 'Location Services'],
-      tech: ['React Native', 'Python', 'TensorFlow', 'Google Maps']
+      problems: ['Hiring speed', 'Candidate Filtering Accuracy'],
+      tech: ['Python', 'Hugging Face', 'PyTorch']
     },
     {
-      id: 12,
-      name: 'Healthcare Mobile',
-      image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400&h=300&fit=crop',
-      description: 'Telemedicine app with appointment scheduling and prescriptions',
-      teamSize: 7,
-      duration: '9 months',
-      problems: ['HIPAA Compliance', 'Video Calling', 'Prescription Management'],
-      tech: ['Flutter', 'Node.js', 'MongoDB', 'WebRTC']
-    }
-  ],
-  Desktop: [
+      id: 2,
+      name: 'VisionGuard',
+      image: 'ai/secure.jpg',
+      description: 'Secure financial management system with real-time analytics',
+      teamSize: 8,
+      duration: '6 months',
+      problems: ['Data Security', 'Real-time Data', 'Compliance'],
+      tech: ['Python', 'OpenCV', 'AWS']
+    },
     {
-      id: 13,
-      name: 'Design Studio Suite',
-      image: 'https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=400&h=300&fit=crop',
-      description: 'Professional design tools with collaborative features',
+      id: 3,
+      name: 'ChatDoc Assistant',
+      image: 'ai/chat.jpg',
+      description: 'AI chatbot for document comprehension',
+      teamSize: 6,
+      duration: '5 months',
+      problems: ['Slow document search', 'Poor user support', 'Context loss'],
+      tech: ['LangChain', 'FastAPI', 'OpenAI API']
+    },
+    {
+      id: 4,
+      name: 'PredictiveSales Engine',
+      image: 'ai/1.jpg',
+      description: 'AI model predicting customer purchase intent',
       teamSize: 7,
       duration: '8 months',
-      problems: ['Performance', 'File Management', 'Collaboration'],
-      tech: ['Electron', 'React', 'C++', 'WebGL']
+      problems: ['Low conversion rate', 'Poor Targeting', 'Data Overload'],
+      tech: ['Python', 'Scikit-Learn', 'Airflow']
     },
     {
-      id: 14,
-      name: 'Analytics Platform',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
-      description: 'Advanced data visualization and business intelligence tool',
+      id: 5,
+      name: 'AutoSketch Generator',
+      image: 'ai/sketch.jpg',
+      description: 'Interactive learning platform with gamification',
       teamSize: 5,
       duration: '6 months',
-      problems: ['Data Processing', 'Visualization', 'Performance'],
-      tech: ['PyQt', 'Python', 'D3.js', 'PostgreSQL']
+      problems: ['Creative block', 'Design iteration speed', 'Visualization'],
+      tech: ['Stable Diffusion', 'FastAPI', 'Python']
     },
-    {
-      id: 15,
-      name: 'Video Editor Pro',
-      image: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=300&fit=crop',
-      description: 'Professional video editing software with AI enhancements',
-      teamSize: 9,
-      duration: '14 months',
-      problems: ['Real-time Processing', 'GPU Acceleration', 'Codec Support'],
-      tech: ['C++', 'CUDA', 'FFmpeg', 'Qt']
-    },
-    {
-      id: 16,
-      name: 'CAD Software',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop',
-      description: '3D modeling and engineering design platform',
-      teamSize: 12,
-      duration: '18 months',
-      problems: ['3D Rendering', 'Precision Calculations', 'File Formats'],
-      tech: ['C++', 'OpenGL', 'Qt', 'NURBS']
-    },
-    {
-      id: 17,
-      name: 'Trading Terminal',
-      image: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop',
-      description: 'High-frequency trading platform with real-time data',
-      teamSize: 8,
-      duration: '10 months',
-      problems: ['Low Latency', 'Data Streaming', 'Risk Management'],
-      tech: ['C++', 'FIX Protocol', 'Qt', 'Redis']
-    },
-    {
-      id: 18,
-      name: 'Scientific Calculator',
-      image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop',
-      description: 'Advanced scientific computation and visualization tool',
-      teamSize: 4,
-      duration: '5 months',
-      problems: ['Mathematical Precision', 'Graphing', 'Export Formats'],
-      tech: ['Python', 'NumPy', 'Matplotlib', 'Tkinter']
-    }
   ],
-  Web3: [
+  Crypto: [
     {
       id: 19,
       name: 'DeFi Trading Platform',
-      image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=300&fit=crop',
+      image: 'crypto/defi.jpg',
       description: 'Decentralized trading platform with advanced charting',
       teamSize: 6,
       duration: '7 months',
@@ -207,7 +197,7 @@ const portfolioData = {
     {
       id: 20,
       name: 'NFT Marketplace',
-      image: 'https://images.unsplash.com/photo-1635322966219-b75ed372eb01?w=400&h=300&fit=crop',
+      image: 'crypto/nft.jpg',
       description: 'Premium NFT marketplace with creator tools and analytics',
       teamSize: 8,
       duration: '5 months',
@@ -215,29 +205,9 @@ const portfolioData = {
       tech: ['Next.js', 'Solidity', 'IPFS', 'Polygon']
     },
     {
-      id: 21,
-      name: 'DAO Governance',
-      image: 'https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=400&h=300&fit=crop',
-      description: 'Decentralized autonomous organization management platform',
-      teamSize: 7,
-      duration: '8 months',
-      problems: ['Voting Mechanisms', 'Treasury Management', 'Proposal System'],
-      tech: ['Solidity', 'React', 'IPFS', 'The Graph']
-    },
-    {
-      id: 22,
-      name: 'Yield Farming Protocol',
-      image: 'https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=400&h=300&fit=crop',
-      description: 'Automated yield optimization with smart contract farming',
-      teamSize: 5,
-      duration: '6 months',
-      problems: ['Smart Contract Security', 'APY Calculations', 'Gas Efficiency'],
-      tech: ['Solidity', 'Hardhat', 'OpenZeppelin', 'Chainlink']
-    },
-    {
       id: 23,
       name: 'Cross-Chain Bridge',
-      image: 'https://images.unsplash.com/photo-1642104704074-907c0698cbd9?w=400&h=300&fit=crop',
+      image: 'crypto/chain.jpg',
       description: 'Secure asset bridge between multiple blockchain networks',
       teamSize: 10,
       duration: '12 months',
@@ -247,7 +217,7 @@ const portfolioData = {
     {
       id: 24,
       name: 'Metaverse Platform',
-      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=300&fit=crop',
+      image: 'crypto/metaverse.jpg',
       description: 'Virtual world with NFT land ownership and social features',
       teamSize: 15,
       duration: '24 months',
@@ -267,6 +237,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
   const filtersRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const mobileScrollContainerRef = useRef<HTMLDivElement>(null);
   
   const [activeFilter, setActiveFilter] = useState<keyof typeof portfolioData>('Web');
   const [visibleProjects, setVisibleProjects] = useState(6);
@@ -279,8 +250,17 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
 
     if (!section || !title || !filters || !cards) return;
 
-    // Set initial states
-    gsap.set([title, filters], { opacity: 0, y: 50 });
+    // Ensure sections are visible by default
+    gsap.set([title, filters], { opacity: 1, y: 0 });
+    
+    // Check if section is already in viewport - if not, hide and animate
+    const rect = section.getBoundingClientRect();
+    const isBelowViewport = rect.top > window.innerHeight * 0.5;
+    
+    if (isBelowViewport) {
+      // Only animate if section is below viewport
+      gsap.set([title, filters], { opacity: 0, y: 50 });
+    }
 
     // ScrollTrigger animation
     const tl = gsap.timeline({
@@ -305,7 +285,23 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
       ease: 'power2.out'
     }, '-=0.6');
 
+    // Fallback: ensure section is visible after 2 seconds if ScrollTrigger didn't fire
+    const fallbackTimeout = setTimeout(() => {
+      if (section && title && filters) {
+        const titleOpacity = window.getComputedStyle(title).opacity;
+        if (titleOpacity === '0') {
+          gsap.to([title, filters], {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+          });
+        }
+      }
+    }, 2000);
+
     return () => {
+      clearTimeout(fallbackTimeout);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
@@ -335,14 +331,16 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
   };
 
   const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+    const container = window.innerWidth < 768 ? mobileScrollContainerRef.current : scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: -320, behavior: 'smooth' });
     }
   };
 
   const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+    const container = window.innerWidth < 768 ? mobileScrollContainerRef.current : scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({ left: 320, behavior: 'smooth' });
     }
   };
 
@@ -350,28 +348,29 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
     <section 
       id="portfolio" 
       ref={sectionRef} 
-      className="section-gray min-h-screen px-8 md:px-16 py-20 relative overflow-hidden snap-start"
+      className="section-gray min-h-screen px-4 md:px-8 lg:px-16 py-16 md:py-20 relative overflow-hidden snap-start"
     >
       <AnimatedBackground variant="gray" />
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Title */}
-        <div ref={titleRef} className="text-center mb-8">
-          <h2 className="text-4xl md:text-6xl font-jetbrains font-bold text-gray-fg mb-4">
-            OUR <span className="neon-text">PORTFOLIO</span>
+        <div ref={titleRef} className="text-center mb-6 md:mb-8">
+          <h2 className="text-3xl md:text-4xl lg:text-6xl font-jetbrains font-bold text-gray-fg mb-4">
+            OUR <span className="bg-gradient-to-r from-pink-300 via-purple-400 to-purple-500
+              text-transparent bg-clip-text">PORTFOLIO</span>
           </h2>
-          <p className="text-lg font-jetbrains font-light text-gray-fg/70">
+          <p className="text-base md:text-lg font-jetbrains font-light text-gray-fg/70">
             Showcasing our best work across different domains
           </p>
         </div>
 
         {/* Filter Buttons */}
-        <div ref={filtersRef} className="flex justify-center mb-8">
-          <div className="glass-card p-1 flex space-x-1">
+        <div ref={filtersRef} className="flex justify-center mb-6 md:mb-8">
+          <div className="glass-card p-1 flex flex-wrap justify-center gap-1">
             {Object.keys(portfolioData).map((filter) => (
               <button
                 key={filter}
                 onClick={() => handleFilterChange(filter as keyof typeof portfolioData)}
-                className={`px-3 py-2 font-jetbrains text-xs tracking-wider transition-all duration-300 rounded-md ${
+                className={`px-2 md:px-3 py-2 font-jetbrains text-xs tracking-wider transition-all duration-300 rounded-md ${
                   activeFilter === filter
                     ? 'bg-gradient-neon text-white'
                     : 'text-gray-fg/70 hover:text-neon-blue'
@@ -383,40 +382,57 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
           </div>
         </div>
 
-        {/* Project Cards - Horizontal Scroll */}
+        {/* Project Cards - Responsive Layout */}
         <div className="relative overflow-hidden">
-          {/* Scroll Arrows */}
+          {/* Desktop Scroll Arrows */}
           <button
             onClick={scrollLeft}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-neon-blue/20 transition-all duration-300"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300 hidden md:block"
           >
-            <ChevronLeft className="w-5 h-5 text-neon-blue" />
+            <ChevronLeft className="w-5 h-5 text-purple-blue" />
           </button>
           
           <button
             onClick={scrollRight}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-neon-blue/20 transition-all duration-300"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300 hidden md:block"
           >
-            <ChevronRight className="w-5 h-5 text-neon-blue" />
+            <ChevronRight className="w-5 h-5 text-purple-blue" />
           </button>
 
-          <div 
-            ref={scrollContainerRef}
-            className="flex space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neon-blue/30 scroll-smooth mx-16"
-            style={{ scrollSnapType: 'x mandatory' }}
-          >
-            <div ref={cardsRef} className="flex space-x-6">
-              {currentProjects.map((project) => (
-                <div 
-                  key={project.id} 
-                  className="glass-card group cursor-pointer flex-shrink-0 w-80 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
-                  style={{ scrollSnapAlign: 'start' }}
+          {/* Mobile: Horizontal Scroll Layout */}
+          <div className="block md:hidden relative">
+            {/* Mobile Scroll Arrows */}
+            <button
+              onClick={scrollLeft}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-2 hover:bg-purple-blue/20 transition-all duration-300"
+            >
+              <ChevronLeft className="w-4 h-4 text-purple-blue" />
+            </button>
+            
+            <button
+              onClick={scrollRight}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-2 hover:bg-purple-blue/20 transition-all duration-300"
+            >
+              <ChevronRight className="w-4 h-4 text-purple-blue" />
+            </button>
+
+            <div 
+              ref={mobileScrollContainerRef}
+              className="flex space-x-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-blue/30 scroll-smooth mx-8"
+              style={{ scrollSnapType: 'x mandatory' }}
+            >
+              <div ref={cardsRef} className="flex space-x-4">
+                {currentProjects.map((project) => (
+                  <div 
+                    key={project.id} 
+                    className="glass-card group cursor-pointer flex-shrink-0 w-72 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
+                    style={{ scrollSnapAlign: 'start' }}
                   onMouseEnter={(e) => {
                     gsap.to(e.currentTarget, { 
-                      y: -10, 
-                      scale: 1.05,
-                      boxShadow: '0 20px 40px rgba(0,255,255,0.3)',
-                      duration: 0.3, 
+                      y: -5, 
+                      scale: 1.01,
+                      boxShadow: '0 10px 20px rgba(174, 0, 255, 0.2)',
+                      duration: 0.2, 
                       ease: 'power2.out' 
                     });
                   }}
@@ -425,7 +441,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                       y: 0, 
                       scale: 1,
                       boxShadow: '0 0 0 rgba(0,255,255,0)',
-                      duration: 0.3, 
+                      duration: 0.2, 
                       ease: 'power2.out' 
                     });
                   }}
@@ -434,7 +450,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                     <img 
                       src={project.image} 
                       alt={project.name}
-                      className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-48 sm:h-56 object-cover transition-transform duration-300 group-hover:scale-102"
                     />
                     <div className="absolute top-3 left-3">
                       <span className="glass-card px-2 py-1 text-xs font-jetbrains text-gray-fg/80">
@@ -464,9 +480,9 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                     </div>
                     
                     <div>
-                      <span className="text-gray-fg/60 text-xs">Problems:</span>
+                      <span className="text-gray-fg/60 text-xs">Solved problems:</span>
                       <div className="flex flex-wrap gap-1 mt-1">
-                        {project.problems.slice(0, 2).map((problem, index) => (
+                        {project.problems.slice(0, 4).map((problem, index) => (
                           <span key={index} className="glass px-1 py-0.5 text-xs text-gray-fg/80">
                             {problem}
                           </span>
@@ -484,16 +500,123 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                         ))}
                       </div>
                     </div>
+
+                    <div className="flex items-center gap-2 mt-4">
+                      <button
+                        onClick={onWantSameClick}
+                        className="btn-neon flex-1 text-xs"
+                      >
+                        I WANT THE SAME
+                      </button>
+                    </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop: Horizontal Scroll Layout */}
+          <div className="hidden md:block">
+            <div 
+              ref={scrollContainerRef}
+              className="flex space-x-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-blue/30 scroll-smooth mx-16"
+              style={{ scrollSnapType: 'x mandatory' }}
+            >
+              <div className="flex space-x-6">
+                {currentProjects.map((project) => (
+                  <div 
+                    key={project.id} 
+                    className="glass-card group cursor-pointer flex-shrink-0 w-80 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
+                    style={{ scrollSnapAlign: 'start' }}
+                    onMouseEnter={(e) => {
+                      gsap.to(e.currentTarget, { 
+                        y: -10, 
+                        scale: 1.02,
+                        boxShadow: '0 20px 40px rgba(174, 0, 255, 0.3)',
+                        duration: 0.1, 
+                        ease: 'power2.out' 
+                      });
+                    }}
+                    onMouseLeave={(e) => {
+                    gsap.to(e.currentTarget, { 
+                      y: 0, 
+                      scale: 1,
+                      boxShadow: '0 0 0 rgba(0,255,255,0)',
+                      duration: 0.1, 
+                      ease: 'power2.out' 
+                    });
+                  }}
+                >
+                  <div className="relative overflow-hidden rounded-t-glass">
+                    <img 
+                      src={project.image} 
+                      alt={project.name}
+                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-102"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <span className="glass-card px-2 py-1 text-xs font-jetbrains text-gray-fg/80">
+                        {activeFilter}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 space-y-3">
+                    <h3 className="text-lg font-jetbrains font-semibold text-gray-fg">
+                      {project.name}
+                    </h3>
                     
-                    <button
-                      onClick={onWantSameClick}
-                      className="btn-neon w-full mt-4 text-xs"
-                    >
-                      I WANT THE SAME
-                    </button>
+                    <p className="text-gray-fg/70 font-jetbrains font-light leading-relaxed text-sm line-clamp-2">
+                      {project.description}
+                    </p>
+                    
+                    <div className="grid grid-cols-2 gap-2 text-xs">
+                      <div>
+                        <span className="text-gray-fg/60">Team:</span>
+                        <span className="text-neon-blue ml-1">{project.teamSize}</span>
+                      </div>
+                      <div>
+                        <span className="text-gray-fg/60">Duration:</span>
+                        <span className="text-neon-blue ml-1">{project.duration}</span>
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <span className="text-gray-fg/60 text-xs">Solved problems:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {project.problems.slice(0, 4).map((problem, index) => (
+                          <span key={index} className="glass px-1 py-0.5 text-xs text-gray-fg/80">
+                            {problem}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <span className="text-gray-fg/60 text-xs">Tech:</span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {project.tech.slice(0, 3).map((tech, index) => (
+                          <span key={index} className="glass px-1 py-0.5 text-xs text-neon-blue">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 mt-4">
+                      {/* Кнопка "I WANT THE SAME" */}
+                      <button
+                        onClick={onWantSameClick}
+                        className="btn-neon flex-1 text-xs"
+                      >
+                        I WANT THE SAME
+                      </button>
+                    </div>
+
                   </div>
                 </div>
               ))}
+            </div>
             </div>
           </div>
         </div>

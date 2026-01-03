@@ -69,9 +69,10 @@ const Loader = ({ onComplete }: LoaderProps) => {
     <div ref={loaderRef} className="preloader">
       <div 
         ref={textRef} 
-        className="text-6xl md:text-8xl font-mono font-bold neon-text mb-8 tracking-wider"
+        className="text-6xl md:text-6xl font-jetbrains font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
+              text-transparent bg-clip-text mb-8 tracking-wider"
       >
-        44 FINGERS
+        44 fingers
       </div>
       
       <div className="progress-container">
