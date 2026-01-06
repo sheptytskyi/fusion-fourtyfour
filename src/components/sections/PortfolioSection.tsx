@@ -11,7 +11,7 @@ const portfolioData = {
     {
       id: 7,
       name: 'Online Grocery Shop App',
-      image: 'mobile/tosim.png',
+      image: 'mobile/tosim.webp',
       description: 'Easy grocery shopping with secure payments and fast delivery',
       teamSize: 4,
       duration: '3 months',
@@ -21,7 +21,7 @@ const portfolioData = {
     {
       id: 8,
       name: 'Neobank for telecom App',
-      image: 'mobile/vodafone.png',
+      image: 'mobile/vodafone.webp',
       description: 'Digital banking with instant payments for telecom users',
       teamSize: 6,
       duration: '5 months',
@@ -31,7 +31,7 @@ const portfolioData = {
     {
       id: 9,
       name: 'Online Banking App',
-      image: 'mobile/sense.png',
+      image: 'mobile/sense.webp',
       description: 'Secure digital banking with instant transfers and expense tracking',
       teamSize: 8,
       duration: '12 months',
@@ -41,7 +41,7 @@ const portfolioData = {
     {
       id: 10,
       name: 'Online Alcohol Shop App',
-      image: 'mobile/okwine.png',
+      image: 'mobile/okwine.webp',
       description: 'Convenient online alcohol ordering with delivery and age verification',
       teamSize: 5,
       duration: '3 months',
@@ -51,7 +51,7 @@ const portfolioData = {
     {
       id: 11,
       name: 'Gas Station App',
-      image: 'mobile/ukrnafta.png',
+      image: 'mobile/ukrnafta.webp',
       description: 'Smart fuel management with contactless payments and loyalty rewards',
       teamSize: 5,
       duration: '4 months',
@@ -61,7 +61,7 @@ const portfolioData = {
     {
       id: 12,
       name: 'Online Payment Transaction',
-      image: 'mobile/portmone.png',
+      image: 'mobile/portmone.webp',
       description: 'Fast and secure online payment processing for businesses and users',
       teamSize: 7,
       duration: '9 months',
@@ -73,7 +73,7 @@ const portfolioData = {
     {
       id: 1,
       name: 'E-Commerce Platform',
-      image: 'web/ecomerce.jpg',
+      image: 'web/ecomerce.webp',
       description: 'Modern e-commerce solution with AI-powered recommendations',
       teamSize: 5,
       duration: '4 months',
@@ -83,7 +83,7 @@ const portfolioData = {
     {
       id: 2,
       name: 'Banking Dashboard',
-      image: 'web/bank.jpg',
+      image: 'web/bank.webp',
       description: 'Secure financial management system with real-time analytics',
       teamSize: 8,
       duration: '6 months',
@@ -93,7 +93,7 @@ const portfolioData = {
     {
       id: 3,
       name: 'SaaS Analytics',
-      image: 'web/saas.jpg',
+      image: 'web/saas.webp',
       description: 'Advanced analytics platform for business intelligence',
       teamSize: 6,
       duration: '5 months',
@@ -103,7 +103,7 @@ const portfolioData = {
     {
       id: 4,
       name: 'CRM System',
-      image: 'web/crm.jpg',
+      image: 'web/crm.webp',
       description: 'Complete customer relationship management solution',
       teamSize: 7,
       duration: '8 months',
@@ -113,7 +113,7 @@ const portfolioData = {
     {
       id: 5,
       name: 'Learning Management',
-      image: 'web/edu.jpg',
+      image: 'web/edu.webp',
       description: 'Interactive learning platform with gamification',
       teamSize: 5,
       duration: '6 months',
@@ -123,7 +123,7 @@ const portfolioData = {
     {
       id: 6,
       name: 'Healthcare Portal',
-      image: 'web/health.jpg',
+      image: 'web/health.webp',
       description: 'Secure patient management and telemedicine platform',
       teamSize: 9,
       duration: '10 months',
@@ -135,7 +135,7 @@ const portfolioData = {
     {
       id: 1,
       name: 'SmartResume Analyzer',
-      image: 'ai/cv.jpg',
+      image: 'ai/cv.webp',
       description: 'Manual monitoring, delayed alerts, scalability',
       teamSize: 5,
       duration: '4 months',
@@ -145,7 +145,7 @@ const portfolioData = {
     {
       id: 2,
       name: 'VisionGuard',
-      image: 'ai/secure.jpg',
+      image: 'ai/secure.webp',
       description: 'Secure financial management system with real-time analytics',
       teamSize: 8,
       duration: '6 months',
@@ -155,7 +155,7 @@ const portfolioData = {
     {
       id: 3,
       name: 'ChatDoc Assistant',
-      image: 'ai/chat.jpg',
+      image: 'ai/chat.webp',
       description: 'AI chatbot for document comprehension',
       teamSize: 6,
       duration: '5 months',
@@ -165,7 +165,7 @@ const portfolioData = {
     {
       id: 4,
       name: 'PredictiveSales Engine',
-      image: 'ai/1.jpg',
+      image: 'ai/1.webp',
       description: 'AI model predicting customer purchase intent',
       teamSize: 7,
       duration: '8 months',
@@ -175,7 +175,7 @@ const portfolioData = {
     {
       id: 5,
       name: 'AutoSketch Generator',
-      image: 'ai/sketch.jpg',
+      image: 'ai/sketch.webp',
       description: 'Interactive learning platform with gamification',
       teamSize: 5,
       duration: '6 months',
@@ -187,7 +187,7 @@ const portfolioData = {
     {
       id: 19,
       name: 'DeFi Trading Platform',
-      image: 'crypto/defi.jpg',
+      image: 'crypto/defi.webp',
       description: 'Decentralized trading platform with advanced charting',
       teamSize: 6,
       duration: '7 months',
@@ -197,7 +197,7 @@ const portfolioData = {
     {
       id: 20,
       name: 'NFT Marketplace',
-      image: 'crypto/nft.jpg',
+      image: 'crypto/nft.webp',
       description: 'Premium NFT marketplace with creator tools and analytics',
       teamSize: 8,
       duration: '5 months',
@@ -207,7 +207,7 @@ const portfolioData = {
     {
       id: 23,
       name: 'Cross-Chain Bridge',
-      image: 'crypto/chain.jpg',
+      image: 'crypto/chain.webp',
       description: 'Secure asset bridge between multiple blockchain networks',
       teamSize: 10,
       duration: '12 months',
@@ -217,7 +217,7 @@ const portfolioData = {
     {
       id: 24,
       name: 'Metaverse Platform',
-      image: 'crypto/metaverse.jpg',
+      image: 'crypto/metaverse.webp',
       description: 'Virtual world with NFT land ownership and social features',
       teamSize: 15,
       duration: '24 months',
@@ -365,15 +365,15 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
 
         {/* Filter Buttons */}
         <div ref={filtersRef} className="flex justify-center mb-6 md:mb-8">
-          <div className="glass-card p-1 flex flex-wrap justify-center gap-1">
+          <div className="glass p-1 flex flex-wrap justify-center gap-1">
             {Object.keys(portfolioData).map((filter) => (
               <button
                 key={filter}
                 onClick={() => handleFilterChange(filter as keyof typeof portfolioData)}
-                className={`px-2 md:px-3 py-2 font-jetbrains text-xs tracking-wider transition-all duration-300 rounded-md ${
+                className={`px-2 md:px-3 py-2 font-jetbrains text-xs tracking-wider rounded-md ${
                   activeFilter === filter
                     ? 'bg-gradient-neon text-white'
-                    : 'text-gray-fg/70 hover:text-neon-blue'
+                    : 'text-gray-fg/70'
                 }`}
               >
                 {filter}
@@ -387,14 +387,14 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
           {/* Desktop Scroll Arrows */}
           <button
             onClick={scrollLeft}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300 hidden md:block"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass p-3 hidden md:block"
           >
             <ChevronLeft className="w-5 h-5 text-purple-blue" />
           </button>
           
           <button
             onClick={scrollRight}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-3 hover:bg-purple-blue/20 transition-all duration-300 hidden md:block"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass p-3 hidden md:block"
           >
             <ChevronRight className="w-5 h-5 text-purple-blue" />
           </button>
@@ -404,111 +404,93 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
             {/* Mobile Scroll Arrows */}
             <button
               onClick={scrollLeft}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass-card p-2 hover:bg-purple-blue/20 transition-all duration-300"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 glass p-2"
             >
               <ChevronLeft className="w-4 h-4 text-purple-blue" />
             </button>
             
             <button
               onClick={scrollRight}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass-card p-2 hover:bg-purple-blue/20 transition-all duration-300"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 glass p-2"
             >
               <ChevronRight className="w-4 h-4 text-purple-blue" />
             </button>
 
             <div 
               ref={mobileScrollContainerRef}
-              className="flex space-x-4 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-blue/30 scroll-smooth mx-8"
+              className="flex space-x-3 overflow-x-auto pb-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-blue/30 scroll-smooth mx-6"
               style={{ scrollSnapType: 'x mandatory' }}
             >
-              <div ref={cardsRef} className="flex space-x-4">
+              <div ref={cardsRef} className="flex space-x-3">
                 {currentProjects.map((project) => (
                   <div 
                     key={project.id} 
-                    className="glass-card group cursor-pointer flex-shrink-0 w-72 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
+                    className="glass flex-shrink-0 w-60"
                     style={{ scrollSnapAlign: 'start' }}
-                  onMouseEnter={(e) => {
-                    gsap.to(e.currentTarget, { 
-                      y: -5, 
-                      scale: 1.01,
-                      boxShadow: '0 10px 20px rgba(174, 0, 255, 0.2)',
-                      duration: 0.2, 
-                      ease: 'power2.out' 
-                    });
-                  }}
-                  onMouseLeave={(e) => {
-                    gsap.to(e.currentTarget, { 
-                      y: 0, 
-                      scale: 1,
-                      boxShadow: '0 0 0 rgba(0,255,255,0)',
-                      duration: 0.2, 
-                      ease: 'power2.out' 
-                    });
-                  }}
-                >
-                  <div className="relative overflow-hidden rounded-t-glass">
-                    <img 
-                      src={project.image} 
-                      alt={project.name}
-                      className="w-full h-48 sm:h-56 object-cover transition-transform duration-300 group-hover:scale-102"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="glass-card px-2 py-1 text-xs font-jetbrains text-gray-fg/80">
-                        {activeFilter}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="p-4 space-y-3">
-                    <h3 className="text-lg font-jetbrains font-semibold text-gray-fg">
-                      {project.name}
-                    </h3>
-                    
-                    <p className="text-gray-fg/70 font-jetbrains font-light leading-relaxed text-sm line-clamp-2">
-                      {project.description}
-                    </p>
-                    
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      <div>
-                        <span className="text-gray-fg/60">Team:</span>
-                        <span className="text-neon-blue ml-1">{project.teamSize}</span>
-                      </div>
-                      <div>
-                        <span className="text-gray-fg/60">Duration:</span>
-                        <span className="text-neon-blue ml-1">{project.duration}</span>
+                  >
+                    <div className="relative overflow-hidden rounded-t-glass">
+                      <img 
+                        src={project.image} 
+                        alt={project.name}
+                        className="w-full h-40 object-cover"
+                      />
+                      <div className="absolute top-2 left-2">
+                        <span className="glass-card px-2 py-1 text-[10px] font-jetbrains text-gray-fg/80">
+                          {activeFilter}
+                        </span>
                       </div>
                     </div>
                     
-                    <div>
-                      <span className="text-gray-fg/60 text-xs">Solved problems:</span>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {project.problems.slice(0, 4).map((problem, index) => (
-                          <span key={index} className="glass px-1 py-0.5 text-xs text-gray-fg/80">
-                            {problem}
-                          </span>
-                        ))}
+                    <div className="p-3 space-y-2">
+                      <h3 className="text-base font-jetbrains font-semibold text-gray-fg">
+                        {project.name}
+                      </h3>
+                      
+                      <p className="text-gray-fg/70 font-jetbrains font-light leading-relaxed text-xs line-clamp-2">
+                        {project.description}
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-1 text-[11px]">
+                        <div>
+                          <span className="text-gray-fg/60">Team:</span>
+                          <span className="text-neon-blue ml-1">{project.teamSize}</span>
+                        </div>
+                        <div>
+                          <span className="text-gray-fg/60">Duration:</span>
+                          <span className="text-neon-blue ml-1">{project.duration}</span>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <div>
-                      <span className="text-gray-fg/60 text-xs">Tech:</span>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {project.tech.slice(0, 3).map((tech, index) => (
-                          <span key={index} className="glass px-1 py-0.5 text-xs text-neon-blue">
-                            {tech}
-                          </span>
-                        ))}
+                      
+                      <div className="mt-1">
+                        <span className="text-gray-fg/60 text-[11px]">Solved problems:</span>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {project.problems.slice(0, 3).map((problem, index) => (
+                            <span key={index} className="glass px-1 py-0.5 text-[10px] text-gray-fg/80">
+                              {problem}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                      
+                      <div className="mt-1">
+                        <span className="text-gray-fg/60 text-[11px]">Tech:</span>
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {project.tech.slice(0, 3).map((tech, index) => (
+                            <span key={index} className="glass px-1 py-0.5 text-[10px] text-neon-blue">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
 
-                    <div className="flex items-center gap-2 mt-4">
-                      <button
-                        onClick={onWantSameClick}
-                        className="btn-neon flex-1 text-xs"
-                      >
-                        I WANT THE SAME
-                      </button>
-                    </div>
+                      <div className="flex items-center gap-2 mt-3">
+                        <button
+                          onClick={onWantSameClick}
+                          className="btn-neon flex-1 text-[11px] py-1.5"
+                        >
+                          I WANT THE SAME
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -527,32 +509,14 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
                 {currentProjects.map((project) => (
                   <div 
                     key={project.id} 
-                    className="glass-card group cursor-pointer flex-shrink-0 w-80 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,255,0.3)] transition-all duration-500"
+                    className="glass flex-shrink-0 w-80"
                     style={{ scrollSnapAlign: 'start' }}
-                    onMouseEnter={(e) => {
-                      gsap.to(e.currentTarget, { 
-                        y: -10, 
-                        scale: 1.02,
-                        boxShadow: '0 20px 40px rgba(174, 0, 255, 0.3)',
-                        duration: 0.1, 
-                        ease: 'power2.out' 
-                      });
-                    }}
-                    onMouseLeave={(e) => {
-                    gsap.to(e.currentTarget, { 
-                      y: 0, 
-                      scale: 1,
-                      boxShadow: '0 0 0 rgba(0,255,255,0)',
-                      duration: 0.1, 
-                      ease: 'power2.out' 
-                    });
-                  }}
-                >
+                  >
                   <div className="relative overflow-hidden rounded-t-glass">
                     <img 
                       src={project.image} 
                       alt={project.name}
-                      className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-102"
+                      className="w-full h-48 object-cover"
                     />
                     <div className="absolute top-3 left-3">
                       <span className="glass-card px-2 py-1 text-xs font-jetbrains text-gray-fg/80">

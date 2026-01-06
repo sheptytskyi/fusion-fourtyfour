@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedBackground from '../AnimatedBackground';
 import { FaLinkedin, FaInstagram, FaFacebook } from "react-icons/fa";
+import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -241,13 +242,13 @@ const ContactSection = () => {
     <section 
       id="contact" 
       ref={sectionRef} 
-      className="section-dark min-h-screen flex items-center px-4 md:px-8 lg:px-16 py-16 md:py-20 relative overflow-hidden snap-start"
+      className="section-dark min-h-screen flex items-center px-4 md:px-8 lg:px-16 py-12 md:py-20 relative overflow-hidden snap-start"
     >
       <AnimatedBackground variant="dark" />
       
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-md md:max-w-4xl lg:max-w-7xl mx-auto relative z-10">
         {/* Title */}
-        <div ref={titleRef} className="text-center mb-12 md:mb-16">
+        <div ref={titleRef} className="text-center mb-8 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-6xl font-jetbrains font-bold text-dark-fg mb-4 md:mb-6">
             LET'S <span className="bg-gradient-to-r from-pink-300 via-purple-400 to-purple-500
               text-transparent bg-clip-text">CONNECT</span>
@@ -258,10 +259,10 @@ const ContactSection = () => {
         </div>
 
         {/* Contact Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16">
           {/* Contact Form */}
-          <div ref={formRef} className="glass-card p-6 md:p-8">
-            <form onSubmit={handleSubmit} className="space-y-6" encType="multipart/form-data">
+          <div ref={formRef} className="glass p-4 md:p-7">
+            <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6" encType="multipart/form-data">
               <div>
                 <input
                   type="text"
@@ -269,7 +270,7 @@ const ContactSection = () => {
                   placeholder="YOUR NAME"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-500/70 focus:border-pink-400 transition"
+                  className="w-full px-3 py-2 md:px-4 md:py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-pink-500/70 focus:border-pink-400 transition"
                   required
                 />
               </div>
@@ -281,7 +282,7 @@ const ContactSection = () => {
                   placeholder="YOUR EMAIL"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:border-indigo-400 transition"
+                  className="w-full px-3 py-2 md:px-4 md:py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-indigo-500/70 focus:border-indigo-400 transition"
                   required
                 />
               </div>
@@ -293,7 +294,7 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={5}
-                  className="w-full px-4 py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/70 focus:border-purple-400 transition"
+                  className="w-full px-3 py-2 md:px-4 md:py-3 rounded-lg border border-white/20 bg-white/5 text-white placeholder-white/50 resize-none focus:outline-none focus:ring-2 focus:ring-purple-500/70 focus:border-purple-400 transition"
                   required
                 />
               </div>
@@ -314,7 +315,7 @@ const ContactSection = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`relative w-full py-3 rounded-lg overflow-hidden font-jetbrains tracking-widest text-sm text-white transition-all duration-500 ${
+                className={`relative w-full py-2.5 md:py-3 rounded-lg overflow-hidden font-jetbrains tracking-widest text-xs sm:text-sm text-white transition-all duration-500 ${
                   isSubmitting 
                     ? 'bg-gray-600 cursor-not-allowed opacity-70' 
                     : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(168,85,247,0.7)] hover:shadow-[0_0_30px_rgba(236,72,153,0.8)]'
@@ -331,42 +332,42 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Info & Social */}
-          <div ref={socialRef} className="space-y-6 md:space-y-8">
+          <div ref={socialRef} className="space-y-5 md:space-y-8">
             {/* Contact Info */}
-            <div className="glass-card p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl font-jetbrains font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
+            <div className="glass p-4 md:p-7">
+              <h3 className="text-lg md:text-2xl font-jetbrains font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
                 GET IN TOUCH
               </h3>
               
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <span className="text-neon-blue text-xl">📧</span>
+              <div className="space-y-3 md:space-y-4">
+                <a href="mailto:clients.44fingers@gmail.com" className="flex items-center space-x-4 hover:opacity-80 transition-opacity">
+                  <MdEmail className="text-neon-blue text-2xl" />
                   <div>
                     <p className="text-dark-fg/60 text-sm">Email</p>
-                    <p className="text-dark-fg font-jetbrains">clients.44fingers@gmail.com</p>
+                    <p className="text-dark-fg font-jetbrains">hello@44fingers.tech</p>
                   </div>
-                </div>
+                </a>
                 
-                <div className="flex items-center space-x-4">
-                  <span className="text-neon-purple text-xl">📱</span>
+                <a href="tel:+15550444444" className="flex items-center space-x-4 hover:opacity-80 transition-opacity">
+                  <MdPhone className="text-neon-purple text-2xl" />
                   <div>
                     <p className="text-dark-fg/60 text-sm">Phone</p>
                     <p className="text-dark-fg font-jetbrains">+1 (555) 044-4444</p>
                   </div>
-                </div>
+                </a>
                 
-                <div className="flex items-center space-x-4">
-                  <span className="text-neon-orange text-xl">🌍</span>
+                <a href="https://www.google.com/maps/search/?api=1&query=32+Avenue+of+the+Americas,+New+York,+NY+10013" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 hover:opacity-80 transition-opacity">
+                  <MdLocationOn className="text-neon-orange text-2xl" />
                   <div>
                     <p className="text-dark-fg/60 text-sm">Location</p>
-                    <p className="text-dark-fg font-jetbrains">Worldwide</p>
+                    <p className="text-dark-fg font-jetbrains">32 Avenue of the Americas, New York, NY 10013</p>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
 
             {/* Social Links */}
-            <div className="glass-card p-6 md:p-8">
+            <div className="glass p-6 md:p-8">
               <h3 className="text-xl md:text-2xl font-jetbrains font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
                 FOLLOW US
               </h3>
@@ -376,7 +377,7 @@ const ContactSection = () => {
                   { 
                     name: 'LinkedIn', 
                     icon: <FaLinkedin className="text-[#0A66C2]" />, 
-                    url: 'https://linkedin.com' 
+                    url: 'https://www.linkedin.com/company/44fingers' 
                   },
                   { 
                     name: 'Facebook', 
@@ -401,7 +402,7 @@ const ContactSection = () => {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-3xl transition-all duration-300 transform hover:scale-125"
+                    className="text-3xl"
                     aria-label={social.name}
                   >
                     {social.icon}

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
+import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -129,7 +130,7 @@ const FooterSection = () => {
       {/* Glassmorphic overlay */}
       <div className="absolute inset-0 backdrop-blur-sm bg-gradient-to-br from-white/5 to-transparent"></div>
       
-      <div ref={contentRef} className="relative z-10 container mx-auto px-8 md:px-16 py-20 min-h-screen flex flex-col justify-center">
+      <div ref={contentRef} className="relative z-10 container mx-auto px-8 md:px-16 py-12 md:py-16 min-h-screen flex flex-col justify-end">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Company Info */}
           <div className="space-y-6">
@@ -140,20 +141,6 @@ const FooterSection = () => {
             <p className="text-white/80 font-jetbrains font-light leading-relaxed">
               Cutting-edge digital solutions that electrify your business and leave competitors in the dark.
             </p>
-            <div className="space-y-3 text-white/70">
-              <p className="flex items-center space-x-3">
-                <span className="text-cyan-400">📧</span>
-                <span>clients.44fingers@gmail.com</span>
-              </p>
-              <p className="flex items-center space-x-3">
-                <span className="text-cyan-400">📱</span>
-                <span>+1 (555) 044-4444</span>
-              </p>
-              <p className="flex items-center space-x-3">
-                <span className="text-cyan-400">🌍</span>
-                <span>Worldwide</span>
-              </p>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -205,7 +192,7 @@ const FooterSection = () => {
                 { 
                   name: 'LinkedIn', 
                   icon: <FaLinkedin className="text-[#0A66C2]" />, 
-                  url: 'https://linkedin.com' 
+                  url: 'https://www.linkedin.com/company/44fingers' 
                 },
                 { 
                   name: 'Facebook', 
@@ -268,7 +255,7 @@ const FooterSection = () => {
         {/* Copyright */}
         <div className="mt-10 border-t border-cyan-400/20 pt-8 text-center">
           <p className="text-white/70 font-jetbrains text-sm tracking-wider">
-            © 2025 44 FINGERS. All rights electrified.
+            © 2026 44 FINGERS. All rights electrified.
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500">
               ⚡
             </span>
