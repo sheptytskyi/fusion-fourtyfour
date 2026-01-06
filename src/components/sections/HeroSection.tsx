@@ -24,7 +24,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
 
     if (!hero || !headline || !subtitle || !techStack || !cta || !background) return;
 
-    gsap.set([headline, subtitle, techStack, cta], { opacity: 0, y: 50, filter: 'blur(10px)' });
+    gsap.set([headline, subtitle, techStack], { opacity: 0, y: 50, filter: 'blur(10px)' });
     gsap.set(background, { opacity: 0, x: 100 });
 
     const tl = gsap.timeline({ delay: 0.1 });
@@ -32,35 +32,16 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
     tl.to(headline, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power2.out' })
       .to(techStack, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'power2.out' }, '-=0.8')
       .to(subtitle, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power2.out' }, '-=0.4')
-      .to(cta, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'power2.out' }, '-=0.6')
       .to(background, { opacity: 1, x: 0, duration: 1.5, ease: 'power2.out' }, '-=1');
 
     // Fallback to ensure elements are never stuck with blur
     setTimeout(() => {
-      [headline, subtitle, techStack, cta].forEach(el => {
+      [headline, subtitle, techStack].forEach(el => {
         if (el) {
           gsap.set(el, { filter: 'blur(0px)' });
         }
       });
     }, 3000);
-
-    const handleCTAHover = () => gsap.to(cta, { 
-      boxShadow: '0 0 30px hsl(217 91% 60% / 1), 0 0 60px hsl(217 91% 60% / 0.8), 0 0 90px hsl(262 83% 70% / 0.6)',
-      filter: 'brightness(1.2)',
-      duration: 0.3, 
-      ease: 'power2.out' 
-    });
-    const handleCTALeave = () => { 
-      gsap.to(cta, { 
-        boxShadow: '0 0 20px hsl(217 91% 60% / 0.5)',
-        filter: 'brightness(1)',
-        duration: 0.3, 
-        ease: 'power2.out' 
-      }); 
-    };
-
-    cta.addEventListener('mouseenter', handleCTAHover);
-    cta.addEventListener('mouseleave', handleCTALeave);
 
     const orbs = hero.querySelectorAll('.floating-orb');
     orbs.forEach((orb, index) => {
@@ -69,8 +50,6 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
 
     return () => {
       tl.kill();
-      cta.removeEventListener('mouseenter', handleCTAHover);
-      cta.removeEventListener('mouseleave', handleCTALeave);
     };
   }, []);
 
@@ -81,28 +60,28 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       <div ref={backgroundRef} className="absolute inset-0 z-0">
         {/* Phone Small - default for mobile (< 640px) */}
         <img
-          src="/phone-s.png"
+          src="/phone-s.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover sm:hidden"
         />
         
         {/* Phone Large - small screens (640px - 768px) */}
         <img
-          src="/phone-l.png"
+          src="/phone-l.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover hidden sm:block md:hidden"
         />
         
         {/* Laptop - medium screens (768px - 1024px) */}
         <img
-          src="/laptop.png"
+          src="/laptop.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden"
         />
         
         {/* Desktop - large screens (1024px+) */}
         <img
-          src="/desktop.png"
+          src="/desktop.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover hidden lg:block"
         />
@@ -131,12 +110,16 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
         </div>
 
         <div ref={subtitleRef} className="mb-6 md:mb-8 max-w-2xl mx-auto md:mx-0">
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl font-jetbrains font-light leading-relaxed text-center md:text-left text-white">
-            We design and develop digital products that help you scale faster and dominate your industry while others try to catch up.
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl font-jetbrains font-medium text-white">
+            We build AI-powered mobile apps that scale — without hiring headaches
+          </p>
+
+          <p className="text-xs sm:text-sm md:text-sm lg:text-base font-jetbrains font-light text-white/80 mt-2">
+            iOS, Android & cross-platform development for funded startups and growing products
           </p>
         </div>
 
-        <button ref={ctaRef} onClick={onGrowWithUsClick} className="btn-neon font-jetbrains text-xs sm:text-sm tracking-widest mx-auto md:mx-0 block">
+        <button ref={ctaRef} onClick={onGrowWithUsClick} className="font-jetbrains text-xs sm:text-sm tracking-widest mx-auto md:mx-0 block bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white border-none px-8 py-3 rounded-lg font-medium uppercase transition-all duration-300 hover:brightness-110">
           GROW WITH US
         </button>
       </div>

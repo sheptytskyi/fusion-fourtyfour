@@ -23,10 +23,9 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
       { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power2.out' }
     );
 
-    // Handle scroll visibility and section detection
+    // Handle scroll visibility
     const handleScroll = () => {
       const heroSection = document.getElementById('hero');
-      const aboutSection = document.getElementById('about');
       
       if (heroSection) {
         const heroHeight = heroSection.offsetHeight;
@@ -38,23 +37,51 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
           setIsVisible(true);
         }
       }
-
-      // Check if on About section
-      if (aboutSection) {
-        const aboutTop = aboutSection.offsetTop;
-        const aboutHeight = aboutSection.offsetHeight;
-        const scrollY = window.scrollY;
-        
-        if (scrollY >= aboutTop - 100 && scrollY < aboutTop + aboutHeight - 100) {
-          setIsOnAboutSection(true);
-        } else {
-          setIsOnAboutSection(false);
-        }
-      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Use IntersectionObserver for about section detection
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      const checkAboutSection = () => {
+        const rect = aboutSection.getBoundingClientRect();
+        const scrollY = window.scrollY || window.pageYOffset;
+        const viewportHeight = window.innerHeight;
+        
+        // Check if about section is in viewport
+        // More lenient check - if top of section is above viewport center
+        const isInView = rect.top < viewportHeight * 0.6 && rect.bottom > 0;
+        setIsOnAboutSection(isInView);
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            setIsOnAboutSection(entry.isIntersecting);
+          });
+        },
+        {
+          root: null,
+          rootMargin: '-10% 0px -10% 0px',
+          threshold: [0, 0.1, 0.5, 1]
+        }
+      );
+
+      observer.observe(aboutSection);
+      checkAboutSection(); // Initial check
+
+      window.addEventListener('scroll', () => {
+        handleScroll();
+        checkAboutSection();
+      });
+      
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('scroll', handleScroll);
+      };
+    } else {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   useEffect(() => {
@@ -106,25 +133,22 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
           <div className="hidden md:flex space-x-8">
             <button
               onClick={() => scrollToSection('about')}
-              className={`font-jetbrains text-sm font-light transition-all duration-300 hover:text-shadow-neon tracking-wider ${
-                isOnAboutSection ? 'text-black hover:text-gray-700' : 'text-foreground/80 hover:text-neon-blue'
-              }`}
+              style={{ color: isOnAboutSection ? '#374151' : '#ffffff', transition: 'color 0.3s ease' }}
+              className="font-jetbrains text-sm font-light hover:text-shadow-neon tracking-wider"
             >
               ABOUT
             </button>
             <button
               onClick={() => scrollToSection('portfolio')}
-              className={`font-jetbrains text-sm font-light transition-all duration-300 hover:text-shadow-neon tracking-wider ${
-                isOnAboutSection ? 'text-black hover:text-gray-700' : 'text-foreground/80 hover:text-neon-blue'
-              }`}
+              style={{ color: isOnAboutSection ? '#374151' : '#ffffff', transition: 'color 0.3s ease' }}
+              className="font-jetbrains text-sm font-light hover:text-shadow-neon tracking-wider"
             >
               PORTFOLIO
             </button>
             <button
               onClick={() => scrollToSection('contact')}
-              className={`font-jetbrains text-sm font-light transition-all duration-300 hover:text-shadow-neon tracking-wider ${
-                isOnAboutSection ? 'text-black hover:text-gray-700' : 'text-foreground/80 hover:text-neon-blue'
-              }`}
+              style={{ color: isOnAboutSection ? '#374151' : '#ffffff', transition: 'color 0.3s ease' }}
+              className="font-jetbrains text-sm font-light hover:text-shadow-neon tracking-wider"
             >
               CONTACT
             </button>
@@ -133,9 +157,8 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
           {/* Mobile Burger Button */}
           <button
             onClick={toggleMobileMenu}
-            className={`md:hidden p-2 rounded-lg transition-all duration-300 ${
-              isOnAboutSection ? 'text-black hover:bg-gray-200' : 'text-white hover:bg-white/10'
-            }`}
+            style={{ color: isOnAboutSection ? '#374151' : '#ffffff', transition: 'color 0.3s ease' }}
+            className="md:hidden p-2 rounded-lg hover:bg-white/10"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

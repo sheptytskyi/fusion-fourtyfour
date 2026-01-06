@@ -106,6 +106,14 @@
     font-weight: 300;
     overflow-x: hidden;
   }
+
+  /* Ensure all basic elements use JetBrains Mono, including on mobile */
+  button,
+  input,
+  textarea,
+  select {
+    font-family: 'JetBrains Mono', monospace;
+  }
   
   /* Ensure interactive elements show pointer cursor when custom cursor is disabled *
   
