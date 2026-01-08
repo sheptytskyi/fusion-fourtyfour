@@ -498,21 +498,46 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const title = titleRef.current;
+    if (!section || !title) return;
+
+    // Ensure visible by default to prevent "sometimes not displayed" issue
+    gsap.set(title, { opacity: 1, y: 0 });
+
+    // Only hide and animate if the section is comfortably below the viewport
+    const rect = section.getBoundingClientRect();
+    const isBelowViewport = rect.top > window.innerHeight * 0.8;
+
+    if (isBelowViewport) {
+      gsap.set(title, { opacity: 0, y: 50 });
+    }
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: 'top 70%',
-        end: 'bottom 20%',
+        start: 'top 80%',
         toggleActions: 'play none none reverse'
       }
     });
 
-    tl.fromTo([titleRef.current], // filtersRef.current commented out
-      { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: 'power3.out' }
-    );
+    tl.to(title, {
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      ease: 'power3.out'
+    });
+
+    // Final safety fallback: ensure visibility after 2 seconds regardless of scroll
+    const fallbackTimeout = setTimeout(() => {
+      if (title && window.getComputedStyle(title).opacity === '0') {
+        gsap.to(title, { opacity: 1, y: 0, duration: 0.5 });
+      }
+    }, 2000);
+
+    return () => {
+      clearTimeout(fallbackTimeout);
+      ScrollTrigger.getAll().filter(st => st.vars.trigger === section).forEach(st => st.kill());
+    };
   }, []);
 
   useLayoutEffect(() => {
@@ -557,7 +582,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
             OUR <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text">WORK</span>
           </h2>
           <p className="text-white/60 font-space font-light max-w-2xl mx-auto text-lg leading-relaxed">
-            Delivering excellence across every digital frontier. From blockchain to AI, we build the future.
+            Empowering global brands with future-ready mobile apps and intelligent automation.
           </p>
         </div>
 
