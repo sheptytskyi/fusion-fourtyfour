@@ -17,13 +17,13 @@ export default {
         // Base colors
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        
+
         // Glass morphism
         glass: {
           bg: "hsl(var(--glass-bg))",
           border: "hsl(var(--glass-border))",
         },
-        
+
         // Neon colors
         neon: {
           blue: "hsl(var(--neon-blue))",
@@ -31,21 +31,21 @@ export default {
           orange: "hsl(var(--neon-orange))",
           red: "hsl(var(--neon-red))",
         },
-        
+
         // Primary brand colors
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
           glow: "hsl(var(--primary-glow))",
         },
-        
+
         // Secondary colors
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
           glow: "hsl(var(--secondary-glow))",
         },
-        
+
         // Theme variants
         light: {
           bg: "hsl(var(--light-bg))",
@@ -59,21 +59,21 @@ export default {
           bg: "hsl(var(--gray-bg))",
           fg: "hsl(var(--gray-fg))",
         },
-        
+
         // Interactive elements
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
           border: "hsl(var(--card-border))",
         },
-        
+
         // Button colors
         button: {
           glass: "hsl(var(--button-glass))",
           "glass-hover": "hsl(var(--button-glass-hover))",
           border: "hsl(var(--button-border))",
         },
-        
+
         // Input colors
         input: {
           DEFAULT: "hsl(var(--input))",
@@ -81,32 +81,32 @@ export default {
           focus: "hsl(var(--input-focus))",
         },
       },
-      
+
       backgroundImage: {
         'gradient-hero': 'var(--gradient-hero)',
         'gradient-neon': 'var(--gradient-neon)',
         'gradient-orange': 'var(--gradient-orange)',
         'gradient-glow': 'var(--gradient-glow)',
       },
-      
+
       boxShadow: {
         'neon': 'var(--shadow-neon)',
         'purple': 'var(--shadow-purple)',
         'glass': 'var(--shadow-glass)',
         'glow-intense': 'var(--glow-intense)',
       },
-      
+
       fontFamily: {
-        'jetbrains': ['JetBrains Mono', 'monospace'],
+        'space': ['Space Grotesk', 'sans-serif'],
       },
-      
+
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
         glass: "var(--radius-glass)",
       },
-      
+
       transitionTimingFunction: {
         'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
         'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',

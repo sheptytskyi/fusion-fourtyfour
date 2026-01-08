@@ -18,7 +18,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
     if (!nav) return;
 
     // Initial animation
-    gsap.fromTo(nav, 
+    gsap.fromTo(nav,
       { opacity: 0, y: -50 },
       { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: 'power2.out' }
     );
@@ -26,11 +26,11 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
     // Handle scroll visibility
     const handleScroll = () => {
       const heroSection = document.getElementById('hero');
-      
+
       if (heroSection) {
         const heroHeight = heroSection.offsetHeight;
         const scrollY = window.scrollY;
-        
+
         if (scrollY > heroHeight * 0.9) {
           setIsVisible(false);
         } else {
@@ -46,7 +46,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
         const rect = aboutSection.getBoundingClientRect();
         const scrollY = window.scrollY || window.pageYOffset;
         const viewportHeight = window.innerHeight;
-        
+
         // Check if about section is in viewport
         // More lenient check - if top of section is above viewport center
         const isInView = rect.top < viewportHeight * 0.6 && rect.bottom > 0;
@@ -73,7 +73,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
         handleScroll();
         checkAboutSection();
       });
-      
+
       return () => {
         observer.disconnect();
         window.removeEventListener('scroll', handleScroll);
@@ -115,7 +115,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
     if (!mobileMenu) return;
 
     if (isMobileMenuOpen) {
-      gsap.fromTo(mobileMenu, 
+      gsap.fromTo(mobileMenu,
         { opacity: 0, y: -20 },
         { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
       );
@@ -124,7 +124,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
 
   return (
     <>
-      <nav 
+      <nav
         ref={navRef}
         className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 py-4 md:py-6"
       >
@@ -134,21 +134,21 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
             <button
               onClick={() => scrollToSection('about')}
               style={{ color: isOnAboutSection ? '#374151' : '#ffffff', transition: 'color 0.3s ease' }}
-              className="font-jetbrains text-sm font-light hover:text-shadow-neon tracking-wider"
+              className="font-space text-sm font-light hover:text-shadow-neon tracking-wider"
             >
               ABOUT
             </button>
             <button
               onClick={() => scrollToSection('portfolio')}
               style={{ color: isOnAboutSection ? '#374151' : '#ffffff', transition: 'color 0.3s ease' }}
-              className="font-jetbrains text-sm font-light hover:text-shadow-neon tracking-wider"
+              className="font-space text-sm font-light hover:text-shadow-neon tracking-wider"
             >
               PORTFOLIO
             </button>
             <button
               onClick={() => scrollToSection('contact')}
               style={{ color: isOnAboutSection ? '#374151' : '#ffffff', transition: 'color 0.3s ease' }}
-              className="font-jetbrains text-sm font-light hover:text-shadow-neon tracking-wider"
+              className="font-space text-sm font-light hover:text-shadow-neon tracking-wider"
             >
               CONTACT
             </button>
@@ -157,16 +157,17 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
           {/* Mobile Burger Button */}
           <button
             onClick={toggleMobileMenu}
-            style={{ color: isOnAboutSection ? '#374151' : '#ffffff', transition: 'color 0.3s ease' }}
-            className="md:hidden p-2 rounded-lg hover:bg-white/10"
+            className="md:hidden group p-2 z-50 flex flex-col justify-center items-center gap-1.5"
+            aria-label="Toggle Menu"
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            <span className={`block w-8 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 shadow-[0_0_8px_rgba(34,211,238,0.5)] rounded-full transition-all duration-300 ease-in-out ${isMobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''}`} />
+            <span className={`block w-8 h-1 bg-gradient-to-r from-cyan-400 to-purple-500 shadow-[0_0_8px_rgba(34,211,238,0.5)] rounded-full transition-all duration-300 ease-in-out ${isMobileMenuOpen ? '-rotate-45 -translate-y-0' : ''}`} />
           </button>
 
           {/* Right side CTA */}
           <button
             onClick={onContactClick}
-            className="font-jetbrains text-xs tracking-widest px-4 md:px-6 py-2 rounded-lg
+            className="font-space text-xs tracking-widest px-4 md:px-6 py-2 rounded-lg
                       bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
                       text-white font-bold transition-transform duration-300
                       hover:scale-105 hover:shadow-lg"
@@ -177,36 +178,29 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Dropdown - Minimalist Compact */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           ref={mobileMenuRef}
-          className="fixed inset-0 z-40 md:hidden"
+          className="fixed top-[72px] right-4 md:hidden z-[60] min-w-[200px]"
         >
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-            onClick={() => setIsMobileMenuOpen(false)}
-          />
-          
-          {/* Menu Content */}
-          <div className="relative top-16 mx-4 bg-black/90 backdrop-blur-md rounded-lg border border-white/20 p-6">
-            <div className="flex flex-col space-y-6">
+          <div className="bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl p-2 shadow-2xl overflow-hidden">
+            <div className="flex flex-col space-y-1">
               <button
                 onClick={() => scrollToSection('about')}
-                className="font-jetbrains text-lg font-light text-white hover:text-neon-blue transition-all duration-300 text-left tracking-wider"
+                className="font-space text-sm font-light text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 py-3 px-6 rounded-xl text-left tracking-widest"
               >
                 ABOUT
               </button>
               <button
                 onClick={() => scrollToSection('portfolio')}
-                className="font-jetbrains text-lg font-light text-white hover:text-neon-blue transition-all duration-300 text-left tracking-wider"
+                className="font-space text-sm font-light text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 py-3 px-6 rounded-xl text-left tracking-widest"
               >
-                PORTFOLIO
+                WORK
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
-                className="font-jetbrains text-lg font-light text-white hover:text-neon-blue transition-all duration-300 text-left tracking-wider"
+                className="font-space text-sm font-light text-white/80 hover:text-white hover:bg-white/10 transition-all duration-300 py-3 px-6 rounded-xl text-left tracking-widest"
               >
                 CONTACT
               </button>

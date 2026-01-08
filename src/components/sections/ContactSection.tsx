@@ -12,7 +12,7 @@ const ContactSection = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLDivElement>(null);
   const socialRef = useRef<HTMLDivElement>(null);
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -38,11 +38,11 @@ const ContactSection = () => {
     gsap.set(title, { opacity: 1, y: 0 });
     gsap.set(form.children, { opacity: 1, x: 0 });
     gsap.set(social, { opacity: 1, y: 0 });
-    
+
     // Check if section is already in viewport - if not, hide and animate
     const rect = section.getBoundingClientRect();
     const isBelowViewport = rect.top > window.innerHeight * 0.5;
-    
+
     if (isBelowViewport) {
       // Only animate if section is below viewport
       gsap.set(section, { opacity: 0, y: 60, filter: 'blur(10px)' });
@@ -68,26 +68,26 @@ const ContactSection = () => {
       duration: 1.2,
       ease: 'power2.out'
     })
-    .to(title, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'power2.out'
-    }, '-=0.8')
-    // Inputs fade from left
-    .to(form.children, {
-      opacity: 1,
-      x: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power2.out'
-    }, '-=0.6')
-    .to(social, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power2.out'
-    }, '-=0.4');
+      .to(title, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out'
+      }, '-=0.8')
+      // Inputs fade from left
+      .to(form.children, {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power2.out'
+      }, '-=0.6')
+      .to(social, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out'
+      }, '-=0.4');
 
     // Fallback: ensure section is visible after 2 seconds if ScrollTrigger didn't fire
     const fallbackTimeout = setTimeout(() => {
@@ -115,7 +115,7 @@ const ContactSection = () => {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear any previous status messages when user starts typing
     if (submitStatus.type) {
       setSubmitStatus({ type: null, message: '' });
@@ -169,10 +169,10 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Prevent double submission
     if (isSubmitting) return;
-    
+
     // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setSubmitStatus({
@@ -184,7 +184,7 @@ const ContactSection = () => {
 
     setIsSubmitting(true);
     setSubmitStatus({ type: null, message: '' });
-    
+
     // Animate button
     const submitButton = e.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement;
     if (submitButton) {
@@ -196,31 +196,31 @@ const ContactSection = () => {
         ease: 'power2.inOut'
       });
     }
-    
+
     try {
       // Submit to backend API
       const result = await submitToAPI(formData);
-      
+
       if (result.success) {
         // Success - show success message and reset form
         setSubmitStatus({
           type: 'success',
           message: result.message
         });
-        
+
         // Reset form
         setFormData({ name: '', email: '', message: '' });
-        
+
         // Optional: Log successful submission
         console.log('✅ Lead submitted successfully:', result.leadId);
-        
+
       } else {
         // Error - show error message
         setSubmitStatus({
           type: 'error',
           message: result.message
         });
-        
+
         // Log errors for debugging
         if (result.errors && result.errors.length > 0) {
           console.error('Validation errors:', result.errors);
@@ -239,21 +239,21 @@ const ContactSection = () => {
   };
 
   return (
-    <section 
-      id="contact" 
-      ref={sectionRef} 
+    <section
+      id="contact"
+      ref={sectionRef}
       className="section-dark min-h-screen flex items-center px-4 md:px-8 lg:px-16 py-12 md:py-20 relative overflow-hidden snap-start"
     >
       <AnimatedBackground variant="dark" />
-      
+
       <div className="max-w-md md:max-w-4xl lg:max-w-7xl mx-auto relative z-10">
         {/* Title */}
         <div ref={titleRef} className="text-center mb-8 md:mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-6xl font-jetbrains font-bold text-dark-fg mb-4 md:mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-6xl font-space font-bold text-dark-fg mb-4 md:mb-6">
             LET'S <span className="bg-gradient-to-r from-pink-300 via-purple-400 to-purple-500
               text-transparent bg-clip-text">CONNECT</span>
           </h2>
-          <p className="text-base md:text-lg font-jetbrains font-light text-white max-w-2xl mx-auto">
+          <p className="text-base md:text-lg font-space font-light text-white max-w-2xl mx-auto">
             Ready to transform your digital presence? Let's discuss how we can help you dominate your market.
           </p>
         </div>
@@ -274,7 +274,7 @@ const ContactSection = () => {
                   required
                 />
               </div>
-              
+
               <div>
                 <input
                   type="email"
@@ -286,7 +286,7 @@ const ContactSection = () => {
                   required
                 />
               </div>
-              
+
               <div>
                 <textarea
                   name="message"
@@ -298,28 +298,26 @@ const ContactSection = () => {
                   required
                 />
               </div>
-              
+
               {/* Status Message */}
               {submitStatus.type && (
-                <div className={`p-4 rounded-lg border ${
-                  submitStatus.type === 'success' 
-                    ? 'border-green-500/30 bg-green-500/10 text-green-400' 
-                    : 'border-red-500/30 bg-red-500/10 text-red-400'
-                }`}>
-                  <p className="text-sm font-jetbrains">
+                <div className={`p-4 rounded-lg border ${submitStatus.type === 'success'
+                  ? 'border-green-500/30 bg-green-500/10 text-green-400'
+                  : 'border-red-500/30 bg-red-500/10 text-red-400'
+                  }`}>
+                  <p className="text-sm font-space">
                     {submitStatus.type === 'success' ? '✅' : '❌'} {submitStatus.message}
                   </p>
                 </div>
               )}
-              
+
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`relative w-full py-2.5 md:py-3 rounded-lg overflow-hidden font-jetbrains tracking-widest text-xs sm:text-sm text-white transition-all duration-500 ${
-                  isSubmitting 
-                    ? 'bg-gray-600 cursor-not-allowed opacity-70' 
-                    : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(168,85,247,0.7)] hover:shadow-[0_0_30px_rgba(236,72,153,0.8)]'
-                }`}
+                className={`relative w-full py-2.5 md:py-3 rounded-lg overflow-hidden font-space tracking-widest text-xs sm:text-sm text-white transition-all duration-500 ${isSubmitting
+                  ? 'bg-gray-600 cursor-not-allowed opacity-70'
+                  : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 shadow-[0_0_15px_rgba(168,85,247,0.7)] hover:shadow-[0_0_30px_rgba(236,72,153,0.8)]'
+                  }`}
               >
                 <span className="relative z-10">
                   {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
@@ -335,32 +333,32 @@ const ContactSection = () => {
           <div ref={socialRef} className="space-y-5 md:space-y-8">
             {/* Contact Info */}
             <div className="glass p-4 md:p-7">
-              <h3 className="text-lg md:text-2xl font-jetbrains font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
+              <h3 className="text-lg md:text-2xl font-space font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
                 GET IN TOUCH
               </h3>
-              
+
               <div className="space-y-3 md:space-y-4">
                 <a href="mailto:clients.44fingers@gmail.com" className="flex items-center space-x-4 hover:opacity-80 transition-opacity">
                   <MdEmail className="text-neon-blue text-2xl" />
                   <div>
                     <p className="text-dark-fg/60 text-sm">Email</p>
-                    <p className="text-dark-fg font-jetbrains">hello@44fingers.tech</p>
+                    <p className="text-dark-fg font-space">hello@44fingers.tech</p>
                   </div>
                 </a>
-                
+
                 <a href="tel:+15550444444" className="flex items-center space-x-4 hover:opacity-80 transition-opacity">
                   <MdPhone className="text-neon-purple text-2xl" />
                   <div>
                     <p className="text-dark-fg/60 text-sm">Phone</p>
-                    <p className="text-dark-fg font-jetbrains">+1 (555) 044-4444</p>
+                    <p className="text-dark-fg font-space">+1 (555) 044-4444</p>
                   </div>
                 </a>
-                
+
                 <a href="https://www.google.com/maps/search/?api=1&query=32+Avenue+of+the+Americas,+New+York,+NY+10013" target="_blank" rel="noopener noreferrer" className="flex items-center space-x-4 hover:opacity-80 transition-opacity">
                   <MdLocationOn className="text-neon-orange text-2xl" />
                   <div>
                     <p className="text-dark-fg/60 text-sm">Location</p>
-                    <p className="text-dark-fg font-jetbrains">32 Avenue of the Americas, New York, NY 10013</p>
+                    <p className="text-dark-fg font-space">32 Avenue of the Americas, New York, NY 10013</p>
                   </div>
                 </a>
               </div>
@@ -368,34 +366,34 @@ const ContactSection = () => {
 
             {/* Social Links */}
             <div className="glass p-6 md:p-8">
-              <h3 className="text-xl md:text-2xl font-jetbrains font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
+              <h3 className="text-xl md:text-2xl font-space font-semibold text-dark-fg mb-4 md:mb-6 tracking-wider">
                 FOLLOW US
               </h3>
-              
+
               <div className="flex space-x-6">
                 {[
-                  { 
-                    name: 'LinkedIn', 
-                    icon: <FaLinkedin className="text-[#0A66C2]" />, 
-                    url: 'https://www.linkedin.com/company/44fingers' 
+                  {
+                    name: 'LinkedIn',
+                    icon: <FaLinkedin className="text-[#0A66C2]" />,
+                    url: 'https://www.linkedin.com/company/44fingers'
                   },
-                  { 
-                    name: 'Facebook', 
-                    icon: <FaFacebook className="text-[#1877F2]" />, 
-                    url: 'https://facebook.com' 
+                  {
+                    name: 'Facebook',
+                    icon: <FaFacebook className="text-[#1877F2]" />,
+                    url: 'https://facebook.com'
                   },
-                  { 
-                    name: 'Instagram', 
+                  {
+                    name: 'Instagram',
                     icon: (
                       <div className="w-8 h-8 flex items-center justify-center rounded-lg"
-                           style={{
-                             background: "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)"
-                           }}>
+                        style={{
+                          background: "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)"
+                        }}>
                         <FaInstagram className="text-white" />
                       </div>
-                    ), 
-                    url: 'https://www.instagram.com/44fingers.it/' 
-                  }  
+                    ),
+                    url: 'https://www.instagram.com/44fingers.it/'
+                  }
                 ].map((social) => (
                   <a
                     key={social.name}
@@ -409,9 +407,9 @@ const ContactSection = () => {
                   </a>
                 ))}
               </div>
-              
+
               <div className="mt-6 p-4 rounded-lg border border-neon-blue/20 bg-neon-blue/5">
-                <p className="text-sm text-dark-fg/70 font-jetbrains leading-relaxed">
+                <p className="text-sm text-dark-fg/70 font-space leading-relaxed">
                   Join our community of innovative businesses transforming their digital presence.
                 </p>
               </div>

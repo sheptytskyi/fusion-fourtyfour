@@ -55,7 +55,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
 
   return (
     <section ref={heroRef} className="relative h-screen flex items-start md:items-center justify-center md:justify-start px-4 md:px-8 lg:px-16 overflow-hidden snap-start pt-20 md:pt-0" style={{ backgroundColor: '#000' }}>
-      
+
       {/* Responsive Background Images */}
       <div ref={backgroundRef} className="absolute inset-0 z-0">
         {/* Phone Small - default for mobile (< 640px) */}
@@ -64,21 +64,21 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover sm:hidden"
         />
-        
+
         {/* Phone Large - small screens (640px - 768px) */}
         <img
           src="/phone-l.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover hidden sm:block md:hidden"
         />
-        
+
         {/* Laptop - medium screens (768px - 1024px) */}
         <img
           src="/laptop.webp"
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden"
         />
-        
+
         {/* Desktop - large screens (1024px+) */}
         <img
           src="/desktop.webp"
@@ -87,39 +87,32 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
         />
       </div>
 
-{/* Overlay */}
-<div className="absolute inset-0 bg-black/30 z-10"></div>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/30 z-10"></div>
 
-{/* Content */}
-<div className="relative z-20 text-center md:text-left max-w-4xl px-2">
-  <div ref={headlineRef} className="mb-4 md:mb-6">
-    <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-jetbrains font-bold leading-tight tracking-tight text-center md:text-left text-white">
-      <span>STAY AHEAD OF YOUR</span>
-      <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
-        {" "}
-        COMPETITORS
-      </span>
-    </h1>
-  </div>
+      {/* Content */}
+      <div className="relative z-20 text-center md:text-left max-w-4xl px-2">
+        <div ref={headlineRef} className="mb-4 md:mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-space font-bold leading-tight tracking-tight text-center md:text-left text-white">
+            <span>STAY AHEAD OF YOUR</span>
+            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
+              {" "}
+              COMPETITORS
+            </span>
+          </h1>
+        </div>
 
 
         <div ref={techStackRef} className="mb-6 md:mb-8">
-          <p className="text-sm sm:text-base md:text-lg font-jetbrains font-light leading-relaxed text-center md:text-left text-white tracking-widest">
-            MOBILE \ WEB \ CRYPTO \ AI
-          </p>
         </div>
 
         <div ref={subtitleRef} className="mb-6 md:mb-8 max-w-2xl mx-auto md:mx-0">
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl font-jetbrains font-medium text-white">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl font-space font-medium text-white">
             We build AI-powered mobile apps that scale — without hiring headaches
-          </p>
-
-          <p className="text-xs sm:text-sm md:text-sm lg:text-base font-jetbrains font-light text-white/80 mt-2">
-            iOS, Android & cross-platform development for funded startups and growing products
           </p>
         </div>
 
-        <button ref={ctaRef} onClick={onGrowWithUsClick} className="font-jetbrains text-xs sm:text-sm tracking-widest mx-auto md:mx-0 block bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white border-none px-8 py-3 rounded-lg font-medium uppercase transition-all duration-300 hover:brightness-110">
+        <button ref={ctaRef} onClick={onGrowWithUsClick} className="font-space text-xs sm:text-sm tracking-widest mx-auto md:mx-0 block bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white border-none px-8 py-3 rounded-lg font-medium uppercase transition-all duration-300 hover:brightness-110">
           GROW WITH US
         </button>
       </div>
