@@ -1,5 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useLayoutEffect } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ArrowRight, Cpu, Smartphone, Globe } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface HeroSectionProps {
   onGrowWithUsClick: () => void;
@@ -7,121 +11,164 @@ interface HeroSectionProps {
 
 const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLDivElement>(null);
-  const subtitleRef = useRef<HTMLDivElement>(null);
-  const techStackRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLButtonElement>(null);
-  const backgroundRef = useRef<HTMLDivElement>(null);
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const backdropTextRef = useRef<HTMLDivElement>(null);
 
-  // GSAP animation
-  useEffect(() => {
-    const hero = heroRef.current;
-    const headline = headlineRef.current;
-    const subtitle = subtitleRef.current;
-    const techStack = techStackRef.current;
-    const cta = ctaRef.current;
-    const background = backgroundRef.current;
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      const hero = heroRef.current;
+      const image = imageWrapperRef.current;
+      const content = contentRef.current;
+      const backdrop = backdropTextRef.current;
+      if (!hero || !image || !content || !backdrop) return;
 
-    if (!hero || !headline || !subtitle || !techStack || !cta || !background) return;
+      // 1. Immediate Entrance (Visibility First)
+      gsap.set(image, { scale: 1, opacity: 1 }); // Shown immediately
+      gsap.set(".hero-reveal", { y: 30, opacity: 0 });
+      gsap.set(backdrop, { opacity: 0.05, scale: 1 });
 
-    gsap.set([headline, subtitle, techStack], { opacity: 0, y: 50, filter: 'blur(10px)' });
-    gsap.set(background, { opacity: 0, x: 100 });
+      const entranceTl = gsap.timeline({ defaults: { ease: "expo.out" } });
+      entranceTl.to(".hero-reveal", {
+        y: 0,
+        opacity: 1,
+        duration: 1.5,
+        stagger: 0.1,
+      }, 0.2);
 
-    const tl = gsap.timeline({ delay: 0.1 });
-
-    tl.to(headline, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power2.out' })
-      .to(techStack, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.8, ease: 'power2.out' }, '-=0.8')
-      .to(subtitle, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1, ease: 'power2.out' }, '-=0.4')
-      .to(background, { opacity: 1, x: 0, duration: 1.5, ease: 'power2.out' }, '-=1');
-
-    // Fallback to ensure elements are never stuck with blur
-    setTimeout(() => {
-      [headline, subtitle, techStack].forEach(el => {
-        if (el) {
-          gsap.set(el, { filter: 'blur(0px)' });
+      // 2. Scroll Animation: Increase sizing only
+      gsap.to(image, {
+        scale: 1.5,
+        ease: "none",
+        scrollTrigger: {
+          trigger: hero,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
         }
       });
-    }, 3000);
 
-    const orbs = hero.querySelectorAll('.floating-orb');
-    orbs.forEach((orb, index) => {
-      gsap.to(orb, { y: -30, duration: 4 + index, repeat: -1, yoyo: true, ease: 'power1.inOut', delay: index * 0.5 });
-    });
+      // Subtle backdrop text movement
+      gsap.to(backdrop, {
+        scale: 1.2,
+        yPercent: -20,
+        opacity: 0.02,
+        scrollTrigger: {
+          trigger: hero,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        }
+      });
 
-    return () => {
-      tl.kill();
-    };
+      // Fade content on scroll
+      gsap.to(content, {
+        y: -100,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: hero,
+          start: "top top",
+          end: "30% top",
+          scrub: true,
+        }
+      });
+
+    }, heroRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={heroRef} className="relative h-screen flex items-start md:items-center justify-center md:justify-start px-4 md:px-8 lg:px-16 overflow-hidden snap-start pt-20 md:pt-0" style={{ backgroundColor: '#000' }}>
-
-      {/* Responsive Background Images */}
-      <div ref={backgroundRef} className="absolute inset-0 z-0">
-        {/* Phone Small - default for mobile (< 640px) */}
-        <img
-          src="/phone-s.webp"
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover sm:hidden"
-        />
-
-        {/* Phone Large - small screens (640px - 768px) */}
-        <img
-          src="/phone-l.webp"
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover hidden sm:block md:hidden"
-        />
-
-        {/* Laptop - medium screens (768px - 1024px) */}
-        <img
-          src="/laptop.webp"
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover hidden md:block lg:hidden"
-        />
-
-        {/* Desktop - large screens (1024px+) */}
-        <img
-          src="/desktop.webp"
-          alt="Background"
-          className="absolute inset-0 w-full h-full object-cover hidden lg:block"
-        />
+    <section
+      id="hero"
+      ref={heroRef}
+      className="relative h-screen flex flex-col justify-between bg-transparent overflow-hidden snap-start pt-24 pb-12"
+    >
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Simplified Kinetic Backdrop Text */}
+        <div ref={backdropTextRef} className="absolute inset-0 flex items-center justify-center select-none">
+          <span className="text-[25vw] font-space font-black text-white/[0.02] leading-none tracking-tighter uppercase whitespace-nowrap">
+            44FINGERS
+          </span>
+        </div>
       </div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/30 z-10"></div>
+      {/* 2. TOP CONTENT: MISSION & VISION (CLEAR OF IMAGE) */}
+      <div ref={contentRef} className="container mx-auto px-6 lg:px-12 relative z-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div className="hero-reveal space-y-6">
+            <div className="flex items-center gap-4">
+              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-space text-indigo-400 capitalize tracking-[0.4em] font-black">
+                Operational_Phase_01
+              </span>
+              <div className="w-8 h-px bg-white/10" />
+            </div>
 
-      {/* Content */}
-      <div className="relative z-20 text-center md:text-left max-w-4xl px-2">
-        <div ref={headlineRef} className="mb-4 md:mb-6">
-          <h1 className="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-space font-bold leading-tight tracking-tight text-center md:text-left text-white">
-            <span>STAY AHEAD OF YOUR</span>
-            <span className="bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-transparent bg-clip-text">
-              {" "}
-              COMPETITORS
-            </span>
-          </h1>
+            <h1 className="text-5xl md:text-7xl lg:text-9xl font-space font-bold text-white tracking-tighter leading-[0.85]">
+              STAY AHEAD <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 italic">THE CURVE.</span>
+            </h1>
+          </div>
+
+          <div className="hero-reveal lg:pt-8 space-y-10">
+            <p className="text-xl md:text-2xl font-space font-light text-white/40 leading-relaxed max-w-xl">
+              We architect elite mobile ecosystems and <span className="text-white">AI foundations</span> that redefine your market speed. Engineering for high-frequency growth.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center gap-8">
+              <button
+                onClick={onGrowWithUsClick}
+                className="group relative px-10 py-5 bg-white text-black font-space font-black uppercase text-xs tracking-widest rounded-2xl overflow-hidden shadow-2xl transition-all hover:scale-105 active:scale-95"
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  Initiate Project <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
+                </span>
+                <div className="absolute inset-0 bg-indigo-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <style>{`
+                  button:hover span { color: white !important; }
+                `}</style>
+              </button>
+
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3">
+                  <Cpu className="w-4 h-4" />
+                  <span className="text-[9px] font-space uppercase tracking-[0.2em]">Neural</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Smartphone className="w-4 h-4" />
+                  <span className="text-[9px] font-space uppercase tracking-[0.2em]">Mobile</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-
-        <div ref={techStackRef} className="mb-6 md:mb-8">
-        </div>
-
-        <div ref={subtitleRef} className="mb-6 md:mb-8 max-w-2xl mx-auto md:mx-0">
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl font-space font-medium text-white">
-            We build AI-powered mobile apps that scale — without hiring headaches
-          </p>
-        </div>
-
-        <button ref={ctaRef} onClick={onGrowWithUsClick} className="font-space text-xs sm:text-sm tracking-widest mx-auto md:mx-0 block bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white border-none px-8 py-3 rounded-lg font-medium uppercase transition-all duration-300 hover:brightness-110">
-          GROW WITH US
-        </button>
       </div>
 
-      {/* Floating orbs */}
-      <div className="absolute top-1/4 left-1/4 w-4 h-4 rounded-full floating-orb opacity-60 z-15" style={{ background: 'radial-gradient(circle, #00ffff 0%, #0066ff 50%, transparent 100%)', filter: 'blur(1px)', boxShadow: '0 0 20px #00ffff, 0 0 40px #0066ff' }}></div>
-      <div className="absolute top-3/4 right-1/4 w-6 h-6 rounded-full floating-orb opacity-40 z-15" style={{ background: 'radial-gradient(circle, #ff00ff 0%, #6600ff 50%, transparent 100%)', filter: 'blur(2px)', boxShadow: '0 0 25px #ff00ff, 0 0 50px #6600ff' }}></div>
-      <div className="absolute bottom-1/4 left-1/3 w-2 h-2 rounded-full floating-orb opacity-80 z-15" style={{ background: 'radial-gradient(circle, #ffaa00 0%, #ff6600 50%, transparent 100%)', filter: 'blur(0.5px)', boxShadow: '0 0 15px #ffaa00, 0 0 30px #ff6600' }}></div>
-      <div className="absolute top-1/2 right-1/3 w-3 h-3 rounded-full floating-orb opacity-50 z-15" style={{ background: 'radial-gradient(circle, #ff0066 0%, #cc0044 50%, transparent 100%)', filter: 'blur(1px)', boxShadow: '0 0 18px #ff0066, 0 0 35px #cc0044' }}></div>
+      {/* 3. CENTERPIECE: THE IMAGE (IMMEDIATELY SHOWN, ZOOM ONLY ON SCROLL) */}
+      <div className="relative flex-1 flex items-center justify-center z-10">
+        <div
+          ref={imageWrapperRef}
+          className="w-full max-w-[1200px] aspect-video flex items-center justify-center will-change-transform"
+        >
+          <img
+            src="/iphones.webp"
+            alt="44Fingers High-Performance Mobile Ecosystems"
+            className="w-full h-full object-contain filter drop-shadow-[0_40px_100px_rgba(0,0,0,0.8)]"
+          />
+        </div>
+
+        {/* Depth HUD (Bottom Overlay) */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-12 opacity-10 pointer-events-none">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-px bg-white/20" />
+            <span className="text-[8px] font-space text-white uppercase tracking-[0.6em]">Architecture_v4.4</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="text-[8px] font-space text-white uppercase tracking-[0.6em]">Kyiv_Hub</span>
+            <div className="w-12 h-px bg-white/20" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

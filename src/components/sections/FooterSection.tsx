@@ -1,282 +1,179 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
-import { MdEmail, MdPhone, MdLocationOn } from "react-icons/md";
+import { Mail, MapPin, ArrowUpRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FooterSection = () => {
   const footerRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const footer = footerRef.current;
+    const marquee = marqueeRef.current;
     const content = contentRef.current;
 
-    if (!footer || !content) return;
+    if (!footer || !marquee || !content) return;
 
-    // Ensure footer is visible by default
-    gsap.set(content, { opacity: 1, y: 0, filter: 'blur(0px)' });
-
-    // Check if footer is already in viewport - if not, hide and animate
-    const rect = footer.getBoundingClientRect();
-    const isBelowViewport = rect.top > window.innerHeight * 0.5;
-
-    if (isBelowViewport) {
-      // Only animate if footer is below viewport
-      gsap.set(content, { opacity: 0, y: 60, filter: 'blur(10px)' });
-    }
-
-    // ScrollTrigger animation for footer entrance
-    gsap.to(content, {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      duration: 1.2,
-      ease: 'power2.out',
+    // Kinetic Marquee Scroll Effect
+    gsap.set(marquee, { x: '0%' });
+    gsap.to(marquee, {
+      x: '-20%',
       scrollTrigger: {
         trigger: footer,
-        start: 'top 90%',
-        toggleActions: 'play none none reverse'
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
       }
     });
 
-    // Floating particles animation
-    const particles = footer.querySelectorAll('.floating-particle');
-    particles.forEach((particle, index) => {
-      gsap.to(particle, {
-        y: -20,
-        duration: 4 + index * 0.5,
-        repeat: -1,
-        yoyo: true,
-        ease: 'power1.inOut',
-        delay: index * 0.3
-      });
-    });
-
-    // Fallback: ensure footer is visible after 2 seconds if ScrollTrigger didn't fire
-    const fallbackTimeout = setTimeout(() => {
-      if (footer && content && window.getComputedStyle(content).opacity === '0') {
-        gsap.to(content, {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          duration: 0.8,
-          ease: 'power2.out'
-        });
+    // Content Reveal
+    const items = content.querySelectorAll('.reveal');
+    gsap.fromTo(items,
+      { opacity: 0, y: 50, rotateX: -10 },
+      {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        duration: 1,
+        stagger: 0.1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: footer,
+          start: 'top 90%',
+          toggleActions: 'play none none reverse',
+        }
       }
-    }, 2000);
+    );
+
+    // Fallback: Show if first item isn't visible after 1.5s
+    const timeout = setTimeout(() => {
+      if (items[0] && window.getComputedStyle(items[0]).opacity === '0') {
+        gsap.to(items, { opacity: 1, y: 0, rotateX: 0, duration: 0.5 });
+      }
+    }, 1500);
 
     return () => {
-      clearTimeout(fallbackTimeout);
+      clearTimeout(timeout);
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (section) section.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <footer
       id="footer"
       ref={footerRef}
-      className="relative min-h-screen bg-gradient-to-br from-black via-purple-900/20 to-black overflow-hidden snap-start"
-      style={{
-        background: 'linear-gradient(135deg, #000 0%, #1a0033 25%, #000066 50%, #0033cc 75%, #000 100%)',
-        position: 'relative'
-      }}
+      className="relative min-h-[80vh] bg-transparent overflow-hidden flex flex-col items-center justify-center py-20"
     >
-      {/* Electrified Background Effects */}
-      <div className="absolute inset-0">
-        {/* Electric Grid */}
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(0, 255, 255, 0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(0, 255, 255, 0.3) 1px, transparent 1px)
-            `,
-            backgroundSize: '100px 100px',
-            animation: 'pulse 4s ease-in-out infinite'
-          }}
-        />
 
-        {/* Neon Orbs */}
-        <div className="absolute top-20 left-20 w-40 h-40 rounded-full opacity-20 animate-pulse"
-          style={{
-            background: 'radial-gradient(circle, #00ffff 0%, transparent 70%)',
-            filter: 'blur(20px)',
-            animation: 'glow-pulse 3s ease-in-out infinite'
-          }} />
-        <div className="absolute bottom-40 right-32 w-32 h-32 rounded-full opacity-25 animate-pulse"
-          style={{
-            background: 'radial-gradient(circle, #ff00ff 0%, transparent 70%)',
-            filter: 'blur(15px)',
-            animation: 'glow-pulse 2.5s ease-in-out infinite 1s'
-          }} />
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 rounded-full opacity-30 animate-pulse"
-          style={{
-            background: 'radial-gradient(circle, #ffff00 0%, transparent 70%)',
-            filter: 'blur(10px)',
-            animation: 'glow-pulse 3.5s ease-in-out infinite 0.5s'
-          }} />
+      {/* Parallax Marquee Branding */}
+      <div
+        ref={marqueeRef}
+        className="absolute top-1/2 left-0 -translate-y-1/2 w-[200%] select-none pointer-events-none z-0 whitespace-nowrap"
+      >
+        <span className="text-[29vw] font-space font-black text-white/[0.03] tracking-tighter leading-none inline-block px-10">
+          44FINGERS 44FINGERS 44FINGERS
+        </span>
       </div>
 
-      {/* Glassmorphic overlay */}
-      <div className="absolute inset-0 backdrop-blur-sm bg-gradient-to-br from-white/5 to-transparent"></div>
+      <div ref={contentRef} className="container mx-auto px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-end">
 
-      <div ref={contentRef} className="relative z-10 container mx-auto px-8 md:px-16 py-12 md:py-16 min-h-screen flex flex-col justify-end">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Company Info */}
-          <div className="space-y-6">
-            <h3 className="text-3xl font-space font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500
-              text-transparent bg-clip-text mb-4">
-              44 FINGERS
-            </h3>
-            <p className="text-white/80 font-space font-light leading-relaxed">
-              Cutting-edge digital solutions that electrify your business and leave competitors in the dark.
-            </p>
-          </div>
+          {/* Left: Huge Message */}
+          <div className="space-y-16">
+            <div className="reveal">
+              <span className="text-purple-500 font-space text-xs uppercase tracking-[0.5em] mb-6 block">Future-Proofing Digitally</span>
+              <h2 className="text-6xl md:text-8xl font-space font-bold text-white tracking-tighter leading-[0.9]">
+                LET'S MAKE <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 italic">IMPACT.</span>
+              </h2>
+            </div>
 
-          {/* Quick Links */}
-          <div className="space-y-6">
-            <h4 className="text-xl font-space font-semibold text-cyan-400 mb-4 tracking-wider">
-              QUICK LINKS
-            </h4>
-            <div className="space-y-3">
-              {['hero', 'about', 'portfolio', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className="block text-white/70 hover:text-cyan-400 transition-colors duration-300 font-space capitalize tracking-wide"
-                >
-                  {section}
-                </button>
-              ))}
+            <div className="flex flex-col md:flex-row gap-12 md:gap-24 reveal">
+              <div className="space-y-6">
+                <h4 className="text-white/20 font-space text-[10px] uppercase tracking-widest">Sitemap</h4>
+                <nav className="flex flex-col gap-4">
+                  {['about', 'portfolio', 'contact'].map(link => (
+                    <button
+                      key={link}
+                      onClick={() => scrollToSection(link)}
+                      className="text-white/60 hover:text-white transition-all hover:translate-x-2 text-left font-space capitalize text-lg"
+                    >
+                      {link}
+                    </button>
+                  ))}
+                </nav>
+              </div>
+              <div className="space-y-6">
+                <h4 className="text-white/20 font-space text-[10px] uppercase tracking-widest">Socials</h4>
+                <nav className="flex flex-col gap-4">
+                  <a 
+                  className="text-white/60 hover:text-white transition-all hover:translate-x-2 font-space text-lg"
+                  href="https://www.linkedin.com/company/44fingers"
+                  >
+                      Linkedin
+                  </a>
+                </nav>
+              </div>
             </div>
           </div>
 
-          {/* Services */}
-          <div className="space-y-6">
-            <h4 className="text-xl font-space font-semibold text-magenta-400 mb-4 tracking-wider">
-              SERVICES
-            </h4>
-            <div className="space-y-3 text-white/70">
-              {[
-                'Web Development',
-                'Mobile Apps',
-                'AI Solutions',
-                'Blockchain',
-                'UI/UX Design',
-                'Digital Strategy'
-              ].map((service) => (
-                <div key={service} className="font-space tracking-wide hover:text-magenta-400 transition-colors duration-300">
-                  {service}
+          {/* Right: Contact Card */}
+          <div className="reveal w-full lg:max-w-md ml-auto">
+            <div className="group relative p-1 bg-gradient-to-br from-white/10 to-white/0 rounded-[2.5rem] overflow-hidden transition-all duration-700 hover:rotate-[-1deg] hover:scale-[1.02]">
+              <div className="bg-black/80 backdrop-blur-2xl p-10 py-12 rounded-[2.4rem] space-y-10">
+                <div className="space-y-4">
+                  <h4 className="text-3xl font-space font-bold text-white">Start a project</h4>
+                  <p className="text-white/40 font-space text-sm leading-relaxed">
+                    Have an idea that needs to scale? We're ready to build the infrastructure you need.
+                  </p>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Social Links */}
-          <div className="space-y-6">
-            <h4 className="text-xl font-space font-semibold text-yellow-400 mb-4 tracking-wider">
-              CONNECT
-            </h4>
-            <div className="flex space-x-6">
-              {[
-                {
-                  name: 'LinkedIn',
-                  icon: <FaLinkedin className="text-[#0A66C2]" />,
-                  url: 'https://www.linkedin.com/company/44fingers'
-                },
-                {
-                  name: 'Facebook',
-                  icon: <FaFacebook className="text-[#1877F2]" />,
-                  url: 'https://facebook.com'
-                },
-                {
-                  name: 'Instagram',
-                  icon: (
-                    <div className="w-8 h-8 flex items-center justify-center rounded-lg"
-                      style={{
-                        background: "linear-gradient(45deg, #F58529, #FEDA77, #DD2A7B, #8134AF, #515BD4)"
-                      }}>
-                      <FaInstagram className="text-white" />
+                <div className="space-y-14">
+                  <a
+                    href="mailto:hello@44fingers.tech"
+                    className="flex items-center justify-between p-6 bg-white text-black rounded-2xl font-space font-black tracking-widest uppercase text-sm hover:bg-purple-500 hover:text-white transition-all"
+                  >
+                    Get in touch <ArrowUpRight className="w-5 h-5" />
+                  </a>
+
+                  <div className="flex items-center gap-6 px-2 text-white/40">
+                    <div className="flex items-center gap-2 group/icon">
+                      <Mail className="w-4 h-4 text-purple-500" />
+                      <span className="text-[10px] font-space group-hover/icon:text-white transition-colors">hello@44fingers.tech</span>
                     </div>
-                  ),
-                  url: 'https://www.instagram.com/44fingers.it/'
-                }
-              ].map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-3xl transition-all duration-300 transform hover:scale-125"
-                  aria-label={social.name}
-                >
-                  {social.icon}
-                </a>
-              ))}
-            </div>
-
-            <div className="mt-8 p-4 rounded-lg border border-cyan-400/30 bg-cyan-400/5">
-              <p className="text-sm text-white/60 font-space leading-relaxed">
-                Ready to electrify your business? Let's create something that sparks innovation.
-              </p>
+                    <div className="flex items-center gap-2 group/icon">
+                      <MapPin className="w-4 h-4 text-pink-500" />
+                      <span className="text-[10px] font-space group-hover/icon:text-white transition-colors">New York, NY</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
 
-        {/* CTA Section (Motivational phrase) */}
-        <div className="mt-10 text-center">
-          <h3 className="text-2xl md:text-3xl font-space font-bold text-cyan-400 mb-4">
-            Let’s Build the Future Together 🚀
-          </h3>
-          <p className="text-white/70 font-space max-w-2xl mx-auto leading-relaxed">
-            Partner with <span className="text-magenta-400">44 FINGERS</span> and take your business
-            beyond limits — innovative solutions, bold ideas, and results that stand out.
-          </p>
-          <button
-            onClick={() => scrollToSection('contact')}
-            className="mt-6 px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-magenta-500 
-                      text-white font-space font-semibold shadow-lg hover:scale-105 
-                      transition-all duration-300"
-          >
-            Start Collaboration
-          </button>
-        </div>
+        {/* Branding Footer Bottom */}
+        <div className="mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-10">
+          <div className="text-[10px] font-space font-medium text-white/20 uppercase tracking-[0.5em]">
+            © 2026 44FINGERS — ALL RIGHTS DIGITALIZED
+          </div>
 
-        {/* Copyright */}
-        <div className="mt-10 border-t border-cyan-400/20 pt-8 text-center">
-          <p className="text-white/70 font-space text-sm tracking-wider">
-            © 2026 44 FINGERS. All rights electrified.
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500">
-              ⚡
-            </span>
-          </p>
-          <p className="text-white/30 font-space text-xs mt-2">
-            Powered by innovation, driven by excellence.
-          </p>
+          <div className="flex gap-10">
+            {['Terms', 'Privacy', 'Legal'].map(p => (
+              <a key={p} href="#" className="text-[10px] font-space font-medium text-white/10 hover:text-white/40 transition-colors uppercase tracking-[0.5em]">{p}</a>
+            ))}
+          </div>
         </div>
       </div>
-
-      {/* Electrified Floating particles */}
-      <div className="absolute top-32 left-16 w-3 h-3 rounded-full floating-particle opacity-60"
-        style={{ background: 'radial-gradient(circle, #00ffff 0%, transparent 70%)', filter: 'blur(1px)' }} />
-      <div className="absolute bottom-32 right-24 w-4 h-4 rounded-full floating-particle opacity-50"
-        style={{ background: 'radial-gradient(circle, #ff00ff 0%, transparent 70%)', filter: 'blur(1px)' }} />
-      <div className="absolute top-2/3 left-1/3 w-2 h-2 rounded-full floating-particle opacity-70"
-        style={{ background: 'radial-gradient(circle, #ffff00 0%, transparent 70%)', filter: 'blur(1px)' }} />
-      <div className="absolute top-1/4 right-1/3 w-5 h-5 rounded-full floating-particle opacity-40"
-        style={{ background: 'radial-gradient(circle, #00ff00 0%, transparent 70%)', filter: 'blur(2px)' }} />
-      <div className="absolute bottom-1/4 left-2/3 w-3 h-3 rounded-full floating-particle opacity-55"
-        style={{ background: 'radial-gradient(circle, #ff6600 0%, transparent 70%)', filter: 'blur(1px)' }} />
     </footer>
   );
 };
