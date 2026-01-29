@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, Users, Clock, Code, AlertCircle, ArrowUpRight, X, ChevronLeft, ChevronRight, Smartphone, Cpu, Zap, Brain, Bitcoin } from 'lucide-react';
 import AnimatedBackground from '../AnimatedBackground';
+import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,13 +23,13 @@ const portfolioData = {
       problems: ['Delivery tracking accuracy in rural areas', 'Product search latency with large datasets', 'User Engagement and retention rates'],
       tech: ['Flutter', 'Firebase', 'Node.js', 'Google Maps API'],
       gradients: [
-        'from-[#0F766E] via-[#020617] to-[#020617]',
-        'from-[#134E4A] via-[#020617] to-[#020617]',
-        'from-[#0D9488] via-[#020617] to-[#020617]',
-        'from-[#14B8A6] via-[#020617] to-[#020617]',
-        'from-[#2DD4BF] via-[#020617] to-[#020617]',
-        'from-[#5EEAD4] via-[#020617] to-[#020617]',
-        'from-[#99F6E4] via-[#020617] to-[#020617]'
+        'from-[#3D1F66] via-[#020617] to-[#020617]',
+        'from-[#4A2566] via-[#020617] to-[#020617]',
+        'from-[#552A8E] via-[#020617] to-[#020617]',
+        'from-[#6B3BA3] via-[#020617] to-[#020617]',
+        'from-[#7D4DB8] via-[#020617] to-[#020617]',
+        'from-[#8F5FCD] via-[#020617] to-[#020617]',
+        'from-[#A171E2] via-[#020617] to-[#020617]'
       ],
       link: 'https://apps.apple.com/us/app/tosim/id1517805115'
     },
@@ -43,13 +45,13 @@ const portfolioData = {
       problems: ['Integrating high-resolution 3D virtual tours', 'Aggregating real-time market data from multiple sources', 'Secure document handling for digital contracts', 'Ensuring accurate location-based search results'],
       tech: ['Flutter', 'Dart', 'WebRTC', 'Spring Boot'],
       gradients: [
-        'from-[#4338CA] via-[#020617] to-[#020617]',
-        'from-[#4F46E5] via-[#020617] to-[#020617]',
-        'from-[#6366F1] via-[#020617] to-[#020617]',
-        'from-[#818CF8] via-[#020617] to-[#020617]',
-        'from-[#A5B4FC] via-[#020617] to-[#020617]',
-        'from-[#C7D2FE] via-[#020617] to-[#020617]',
-        'from-[#E0E7FF] via-[#020617] to-[#020617]'
+        'from-[#5A7A0A] via-[#020617] to-[#020617]',
+        'from-[#6B8F0B] via-[#020617] to-[#020617]',
+        'from-[#7CA50C] via-[#020617] to-[#020617]',
+        'from-[#9EC90D] via-[#020617] to-[#020617]',
+        'from-[#B0D91E] via-[#020617] to-[#020617]',
+        'from-[#C2E92F] via-[#020617] to-[#020617]',
+        'from-[#D4F940] via-[#020617] to-[#020617]'
       ],
       link: 'https://blagodeveloper.com/'
     },
@@ -65,13 +67,13 @@ const portfolioData = {
       problems: ['Real-time Transaction Processing', 'Multi-factor Security Implementation', 'Legacy System Migration', 'User Authentication Scalability'],
       tech: ['Swift', 'Kotlin', 'Blockchain', 'AWS'],
       gradients: [
-        'from-[#1D4ED8] via-[#020617] to-[#020617]',
-        'from-[#2563EB] via-[#020617] to-[#020617]',
-        'from-[#3B82F6] via-[#020617] to-[#020617]',
-        'from-[#60A5FA] via-[#020617] to-[#020617]',
-        'from-[#93C5FD] via-[#020617] to-[#020617]',
-        'from-[#BFDBFE] via-[#020617] to-[#020617]',
-        'from-[#DBEAFE] via-[#020617] to-[#020617]'
+        'from-[#4A4B93] via-[#020617] to-[#020617]',
+        'from-[#5455A3] via-[#020617] to-[#020617]',
+        'from-[#5E5FB3] via-[#020617] to-[#020617]',
+        'from-[#696AD3] via-[#020617] to-[#020617]',
+        'from-[#7A7BD8] via-[#020617] to-[#020617]',
+        'from-[#8B8CDD] via-[#020617] to-[#020617]',
+        'from-[#9C9DE2] via-[#020617] to-[#020617]'
       ],
       link: 'https://apps.apple.com/us/app/sense-superapp-online-bank-ua/id1494135206'
     },
@@ -87,12 +89,12 @@ const portfolioData = {
       problems: ['Centralized database for multi-agency listings', 'Automated lead assignment and tracking', 'Seamless integration with external real estate portals', 'Real-time property demand analytics'],
       tech: ['Flutter', 'Python', 'Maps API', 'Stripe'],
       gradients: [
-        'from-[#B45309] via-[#020617] to-[#020617]',
-        'from-[#D97706] via-[#020617] to-[#020617]',
-        'from-[#F59E0B] via-[#020617] to-[#020617]',
-        'from-[#FBBF24] via-[#020617] to-[#020617]',
-        'from-[#FCD34D] via-[#020617] to-[#020617]',
-        'from-[#FDE68A] via-[#020617] to-[#020617]'
+        'from-[#8F5A3A] via-[#020617] to-[#020617]',
+        'from-[#A36643] via-[#020617] to-[#020617]',
+        'from-[#B7724C] via-[#020617] to-[#020617]',
+        'from-[#D37D53] via-[#020617] to-[#020617]',
+        'from-[#E08F65] via-[#020617] to-[#020617]',
+        'from-[#EDA177] via-[#020617] to-[#020617]'
       ],
       link: 'https://4real.global/'
     },
@@ -108,12 +110,12 @@ const portfolioData = {
       problems: ['Contactless Pump Activation', 'Loyalty System Integration', 'Real-time price synchronization', 'Offline mode support'],
       tech: ['React Native', 'Python', 'Websockets', 'IoT'],
       gradients: [
-        'from-[#047857] via-[#020617] to-[#020617]',
-        'from-[#059669] via-[#020617] to-[#020617]',
-        'from-[#10B981] via-[#020617] to-[#020617]',
-        'from-[#34D399] via-[#020617] to-[#020617]',
-        'from-[#6EE7B7] via-[#020617] to-[#020617]',
-        'from-[#A7F3D0] via-[#020617] to-[#020617]'
+        'from-[#2F3033] via-[#020617] to-[#020617]',
+        'from-[#37383B] via-[#020617] to-[#020617]',
+        'from-[#3F4043] via-[#020617] to-[#020617]',
+        'from-[#4F5054] via-[#020617] to-[#020617]',
+        'from-[#5F6064] via-[#020617] to-[#020617]',
+        'from-[#6F7074] via-[#020617] to-[#020617]'
       ],
       link: 'https://apps.apple.com/us/app/ukrnafta/id6449353231'
     },
@@ -129,12 +131,12 @@ const portfolioData = {
       problems: ['High-speed Transaction Processing', 'PCI DSS Compliance', 'Fraud Prevention Algorithms', 'Cross-platform consistency'],
       tech: ['Flutter', 'Node.js', 'MongoDB', 'Redis'],
       gradients: [
-        'from-[#7E22CE] via-[#020617] to-[#020617]',
-        'from-[#9333EA] via-[#020617] to-[#020617]',
-        'from-[#A855F7] via-[#020617] to-[#020617]',
-        'from-[#C084FC] via-[#020617] to-[#020617]',
-        'from-[#D8B4FE] via-[#020617] to-[#020617]',
-        'from-[#E9D5FF] via-[#020617] to-[#020617]'
+        'from-[#3A6F97] via-[#020617] to-[#020617]',
+        'from-[#417AA3] via-[#020617] to-[#020617]',
+        'from-[#4885AF] via-[#020617] to-[#020617]',
+        'from-[#59A7D9] via-[#020617] to-[#020617]',
+        'from-[#6AB3DD] via-[#020617] to-[#020617]',
+        'from-[#7BBFE1] via-[#020617] to-[#020617]'
       ],
       link: 'https://apps.apple.com/us/app/portmone-payment-systems/id587804458'
     }
@@ -263,7 +265,6 @@ interface PortfolioSectionProps {
 }
 
 const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onClose: () => void, onWantSameClick: () => void }) => {
-  const modalRef = useRef<HTMLDivElement>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -271,21 +272,10 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
       if (e.key === 'Escape') onClose();
     };
     window.addEventListener('keydown', handleEsc);
-
-    // Prevent body scroll - stricter for mobile
     document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
-
-    // Animate in
-    gsap.fromTo(modalRef.current,
-      { opacity: 0, scale: 0.95 },
-      { opacity: 1, scale: 1, duration: 0.3, ease: 'power3.out' }
-    );
-
     return () => {
       window.removeEventListener('keydown', handleEsc);
       document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
     };
   }, [onClose]);
 
@@ -300,330 +290,330 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
   };
 
   return createPortal(
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 md:p-8 bg-black/90 backdrop-blur-sm" onClick={onClose}>
-      <div
-        ref={modalRef}
-        className="bg-gray-900 w-full h-full md:h-auto md:max-w-6xl md:max-h-[90vh] md:rounded-3xl overflow-y-auto md:overflow-hidden shadow-2xl flex flex-col md:flex-row border-none md:border border-white/10"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center md:p-12 p-4"
+      onClick={onClose}
+    >
+      {/* Rich Atmospheric Backdrop */}
+      <div className="absolute inset-0 overflow-hidden bg-[#020202]">
+        <div className={`absolute inset-0 bg-gradient-to-br ${project.gradients[currentImageIndex % project.gradients.length]} opacity-20 blur-[120px]`} />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.15] mix-blend-overlay" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0)_0%,rgba(0,0,0,1)_100%)]" />
+      </div>
+
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{
+          y: 0,
+          opacity: 1,
+          transition: { type: "spring", damping: 25, stiffness: 300 }
+        }}
+        exit={{ y: 50, opacity: 0 }}
+        className="relative w-full h-full md:max-w-7xl md:h-[800px] bg-black/40 backdrop-blur-3xl md:rounded-[48px] overflow-hidden flex flex-col md:flex-row border border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Left Side: Image Slider */}
-        <div className={`w-full md:w-1/2 h-[25vh] md:h-auto relative bg-gradient-to-br ${project.gradients[currentImageIndex]} group flex-shrink-0 overflow-hidden transition-all duration-700`}>
-          <img
-            src={project.images[currentImageIndex]}
-            alt={`${project.name} screenshot ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover object-center transition-all duration-500"
-            style={{ transform: 'scale(0.83)', transformOrigin: 'center center' }}
-          />
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-6 right-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 backdrop-blur-xl border border-white/10 text-white/50 hover:text-white hover:bg-white/20 transition-all duration-300 group"
+        >
+          <X className="w-6 h-6 transition-transform group-hover:rotate-90" />
+        </button>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-
-          {/* Close Button Mobile Overlay */}
-          <button
-            onClick={onClose}
-            className="md:hidden absolute top-4 right-4 p-2 bg-black/50 backdrop-blur-md rounded-full text-white z-50 border border-white/10"
-          >
-            <X className="w-5 h-5" />
-          </button>
-
-          {/* Slider Controls - Smaller on mobile */}
-          <button
-            onClick={prevImage}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 p-1.5 md:p-2 rounded-full glass hover:bg-white/20 transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100"
-          >
-            <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-white" />
-          </button>
-          <button
-            onClick={nextImage}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-1.5 md:p-2 rounded-full glass hover:bg-white/20 transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100"
-          >
-            <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-white" />
-          </button>
-
-          {/* Dots */}
-          <div className="absolute bottom-3 md:bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-            {project.images.map((_: any, idx: number) => (
-              <div
-                key={idx}
-                className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-neon-blue w-3 md:w-4' : 'bg-white/50'}`}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* Right Side: Info */}
-        <div className="w-full md:w-1/2 p-5 md:p-10 flex flex-col overflow-y-auto bg-gray-900 h-[75vh] md:h-full">
-          <div className="flex justify-between items-start mb-4 md:mb-6">
-            <div>
-              <h2 className="text-xl md:text-3xl font-space font-bold text-white mb-2">{project.name}</h2>
-              <div className="flex flex-wrap gap-1.5 md:gap-2">
-                {project.tech.map((t: string, i: number) => (
-                  <span key={i} className="text-[9px] md:text-[10px] uppercase tracking-wider font-space px-1.5 py-0.5 md:px-2 md:py-1 rounded bg-white/5 text-neon-blue border border-neon-blue/20">
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <button onClick={onClose} className="hidden md:block p-2 hover:bg-white/10 rounded-full transition-colors">
-              <X className="w-6 h-6 text-white/70" />
-            </button>
+        {/* LEFT: VISUAL STAGE (MAXIMIZED) */}
+        <div
+          className="w-full md:w-[70%] h-[40vh] md:h-full relative flex items-center justify-center overflow-hidden bg-black/10 cursor-pointer"
+          onClick={nextImage}
+        >
+          {/* Rich Mesh Gradient Backdrop */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className={`absolute inset-0 bg-gradient-to-br ${project.gradients[currentImageIndex % project.gradients.length]} opacity-60`} />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-soft-light" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.1)_0%,transparent_70%)]" />
           </div>
 
-          <div className="space-y-8 flex-grow">
-            <div>
-              <h3 className="text-sm font-space font-semibold text-white/50 uppercase tracking-widest mb-3">About Project</h3>
-              <p className="text-white/80 font-space font-light leading-relaxed mb-4">
-                {project.detail_description}
-              </p>
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-neon-blue hover:text-cyan-300 transition-colors font-space text-sm font-medium border-b border-neon-blue/0 hover:border-neon-blue/50 pb-0.5"
-                >
-                  Check ready product <ExternalLink className="w-4 h-4" />
-                </a>
-              )}
-            </div>
+          <AnimatePresence mode="popLayout">
+            <motion.img
+              key={currentImageIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
+              src={project.images[currentImageIndex]}
+              alt={project.name}
+              className="relative w-full h-full object-contain z-10 will-change-transform brightness-[1.05] contrast-[1.05]"
+              style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))' }}
+            />
+          </AnimatePresence>
 
-            <div className="grid grid-cols-2 gap-3 md:gap-6">
-              <div className="p-2 md:p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex items-center gap-2 md:gap-3 mb-1 md:mb-2">
-                  <Clock className="w-3 h-3 md:w-5 md:h-5 text-purple-400" />
-                  <span className="text-[10px] md:text-sm font-space text-white/60">Duration</span>
-                </div>
-                <p className="text-sm md:text-xl font-space font-bold text-white">{project.duration}</p>
-              </div>
-              <div className="p-2 md:p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex items-center gap-2 md:gap-3 mb-1 md:mb-2">
-                  <Users className="w-3 h-3 md:w-5 md:h-5 text-pink-400" />
-                  <span className="text-[10px] md:text-sm font-space text-white/60">Team</span>
-                </div>
-                <p className="text-sm md:text-xl font-space font-bold text-white">{project.teamSize} <span className="hidden md:inline">Specialists</span><span className="md:hidden">People</span></p>
-              </div>
+          {/* Nav Dots */}
+          {project.images.length > 1 && (
+            <div className="absolute bottom-10 flex gap-3 z-40" onClick={(e) => e.stopPropagation()}>
+              {project.images.map((_: any, idx: number) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentImageIndex(idx)}
+                  className={`h-1 rounded-full transition-all duration-500 ${idx === currentImageIndex ? 'w-10 bg-white' : 'w-2 bg-white/30 hover:bg-white/50'}`}
+                />
+              ))}
             </div>
+          )}
 
-            <div>
-              <h3 className="text-sm font-space font-semibold text-white/50 uppercase tracking-widest mb-3">Solved Challenges</h3>
-              <ul className="space-y-3">
-                {project.problems.map((problem: string, idx: number) => (
-                  <li key={idx} className="flex items-start gap-3 text-white/80 font-space font-light text-sm">
-                    <AlertCircle className="w-4 h-4 text-neon-blue mt-0.5 flex-shrink-0" />
-                    {problem}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-white/10">
+          {/* Navigation Arrows */}
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-4 md:px-8 flex justify-between pointer-events-none z-50">
             <button
-              onClick={() => {
-                onClose();
-                onWantSameClick();
-              }}
-              className="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-space font-bold rounded-xl text-sm tracking-widest uppercase transition-all duration-300 shadow-lg shadow-cyan-900/20 hover:scale-[1.02] flex items-center justify-center gap-2"
+              onClick={prevImage}
+              className="pointer-events-auto p-4 rounded-full bg-black/40 backdrop-blur-xl border border-white/10 text-white/50 hover:text-white hover:bg-white/10 transition-all active:scale-90"
             >
-              Start Similar Project <ExternalLink className="w-4 h-4" />
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={nextImage}
+              className="pointer-events-auto p-4 rounded-full bg-black/40 backdrop-blur-xl border border-white/10 text-white/50 hover:text-white hover:bg-white/10 transition-all active:scale-90"
+            >
+              <ChevronRight className="w-6 h-6" />
             </button>
           </div>
         </div>
-      </div>
-    </div>,
+
+        {/* RIGHT: CONTENT ZONE */}
+        <div className="w-full md:w-[30%] flex flex-col h-[60vh] md:h-full relative bg-[#080808]/60 backdrop-blur-3xl border-l border-white/5">
+          <div className="flex-1 overflow-y-auto px-8 md:px-14 py-12 custom-scrollbar">
+            <div className="space-y-10">
+              {/* Header */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="px-2 py-1 rounded-md border border-indigo-500/30 bg-indigo-500/10 text-[9px] font-black text-indigo-400 uppercase tracking-widest">Archive_Entry_{project.id}</div>
+                  <div className="flex-1 h-px bg-white/10" />
+                </div>
+                <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter leading-[0.85]">
+                  {project.name.toUpperCase()}
+                </h2>
+              </div>
+
+              {/* Description */}
+              <div className="space-y-4">
+                <span className="text-[10px] font-black uppercase text-white/30 tracking-[0.4em]">Context</span>
+                <p className="text-lg font-light text-white/60 leading-relaxed">
+                  {project.detail_description}
+                </p>
+              </div>
+
+              {/* Challenges */}
+              {project.problems && (
+                <div className="space-y-6">
+                  <div className="flex items-center gap-2 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">
+                    <AlertCircle className="w-3 h-3 text-indigo-500" />
+                    <span>Obstacles</span>
+                  </div>
+                  <div className="grid gap-3">
+                    {project.problems.map((prob: string, i: number) => (
+                      <div key={i} className="flex gap-4 p-5 rounded-3xl bg-white/[0.03] border border-white/5 hover:border-white/20 transition-colors">
+                        <div className="text-indigo-500 font-mono text-[10px]">0{i + 1}</div>
+                        <p className="text-sm text-white/50 leading-snug">{prob}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Tech Stack */}
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">
+                  <Code className="w-3 h-3 text-indigo-500" />
+                  <span>Architecture</span>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.map((t: string, i: number) => (
+                    <span key={i} className="px-5 py-3 rounded-2xl text-[10px] font-mono font-bold text-white/60 bg-white/5 border border-white/5 uppercase hover:bg-white/10 transition-colors">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Stats Grid */}
+              <div className="grid grid-cols-2 gap-px bg-white/10 rounded-3xl overflow-hidden border border-white/5">
+                <div className="bg-black/40 p-6 flex flex-col gap-2">
+                  <span className="text-[9px] text-white/20 uppercase tracking-widest font-black">Timeline</span>
+                  <div className="flex items-center gap-3 font-bold text-white text-sm uppercase">
+                    <Clock className="w-4 h-4 text-indigo-500" />
+                    {project.duration}
+                  </div>
+                </div>
+                <div className="bg-black/40 p-6 flex flex-col gap-2">
+                  <span className="text-[9px] text-white/20 uppercase tracking-widest font-black">Scale</span>
+                  <div className="flex items-center gap-3 font-bold text-white text-sm uppercase">
+                    <Users className="w-4 h-4 text-indigo-500" />
+                    {project.teamSize} Head
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="p-8 md:p-14 bg-gradient-to-t from-[#080808] via-[#080808]/90 to-transparent pt-16">
+            <button
+              onClick={() => { onClose(); onWantSameClick(); }}
+              className="group relative w-full py-7 bg-white rounded-[24px] overflow-hidden transition-all active:scale-[0.97]"
+            >
+              <div className="absolute inset-0 bg-indigo-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-expo" />
+              <span className="relative z-10 flex items-center justify-center gap-4 text-black font-black uppercase text-xs tracking-[0.2em] group-hover:text-white transition-colors duration-500">
+                Initiate Project <ArrowUpRight className="w-5 h-5" />
+              </span>
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>,
     document.body
   );
 };
 
-const ProjectCard = ({ project, onClick }: { project: any, onClick: () => void }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
 
-  const handleMouseEnter = () => {
-    if (!imageRef.current) return;
-    gsap.to(imageRef.current, { scale: 1.1, duration: 0.8, ease: 'power2.out' });
-  };
-
-  const handleMouseLeave = () => {
-    if (!imageRef.current) return;
-    gsap.to(imageRef.current, { scale: 1, duration: 0.8, ease: 'power2.out' });
-  };
-
+const ProjectCard = ({ project, onClick, onMouseEnter, onMouseLeave, className }: { project: any, onClick: () => void, onMouseEnter?: () => void, onMouseLeave?: () => void, className?: string }) => {
   return (
-    <div
-      ref={cardRef}
-      className="group relative w-full h-[400px] rounded-2xl overflow-hidden cursor-pointer"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      className={`group relative overflow-hidden rounded-[40px] cursor-pointer border border-white/5 bg-[#050505] portfolio-item will-change-transform ${className}`}
       onClick={onClick}
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${project.gradients[0]} overflow-hidden`}>
+      {/* Rich Mesh Card Backdrop */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className={`absolute inset-0 bg-gradient-to-br ${project.gradients[0]} opacity-[0.25] transition-opacity duration-700`} />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.1] mix-blend-overlay" />
+      </div>
+
+      {/* Content Meta */}
+      <div className="absolute top-6 left-6 z-20">
+        <span className="px-3 py-1.5 rounded-full border border-white/10 bg-black/20 backdrop-blur-md text-[9px] font-black uppercase tracking-widest text-white/50 group-hover:text-white transition-colors">
+          Entry {project.id}
+        </span>
+      </div>
+
+      {/* Main Visual - Full Cover */}
+      <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[1200ms] ease-[0.22,1,0.36,1]">
         <img
-          ref={imageRef}
           src={project.image}
           alt={project.name}
-          className="w-full h-full object-cover object-center opacity-80 transition-opacity duration-500"
+          className="w-full h-full object-cover pointer-events-none"
         />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-
-      {/* Icon top right */}
-      <div className="absolute top-4 right-4 p-2 rounded-full glass border border-white/10 group-hover:bg-white/10 transition-colors opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 duration-300">
-        <ArrowUpRight className="w-5 h-5 text-white" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 group-hover:opacity-40 transition-opacity" />
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-gray-950 via-gray-900/80 to-transparent pt-12">
-        <div className="transform transition-transform duration-300 ease-out group-hover:-translate-y-1">
-          <h3 className="text-2xl font-space font-bold text-white mb-2 leading-tight drop-shadow-md">
+      {/* Info Strip */}
+      <div className="absolute inset-x-0 bottom-0 p-8 md:p-10 bg-gradient-to-t from-black via-black/80 to-transparent z-10">
+        <div className="relative z-10 space-y-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-px bg-indigo-500" />
+            <span className="text-[10px] font-black text-indigo-500/80 uppercase tracking-[0.3em]">{project.tech[0]}</span>
+          </div>
+          <h3 className="text-3xl md:text-4xl font-black text-white tracking-tighter leading-none">
             {project.name}
           </h3>
-          <p className="text-white/90 font-space font-light text-sm line-clamp-2 drop-shadow-sm">
-            {project.description}
-          </p>
         </div>
       </div>
-    </div>
+
+      <div className="absolute top-6 right-6 p-3 rounded-full bg-white/10 backdrop-blur-md border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
+        <ArrowUpRight className="w-5 h-5 text-white" />
+      </div>
+    </motion.div>
   );
 };
 
 const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLDivElement>(null);
-  const filtersRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  // const [activeFilter, setActiveFilter] = useState<keyof typeof portfolioData>('Web');
-  const activeFilter: keyof typeof portfolioData = 'Mobile'; // Always show Mobile cards
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  const activeFilter: keyof typeof portfolioData = 'Mobile';
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
-  // const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const title = titleRef.current;
-    if (!section || !title) return;
-
-    // Ensure visible by default to prevent "sometimes not displayed" issue
-    gsap.set(title, { opacity: 1, y: 0 });
-
-    // Only hide and animate if the section is comfortably below the viewport
-    const rect = section.getBoundingClientRect();
-    const isBelowViewport = rect.top > window.innerHeight * 0.8;
-
-    if (isBelowViewport) {
-      gsap.set(title, { opacity: 0, y: 50 });
-    }
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top 80%',
-        toggleActions: 'play none none reverse'
-      }
-    });
-
-    tl.to(title, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: 'power3.out'
-    });
-
-    // Final safety fallback: ensure visibility after 2 seconds regardless of scroll
-    const fallbackTimeout = setTimeout(() => {
-      if (title && window.getComputedStyle(title).opacity === '0') {
-        gsap.to(title, { opacity: 1, y: 0, duration: 0.5 });
-      }
-    }, 2000);
-
-    return () => {
-      clearTimeout(fallbackTimeout);
-      ScrollTrigger.getAll().filter(st => st.vars.trigger === section).forEach(st => st.kill());
-    };
-  }, []);
+  const [hoveredProject, setHoveredProject] = useState<any | null>(null);
 
   useLayoutEffect(() => {
-    if (!gridRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(gridRef.current!.children,
-        { opacity: 0, y: 30, scale: 0.95 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'back.out(1.2)'
+    let ctx = gsap.context(() => {
+      // Backdrop Parallax (Simple and smooth)
+      gsap.to(marqueeRef.current, {
+        yPercent: -20,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1
         }
-      );
-    }, gridRef);
-    return () => ctx.revert();
-  }, []); // Removed activeFilter dependency since filtering is disabled
+      });
+    }, sectionRef);
 
-  // Filtering functionality commented out - only showing Mobile cards
-  // const handleFilterChange = (filter: keyof typeof portfolioData) => {
-  //   if (activeFilter === filter || isAnimating) return;
-  //   setActiveFilter(filter);
-  // };
+    return () => ctx.revert();
+  }, []);
+
+  // Bento Spanning Logic for 3-column grid
+  const getBentoClass = (index: number) => {
+    const base = "h-[450px]";
+    switch (index) {
+      case 0: return `${base} lg:col-span-2 lg:h-[500px]`;
+      case 1: return `${base} lg:col-span-1 lg:row-span-2 lg:h-full`;
+      case 2: return `${base} lg:col-span-1 lg:h-[500px]`;
+      case 3: return `${base} lg:col-span-1 lg:h-[500px]`;
+      case 4: return `${base} lg:col-span-1 lg:h-[500px]`;
+      case 5: return `${base} lg:col-span-2 lg:h-[500px]`;
+      default: return `${base} lg:col-span-1 lg:h-[500px]`;
+    }
+  };
+
+  const activeGrad = hoveredProject?.gradients[0] || (selectedProject?.gradients[0] || 'from-indigo-600 to-purple-800');
 
   return (
     <section
       id="portfolio"
       ref={sectionRef}
-      className="section-gray min-h-screen relative overflow-hidden py-20 px-4 md:px-8 lg:px-16"
+      className="relative min-h-screen bg-[#020202] py-24 md:py-40 overflow-hidden"
     >
-      <AnimatedBackground variant="gray" />
+      {/* Original Minimal Background */}
+      <div className="absolute inset-0 pointer-events-none select-none opacity-[0.06]">
+        <div ref={marqueeRef} className="text-[23vw] font-black text-white leading-none whitespace-nowrap will-change-transform uppercase tracking-tighter">
+          PROJECTS
+        </div>
+      </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-20 right-0 w-1/3 h-1/3 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="max-w-[1400px] mx-auto relative z-10">
-        <div ref={titleRef} className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-6xl lg:text-7xl font-space font-bold text-white tracking-tight">
-            OUR <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-transparent bg-clip-text">WORK</span>
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+        <div className="max-w-4xl mb-24 md:mb-40">
+          <div className="flex items-center gap-6 mb-8 group">
+            <span className="text-indigo-500 font-mono text-xs tracking-[0.5em] font-black uppercase bg-indigo-500/5 px-4 py-1.5 rounded-full border border-indigo-500/10">Archive.v3</span>
+            <div className="flex-1 h-px bg-gradient-to-r from-indigo-500/50 to-transparent" />
+          </div>
+          <h2 className="text-7xl md:text-[10rem] font-black text-white tracking-[-0.04em] leading-[0.75] mb-12">
+            SELECT <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-400 via-purple-500 to-pink-500">SYSTEMS</span>
           </h2>
-          <p className="text-white/60 font-space font-light max-w-2xl mx-auto text-lg leading-relaxed">
-            Empowering global brands with future-ready mobile apps and intelligent automation.
+          <p className="text-2xl text-white/40 font-light max-w-xl leading-relaxed tracking-tight">
+            A high-performance manifest of digital engineering, architectural precision, and avant-garde mobile solutions.
           </p>
         </div>
 
-        {/* Filter buttons commented out - only showing Mobile cards */}
-        {/* <div ref={filtersRef} className="flex justify-center mb-10 md:mb-16 px-4 md:px-0 z-20 overflow-x-auto no-scrollbar mask-gradient-x w-full">
-          <div className="glass p-1 md:p-1.5 rounded-2xl flex flex-nowrap md:flex-wrap gap-1 md:gap-2 min-w-max mx-auto">
-            {Object.keys(portfolioData).map((filter) => (
-              <button
-                key={filter}
-                onClick={() => handleFilterChange(filter as keyof typeof portfolioData)}
-                className={`
-                  relative px-4 py-2 md:px-6 md:py-3 rounded-xl font-space text-xs md:text-sm font-medium tracking-wide transition-all duration-300 flex-shrink-0
-                  ${activeFilter === filter
-                    ? 'text-white shadow-[0_0_20px_rgba(56,189,248,0.3)]'
-                    : 'text-white/50 hover:text-white/80 hover:bg-white/5'}
-                `}
-              >
-                {activeFilter === filter && (
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl -z-10" />
-                )}
-                <span className="relative z-10 flex items-center gap-1.5 md:gap-2">
-                  {filter === 'Mobile' && <Smartphone className="w-3.5 h-3.5 md:w-4 md:h-4" />}
-                  {filter === 'Web' && <Code className="w-3.5 h-3.5 md:w-4 md:h-4" />}
-                  {filter === 'AI' && <Brain className="w-3.5 h-3.5 md:w-4 md:h-4" />}
-                {filter}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div> */}
-
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000">
-          {portfolioData[activeFilter].map((project) => (
+        {/* BENTO GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          {portfolioData[activeFilter].map((project, idx) => (
             <ProjectCard
               key={project.id}
               project={project}
+              className={getBentoClass(idx)}
               onClick={() => setSelectedProject(project)}
+              onMouseEnter={() => setHoveredProject(project)}
+              onMouseLeave={() => setHoveredProject(null)}
             />
           ))}
         </div>
+      </div>
 
+      <AnimatePresence>
         {selectedProject && (
           <ProjectModal
             project={selectedProject}
@@ -631,8 +621,7 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
             onWantSameClick={onWantSameClick}
           />
         )}
-
-      </div>
+      </AnimatePresence>
     </section>
   );
 };

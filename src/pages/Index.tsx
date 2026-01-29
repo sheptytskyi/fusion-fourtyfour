@@ -6,6 +6,7 @@ import AboutSection from '../components/sections/AboutSection';
 import PortfolioSection from '../components/sections/PortfolioSection';
 import ContactSection from '../components/sections/ContactSection';
 import FooterSection from '../components/sections/FooterSection';
+import GlobalBackground from '../components/GlobalBackground';
 import { useScrollLinkedAnimations } from '../hooks/useScrollLinkedAnimations';
 
 const Index = () => {
@@ -25,24 +26,17 @@ const Index = () => {
   };
 
   return (
-    <div className="relative">
-      {/* Main Content */}
-      <div className="h-screen overflow-y-scroll snap-y snap-mandatory">
-        {/* Cursor Glow Effect */}
-        <CursorGlow />
-        
-        {/* Navigation */}
-        <Navbar onContactClick={scrollToContact} />
-        
-        {/* Sections */}
-        <main>
-          <HeroSection onGrowWithUsClick={scrollToContact} />
-          <AboutSection />
-          <PortfolioSection onWantSameClick={scrollToContact} />
-          <ContactSection />
-          <FooterSection />
-        </main>
-      </div>
+    <div className="relative min-h-screen">
+      <GlobalBackground />
+      <CursorGlow />
+      <Navbar onContactClick={scrollToContact} />
+      <main>
+        <HeroSection onGrowWithUsClick={scrollToContact} />
+        <AboutSection />
+        <PortfolioSection onWantSameClick={scrollToContact} />
+        <ContactSection />
+        <FooterSection />
+      </main>
     </div>
   );
 };
