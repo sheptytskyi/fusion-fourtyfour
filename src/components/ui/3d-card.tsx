@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { gsap } from 'gsap';
 import React, {
     createContext,
     useState,
@@ -24,25 +25,41 @@ export const CardContainer = ({
 }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isMouseEntered, setIsMouseEntered] = useState(false);
+    const xSetter = useRef<any>(null);
+    const ySetter = useRef<any>(null);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+        xSetter.current = gsap.quickSetter(containerRef.current, "rotationY", "deg");
+        ySetter.current = gsap.quickSetter(containerRef.current, "rotationX", "deg");
+    }, []);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!containerRef.current) return;
+        if (!containerRef.current || !xSetter.current || !ySetter.current) return;
+        if (window.matchMedia('(pointer: coarse)').matches) return;
+
         const { left, top, width, height } =
             containerRef.current.getBoundingClientRect();
         const x = (e.clientX - left - width / 2) / 25;
         const y = (e.clientY - top - height / 2) / 25;
-        containerRef.current.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+
+        xSetter.current(x);
+        ySetter.current(-y);
     };
 
-    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleMouseEnter = () => {
         setIsMouseEntered(true);
-        if (!containerRef.current) return;
     };
 
-    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!containerRef.current) return;
+    const handleMouseLeave = () => {
+        if (!containerRef.current || !xSetter.current || !ySetter.current) return;
         setIsMouseEntered(false);
-        containerRef.current.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        gsap.to(containerRef.current, {
+            rotationY: 0,
+            rotationX: 0,
+            duration: 0.5,
+            ease: "power2.out"
+        });
     };
 
     return (

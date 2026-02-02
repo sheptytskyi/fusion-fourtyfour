@@ -114,11 +114,11 @@ const FooterSection = () => {
               <div className="space-y-6">
                 <h4 className="text-white/20 font-space text-[10px] uppercase tracking-widest">Socials</h4>
                 <nav className="flex flex-col gap-4">
-                  <a 
-                  className="text-white/60 hover:text-white transition-all hover:translate-x-2 font-space text-lg"
-                  href="https://www.linkedin.com/company/44fingers"
+                  <a
+                    className="text-white/60 hover:text-white transition-all hover:translate-x-2 font-space text-lg"
+                    href="https://www.linkedin.com/company/44fingers"
                   >
-                      Linkedin
+                    Linkedin
                   </a>
                 </nav>
               </div>
@@ -132,7 +132,7 @@ const FooterSection = () => {
                 <div className="space-y-4">
                   <h4 className="text-3xl font-space font-bold text-white">Start a project</h4>
                   <p className="text-white/40 font-space text-sm leading-relaxed">
-                    Have an idea that needs to scale? We're ready to build the infrastructure you need.
+                    Have an idea that needs to scale? We help companies <span className="text-white/60">reduce operational costs by 30%</span> with AI-powered mobile apps.
                   </p>
                 </div>
 

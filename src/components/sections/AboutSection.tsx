@@ -54,26 +54,27 @@ const AboutSection = () => {
 
       // 5. MOUSE REACTIVE HOVER (IMAGE ONLY)
       const imageContainer = imageContainerRef.current;
-      if (imageContainer) {
+      const isTouch = window.matchMedia('(pointer: coarse)').matches;
+
+      if (imageContainer && !isTouch) {
+        const xSetter = gsap.quickSetter(imageContainer, "rotationY", "deg");
+        const ySetter = gsap.quickSetter(imageContainer, "rotationX", "deg");
+        const sSetter = gsap.quickSetter(imageContainer, "scale");
+        const oXSetter = gsap.quickSetter(".image-hover-overlay", "x", "px");
+        const oYSetter = gsap.quickSetter(".image-hover-overlay", "y", "px");
+
         const handleMouseMove = (e: MouseEvent) => {
           const rect = imageContainer.getBoundingClientRect();
           const x = (e.clientX - rect.left) / rect.width - 0.5;
           const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-          gsap.to(imageContainer, {
-            rotateY: x * 30,
-            rotateX: -y * 30,
-            scale: 1.05,
-            duration: 0.8,
-            ease: "power2.out"
-          });
+          xSetter(x * 30);
+          ySetter(-y * 30);
+          sSetter(1.05);
 
-          gsap.to(".image-hover-overlay", {
-            opacity: 1,
-            x: x * 20,
-            y: y * 20,
-            duration: 0.8
-          });
+          gsap.to(".image-hover-overlay", { opacity: 1, duration: 0.4 });
+          oXSetter(x * 20);
+          oYSetter(y * 20);
         };
 
         const handleMouseLeave = () => {
@@ -82,7 +83,8 @@ const AboutSection = () => {
             rotateX: -5,
             scale: 1,
             duration: 1.2,
-            ease: "elastic.out(1, 0.3)"
+            ease: "elastic.out(1, 0.3)",
+            force3D: true
           });
 
           gsap.to(".image-hover-overlay", {
@@ -91,7 +93,7 @@ const AboutSection = () => {
           });
         };
 
-        imageContainer.addEventListener('mousemove', handleMouseMove);
+        imageContainer.addEventListener('mousemove', handleMouseMove, { passive: true });
         imageContainer.addEventListener('mouseleave', handleMouseLeave);
       }
 
@@ -127,7 +129,7 @@ const AboutSection = () => {
                 We care about clarity, honest communication, and results without buzzwords or unnecessary features.
               </p>
               <p className="text-lg md:text-xl font-space font-light text-white/40 leading-relaxed">
-                We are small, focused mobile team. We work with founders and companies to turn ideas into mobile apps that solve real problems and help the business grow.
+                44FINGERS is a focused mobile development team. We build <span className="text-white">mobile apps that don't die after launch</span>—scaling with your business and evolving through AI-driven insights.
               </p>
             </div>
 
