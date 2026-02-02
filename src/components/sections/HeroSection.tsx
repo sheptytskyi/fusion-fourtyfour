@@ -40,6 +40,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       gsap.to(image, {
         scale: 1.5,
         ease: "none",
+        force3D: true,
         scrollTrigger: {
           trigger: hero,
           start: "top top",
@@ -53,6 +54,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
         scale: 1.2,
         yPercent: -20,
         opacity: 0.02,
+        force3D: true,
         scrollTrigger: {
           trigger: hero,
           start: "top top",
@@ -65,6 +67,7 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
       gsap.to(content, {
         y: -100,
         opacity: 0,
+        force3D: true,
         scrollTrigger: {
           trigger: hero,
           start: "top top",
@@ -108,11 +111,12 @@ const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
               STAY AHEAD <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 italic">THE CURVE.</span>
             </h1>
+            <span className="sr-only">44fingers mobile development with AI powered solutions. Helping companies reduce operational costs by 30% with AI-powered mobile apps. Mobile apps that don’t die after launch.</span>
           </div>
 
           <div className="hero-reveal lg:pt-8 space-y-10">
             <p className="text-xl md:text-2xl font-space font-light text-white/40 leading-relaxed max-w-xl">
-              We architect elite mobile ecosystems and <span className="text-white">AI foundations</span> that redefine your market speed. Engineering for high-frequency growth.
+              We specialize in <span className="text-white">mobile development with AI-powered solutions</span>. Helping companies <span className="text-white">reduce operational costs by 30%</span> with intelligent ecosystems designed for high-frequency growth.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-8">

@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ExternalLink, Users, Clock, Code, AlertCircle, ArrowUpRight, X, ChevronLeft, ChevronRight, Smartphone, Cpu, Zap, Brain, Bitcoin } from 'lucide-react';
-import AnimatedBackground from '../AnimatedBackground';
 import { CardBody, CardContainer, CardItem } from "../ui/3d-card";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -140,124 +139,7 @@ const portfolioData = {
       ],
       link: 'https://apps.apple.com/us/app/portmone-payment-systems/id587804458'
     }
-  ],
-  // Web: [
-  //   {
-  //     id: 1,
-  //     name: 'E-Commerce Platform',
-  //     image: 'web/ecomerce.webp',
-  //     images: ['web/all/ecomerce.webp', 'web/all/ecomerce1.webp'],
-  //     description: 'Modern e-commerce solution with AI-powered recommendations',
-  //     detail_description: 'A highly scalable e-commerce platform built for high-volume retail. It features an AI-driven recommendation engine that personalizes the shopping experience for each user. The platform supports multi-vendor capabilities, advanced inventory management, and a customizable storefront theme engine.',
-  //     teamSize: 5,
-  //     duration: '4 months',
-  //     problems: ['Database Scalability during sales', 'Frontend Performance Optimization', 'Personalized User Experience', 'SEO Management'],
-  //     tech: ['React', 'Node.js', 'MongoDB', 'Elasticsearch']
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Banking Dashboard',
-  //     image: 'web/bank.webp',
-  //     images: ['web/all/bank.webp', 'web/all/bank2.webp'],
-  //     description: 'Secure financial management system with real-time analytics',
-  //     detail_description: 'A comprehensive web dashboard for corporate banking clients. It provides visualizations of cash flow, automated reporting, and role-based access control for team members. The interface is designed for high data density and quick decision-making, using real-time websockets for live updates.',
-  //     teamSize: 8,
-  //     duration: '6 months',
-  //     problems: ['Data Security & Encryption', 'Real-time Data Visualization', 'Regulatory Compliance Reporting', 'Complex Permission Systems'],
-  //     tech: ['Vue.js', 'Python', 'PostgreSQL', 'D3.js']
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'SaaS Analytics',
-  //     image: 'web/saas.webp',
-  //     images: ['web/all/saas.webp', 'web/all/saas1.webp', 'web/all/saas2.webp'],
-  //     description: 'Advanced analytics platform for business intelligence',
-  //     detail_description: 'A SaaS product that aggregates data from various marketing and sales channels into a unified view. It offers customizable widgets, automated insights generation, and exportable reports. The challenge was processing large volumes of data efficiently to provide near-instant feedback to the user.',
-  //     teamSize: 6,
-  //     duration: '5 months',
-  //     problems: ['Big Data Processing', 'Interactive Data Visualization', 'Query Performance', 'Multi-tenant Architecture'],
-  //     tech: ['Next.js', 'TypeScript', 'D3.js', 'ClickHouse']
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'CRM System',
-  //     image: 'web/crm.webp',
-  //     images: ['web/all/crm.webp', 'web/all/crm1.webp', 'web/all/crm2.webp'],
-  //     description: 'Complete customer relationship management solution',
-  //     detail_description: 'A bespoke CRM system designed for enterprise needs. It tracks customer interactions across email, phone, and chat. Features include lead scoring, automated follow-ups, and a visual sales pipeline. Integration with third-party tools like Slack and Gmail was a key requirement.',
-  //     teamSize: 7,
-  //     duration: '8 months',
-  //     problems: ['AI-driven Automation', 'Third-party API Integration', 'System Scalability', 'Data Consistency'],
-  //     tech: ['React', 'Django', 'PostgreSQL', 'Redis']
-  //   },
-  //   {
-  //     id: 5,
-  //     name: 'Learning Management',
-  //     image: 'web/edu.webp',
-  //     images: ['web/all/edu.webp', 'web/all/edu1.webp', 'web/all/edu2.webp', 'web/all/edu3.webp'],
-  //     description: 'Interactive learning platform with gamification',
-  //     detail_description: 'An engaging LMS used by educational institutions. It supports video courses, interactive quizzes, and peer-to-peer assignments. Gamification elements like badges, leaderboards, and streaks were implemented to increase student retention and engagement.',
-  //     teamSize: 5,
-  //     duration: '6 months',
-  //     problems: ['Student Engagement', 'Video Content Delivery', 'Progress Tracking Accuracy', 'Real-time Classrooms'],
-  //     tech: ['Vue.js', 'Laravel', 'MySQL', 'WebSockets']
-  //   },
-  //   {
-  //     id: 6,
-  //     name: 'Healthcare Portal',
-  //     image: 'web/health.webp',
-  //     images: ['web/all/health.webp', 'web/all/health1.webp', 'web/all/health2.webp'],
-  //     description: 'Secure patient management and telemedicine platform',
-  //     detail_description: 'A HIPAA-compliant portal facilitating secure communication between doctors and patients. It includes features for booking appointments, viewing medical records, and conducting video consultations. Great attention was paid to UI accessibility and data privacy.',
-  //     teamSize: 9,
-  //     duration: '10 months',
-  //     problems: ['HIPAA Compliance', 'Real-time Video Communication', 'Medical Data Security', 'Legacy EMR Integration'],
-  //     tech: ['React', 'Node.js', 'MongoDB', 'WebRTC']
-  //   }
-  // ],
-  // AI: [
-  //   {
-  //     id: 1,
-  //     name: 'SmartCV Analyzer',
-  //     image: 'ai/cv.webp',
-  //     images: ['ai/all/cv.webp', 'ai/all/cv1.webp', 'ai/all/cv3.webp'],
-  //     description: 'Automated CV screening and ranking system',
-  //     detail_description: 'An AI-powered tool that helps HR teams screen thousands of resumes in minutes. It uses Natural Language Processing to extract key skills and experiences, matching them against job descriptions to rank candidates. The system learns from recruiter feedback to improve over time.',
-  //     teamSize: 5,
-  //     duration: '4 months',
-  //     problems: ['Hiring speed', 'Candidate Filtering', 'Bias Reduction', 'Multilingual Support'],
-  //     tech: ['Python', 'Hugging Face', 'PyTorch', 'FastAPI']
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'VisionGuard',
-  //     image: 'ai/auto.webp',
-  //     images: ['ai/all/auto.webp', 'ai/all/auto1.webp', 'ai/all/auto2.webp'],
-  //     description: 'AI-powered process automation platform',
-  //     detail_description: 'An intelligent automation system that uses machine learning and computer vision to optimize and automate operational workflows. The platform automatically analyzes visual and data inputs, identifies inefficiencies, triggers automated actions, and provides real-time insights. This significantly reduces manual work, minimizes human errors, and increases overall business productivity.',
-  //     teamSize: 8,
-  //     duration: '6 months',
-  //     problems: [
-  //       'Automated Workflow Recognition',
-  //       'Data Accuracy & Noise Reduction',
-  //       'Scalable Model Deployment',
-  //       'Integration with Existing Systems'
-  //     ],
-  //     tech: ['Python', 'OpenCV', 'AWS', 'TensorFlow']
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'ChatDoc Assistant',
-  //     image: 'ai/chat.webp',
-  //     images: ['ai/all/chat.webp', 'ai/all/chat1.webp', 'ai/all/chat2.webp'],
-  //     description: 'AI chatbot for document understanding and query',
-  //     detail_description: 'An intelligent assistant that allows users to "chat" with their documents. Users can upload PDFs, Word docs, or text files and ask questions in natural language. The AI retrieves relevant sections and summarizes answers, making information retrieval from large archives instant.',
-  //     teamSize: 6,
-  //     duration: '5 months',
-  //     problems: ['Semantic Document Search', 'Context Window Limits', 'Hallucination Prevention', 'Multiple Format Support'],
-  //     tech: ['LangChain', 'FastAPI', 'OpenAI', 'Pinecone']
-  //   },
-  // ],
+  ]
 };
 
 interface PortfolioSectionProps {
@@ -343,7 +225,8 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
               exit={{ opacity: 0, scale: 1.05 }}
               transition={{ duration: 0.5, ease: [0.33, 1, 0.68, 1] }}
               src={project.images[currentImageIndex]}
-              alt={project.name}
+              alt={`${project.name} - Case Study by 44FINGERS`}
+              title={`${project.name} - Detailed View`}
               className="relative w-full h-full object-contain z-10 will-change-transform brightness-[1.05] contrast-[1.05]"
               style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))' }}
             />
@@ -503,7 +386,8 @@ const ProjectCard = ({ project, onClick, onMouseEnter, onMouseLeave, className }
       <div className="absolute inset-0 group-hover:scale-105 transition-transform duration-[1200ms] ease-[0.22,1,0.36,1]">
         <img
           src={project.image}
-          alt={project.name}
+          alt={`${project.name} - AI-Powered Mobile Development by 44FINGERS`}
+          title={`${project.name} - High-Performance Mobile Solution`}
           className="w-full h-full object-cover pointer-events-none"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60 group-hover:opacity-40 transition-opacity" />
@@ -542,11 +426,12 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
       gsap.to(marqueeRef.current, {
         yPercent: -20,
         ease: "none",
+        force3D: true,
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top bottom",
           end: "bottom top",
-          scrub: 1
+          scrub: 1.5
         }
       });
     }, sectionRef);
