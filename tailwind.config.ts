@@ -97,7 +97,7 @@ export default {
       },
 
       fontFamily: {
-        'space': ['Space Grotesk', 'sans-serif'],
+        'onest': ['Onest', 'sans-serif'],
       },
 
       borderRadius: {

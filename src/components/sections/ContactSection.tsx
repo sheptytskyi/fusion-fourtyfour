@@ -1,197 +1,216 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, Zap } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ContactSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
-  const shutterRef = useRef<HTMLDivElement>(null);
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      const section = sectionRef.current;
-      const grid = gridRef.current;
-      if (!section || !grid) return;
+    useEffect(() => {
+        let ctx = gsap.context(() => {
+            const section = sectionRef.current;
+            if (!section) return;
 
-      // 1. 3D PERSPECTIVE ZOOM-SETTLE
-      // The whole grid starts deep in Z-space and zoomed in
-      gsap.fromTo(grid,
-        {
-          z: 500,
-          rotateX: 15,
-          scale: 1.15,
-          opacity: 0
-        },
-        {
-          z: 0,
-          rotateX: 0,
-          scale: 1,
-          opacity: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top bottom",
-            end: "top 20%",
-            scrub: 1.5,
-          }
-        }
-      );
+            // 1. PRISM REVEAL - FOUNDER IMAGE (Desktop Only)
+            let mm = gsap.matchMedia();
 
-      // 2. MECHANICAL SHUTTER REVEAL (Clip-path Fan)
-      gsap.fromTo(shutterRef.current,
-        { clipPath: "inset(100% 0 0 0)" },
-        {
-          clipPath: "inset(0% 0 0 0)",
-          ease: "none",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            end: "top 30%",
-            scrub: 1,
-          }
-        }
-      );
-
-      // 3. KINETIC VELOCITY TYPOGRAPHY
-      // Elements skew based on scroll speed
-      let proxy = { skew: 0 };
-      let skewSetter = gsap.quickSetter(".contact-reveal", "skewY", "deg");
-      let clamp = gsap.utils.clamp(-15, 15);
-
-      ScrollTrigger.create({
-        onUpdate: (self) => {
-          let skew = clamp(self.getVelocity() / -300);
-          if (Math.abs(skew) > Math.abs(proxy.skew)) {
-            proxy.skew = skew;
-            gsap.to(proxy, {
-              skew: 0,
-              duration: 0.8,
-              ease: "power3",
-              overwrite: true,
-              onUpdate: () => skewSetter(proxy.skew)
+            mm.add("(min-width: 768px)", () => {
+                gsap.fromTo(".founder-image-container",
+                    {
+                        scale: 1.1,
+                        filter: "blur(5px)", // Reduced blur further
+                        y: 30,
+                        opacity: 0, // Restore fade-in for "appear" effect
+                    },
+                    {
+                        scale: 1,
+                        filter: "blur(0px)",
+                        y: 0,
+                        opacity: 1, // Restore fade-in
+                        duration: 1.5,
+                        ease: "expo.out",
+                        scrollTrigger: {
+                            trigger: ".founder-image-container", // Target specific element
+                            start: "top 80%", // Start earlier
+                            end: "center center",
+                            scrub: 1,
+                        }
+                    }
+                );
             });
-          }
-        }
-      });
 
-      // 4. STRUCTURAL "CALIPER" LINES ASSEMBLY
-      gsap.fromTo(".caliper-line",
-        { scaleX: 0, opacity: 0 },
-        {
-          scaleX: 1,
-          opacity: 1,
-          stagger: 0.2,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 70%",
-          }
-        }
-      );
+            // 2. TEXT REVEAL (Updated Selectors)
+            const textElements = gsap.utils.toArray<HTMLElement>([
+                ".contact-title > *",
+                ".contact-secondary > *"
+            ]);
 
-      // 5. STATS ROLL ANIMATION (Slot machine style)
-      const stats = section.querySelectorAll('.stat-item');
-      stats.forEach((stat) => {
-        const value = stat.querySelector('.stat-value');
-        if (value) {
-          const targetValue = value.getAttribute('data-value') || "0";
-          gsap.from(value, {
-            yPercent: 100,
-            opacity: 0,
-            duration: 1.5,
-            ease: "back.out(1.7)",
-            scrollTrigger: {
-              trigger: stat,
-              start: "top 90%",
-            }
-          });
-        }
-      });
+            gsap.fromTo(textElements,
+                {
+                    y: 50,
+                    opacity: 0,
+                    filter: "blur(10px)",
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1,
+                    stagger: 0.1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: section, // Keep section trigger for general text flow or change to indiv
+                        start: "top 70%",
+                    }
+                }
+            );
 
-    }, sectionRef);
+            // 3. BACKGROUND PARALLAX TEXT
+            gsap.to(".contact-bg-text", {
+                x: -150,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 1.5,
+                }
+            });
 
-    return () => ctx.revert();
-  }, []);
+            // 4. ARCHITECTURAL GRID REVEAL
+            gsap.fromTo(".contact-grid-line-v",
+                { scaleY: 0 },
+                {
+                    scaleY: 1,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "center center",
+                        scrub: true,
+                    }
+                }
+            );
 
-  return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      className="relative min-h-screen bg-transparent overflow-hidden flex items-center justify-center py-24 perspective-1000"
-    >
-      <div ref={gridRef} className="container mx-auto px-6 md:px-12 lg:px-24 relative z-10 will-change-transform">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
+            gsap.fromTo(".contact-grid-line-h",
+                { scaleX: 0 },
+                {
+                    scaleX: 1,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "center center",
+                        scrub: true,
+                    }
+                }
+            );
 
-          {/* SIDE A: SHUTTER-REVEAL PORTRAIT */}
-          <div className="relative aspect-[3/4] md:max-w-md lg:max-w-full mx-auto order-2 lg:order-1">
+        }, sectionRef);
 
-            {/* Structural Caliper Brackets */}
-            <div className="caliper-line absolute -top-8 left-0 w-full h-px bg-white/10 origin-left" />
-            <div className="caliper-line absolute -bottom-8 left-0 w-full h-px bg-white/10 origin-right" />
-            <div className="caliper-line absolute top-0 -left-8 h-full w-px bg-white/10 origin-top" />
-            <div className="caliper-line absolute top-0 -right-8 h-full w-px bg-white/10 origin-bottom" />
+        return () => ctx.revert();
+    }, []);
 
-            {/* Main Shutter Container */}
-            <div
-              ref={shutterRef}
-              className="relative h-full w-full overflow-hidden rounded-[1rem] border border-white/5 bg-white/[0.02] shadow-2xl"
-            >
-              <img
-                ref={imageRef}
-                src="/founder.webp"
-                alt="Dmytro Sheptytskyi"
-                className="w-full h-full object-cover opacity-100 brightness-105 contrast-105 transition-all duration-1000"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+    return (
+        <section
+            id="contact"
+            ref={sectionRef}
+            className="relative py-32 lg:py-60 overflow-hidden bg-transparent"
+        >
+            {/* Architectural Grid */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <div className="contact-grid-line-v absolute left-1/4 top-0 w-px h-full bg-white/5 origin-top" />
+                <div className="contact-grid-line-v absolute left-3/4 top-0 w-px h-full bg-white/5 origin-top" />
+                <div className="contact-grid-line-h absolute top-1/2 left-0 w-full h-px bg-white/5 origin-left" />
+            </div>
 
-              {/* Founder Meta Badge */}
-              <div className="absolute bottom-8 left-8 p-6 backdrop-blur-md">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-1 h-1 bg-indigo-500 rounded-full animate-ping" />
-                  <span className="text-[10px] font-space text-indigo-400 uppercase tracking-widest">FOUNDER</span>
+            {/* Background Parallax Narrative */}
+            <div className="absolute top-1/2 left-0 w-full pointer-events-none opacity-[0.01] select-none z-0">
+                <div className="contact-bg-text text-[30vw] font-bold text-white whitespace-nowrap leading-none tracking-tighter lowercase italic">
+                    let's build // your platform
                 </div>
-                <h3 className="text-3xl font-space font-bold text-white tracking-tighter uppercase mb-1">Dmytro Sheptytskyi</h3>
-              </div>
-            </div>
-          </div>
-
-          {/* SIDE B: FLUID TYPOGRAPHY & CTA */}
-          <div className="space-y-16 order-1 lg:order-2">
-            <div className="space-y-6">
-              <div className="caliper-line w-12 h-px bg-indigo-500/50 origin-left mb-6" />
-              <h2 className="contact-reveal text-6xl md:text-8xl font-space font-bold text-white tracking-tighter leading-[0.85] will-change-transform">
-                BUILD WITH <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 italic">TRANSPARENCY.</span>
-              </h2>
-              <p className="contact-reveal text-xl md:text-2xl font-space font-light text-white/40 leading-relaxed max-w-lg">
-                Direct access to the founder. Direct engineering. No layers, just <span className="text-white border-b border-white/10 pb-1">pure architecture</span> for your vision.
-              </p>
             </div>
 
-            <div className="contact-reveal space-y-12">
-              <div className="pt-2">
-                <a
-                  href="https://calendly.com/channektoshka/30min"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative inline-flex items-center gap-8 px-12 py-8 bg-white text-black font-space font-black tracking-[0.3em] uppercase text-[10px] rounded-full transition-all hover:pr-16 active:scale-[0.95] overflow-hidden"
-                >
-                  Request Deep-Dive
-                  <ArrowRight className="absolute right-8 w-5 h-5 opacity-0 group-hover:opacity-100 transition-all" />
-                  <div className="absolute inset-0 border-2 border-black/5 rounded-full scale-105" />
-                </a>
-              </div>
-            </div>
-          </div>
+            <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-x-32 lg:gap-y-12 items-start">
 
-        </div>
-      </div>
-    </section>
-  );
+                    {/* 1. TITLE (Mobile First, Desktop Top-Right) */}
+                    <div className="contact-title order-1 lg:col-start-2 lg:row-start-1 relative z-10">
+                        <h2 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight leading-[0.9] lowercase mb-8">
+                            let's talk <br />
+                            <span className="text-white/40">proptech.</span>
+                        </h2>
+                    </div>
+
+                    {/* 2. FOUNDER IMAGE (Mobile Second, Desktop Left Full Height) */}
+                    <div className="founder-image-container relative aspect-[3/4] group order-2 lg:col-start-1 lg:row-start-1 lg:row-span-2">
+                        {/* Frozen Frame */}
+                        <div className="absolute -inset-4 border border-white/5 rounded-[3rem] pointer-events-none" />
+
+                        <div className="relative h-full w-full overflow-hidden rounded-[2.5rem] bg-white/[0.02] border border-white/10 shadow-2xl transition-transform duration-700 group-hover:scale-[1.01]">
+                            <img
+                                src="/founder.webp"
+                                alt="Dmytro Sheptytskyi"
+                                className="w-full h-full object-cover brightness-110 contrast-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+
+                            {/* Crystalline Badge */}
+                            <div className="absolute bottom-5 left-5 right-5 md:right-auto md:bottom-10 md:left-10 p-5 md:p-8 rounded-3xl md:rounded-[2rem] bg-white/[0.08] backdrop-blur-[40px] border border-white/30 shadow-[inset_0_0_20px_rgba(255,255,255,0.05)]">
+                                <div className="flex items-center gap-3 mb-2 md:mb-3">
+                                    <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                                    <span className="text-[9px] md:text-[10px] font-bold text-white tracking-[0.2em] md:tracking-[0.4em] uppercase">founder</span>
+                                </div>
+                                <h3 className="text-xl md:text-3xl font-bold text-white tracking-tighter leading-none">
+                                    Dmytro Sheptytskyi
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 3. SECONDARY CONTENT (Mobile Third, Desktop Bottom-Right) */}
+                    <div className="contact-secondary order-3 lg:col-start-2 lg:row-start-2 space-y-16 lg:pr-12 pt-8 lg:pt-0">
+                        <p className="text-xl md:text-2xl font-light text-white/50 leading-relaxed max-w-xl lowercase">
+                            whether you need a listing portal, tenant app, analytics dashboard, or IoT backend — we'll scope it, architect it, and ship it. no middlemen, no surprises.
+                        </p>
+
+                        <div className="space-y-16">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t border-white/5">
+                                <div className="space-y-4">
+                                    <span className="text-[10px] text-white/20 uppercase tracking-[0.4em] font-bold">direct channel</span>
+                                    <div className="text-lg font-light text-white/80 lowercase">hello@44fingers.tech</div>
+                                </div>
+                                <div className="space-y-4">
+                                    <span className="text-[10px] text-white/20 uppercase tracking-[0.4em] font-bold">presence</span>
+                                    <div className="text-lg font-light text-white/80">Kyiv, Ukraine</div>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-wrap gap-8 items-center pt-8">
+                                <a
+                                    href="https://calendly.com/channektoshka/30min"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative inline-flex items-center gap-10 px-12 py-7 bg-white text-black font-bold tracking-[0.2em] uppercase text-[11px] rounded-2xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                                >
+                                    <span>schedule a call</span>
+                                    <ArrowUpRight className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                </a>
+
+                                <div className="flex items-center gap-4 text-white/30 hover:text-white/60 transition-colors cursor-default">
+                                    <Zap className="w-4 h-4 shrink-0" />
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.2em]">avg. 4-week mvp delivery</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default ContactSection;

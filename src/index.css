@@ -4,7 +4,7 @@
 
 /* Futuristic design system for 44 Fingers - All colors in HSL */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
 
 @layer base {
   :root {
@@ -102,17 +102,17 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Onest', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
   }
 
-  /* Ensure all basic elements use Space Grotesk, including on mobile */
+  /* Ensure all basic elements use Onest, including on mobile */
   button,
   input,
   textarea,
   select {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Onest', sans-serif;
   }
 
   /* Ensure interactive elements show pointer cursor when custom cursor is disabled *
@@ -276,7 +276,7 @@
   /* Glassmorphic inputs with glow focus */
   .glassmorphic-input {
     @apply px-6 py-4 rounded-lg border border-white/20 bg-white/10 backdrop-blur-sm;
-    @apply text-white placeholder-white/60 font-space tracking-wide;
+    @apply text-white placeholder-white/60 font-onest tracking-wide;
     @apply transition-all duration-300 outline-none;
     @apply focus:border-neon-blue/50 focus:bg-white/15;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);

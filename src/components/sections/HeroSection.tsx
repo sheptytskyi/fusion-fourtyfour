@@ -1,180 +1,151 @@
-import { useRef, useLayoutEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Cpu, Smartphone, Globe } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface HeroSectionProps {
-  onGrowWithUsClick: () => void;
+    onGrowWithUsClick?: () => void;
 }
 
-const HeroSection = ({ onGrowWithUsClick }: HeroSectionProps) => {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const imageWrapperRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const backdropTextRef = useRef<HTMLDivElement>(null);
+const HeroSection: React.FC<HeroSectionProps> = ({ onGrowWithUsClick }) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
 
-  useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      const hero = heroRef.current;
-      const image = imageWrapperRef.current;
-      const content = contentRef.current;
-      const backdrop = backdropTextRef.current;
-      if (!hero || !image || !content || !backdrop) return;
+    // Parallax and fade effects linked to scroll
+    const y = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+    const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.25]);
 
-      // 1. Immediate Entrance (Visibility First)
-      gsap.set(image, { scale: 1, opacity: 1 }); // Shown immediately
-      gsap.set(".hero-reveal", { y: 30, opacity: 0 });
-      gsap.set(backdrop, { opacity: 0.05, scale: 1 });
+    // Creative Wordmark Animations
+    const wordmarkY = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
+    const wordmarkBlur = useTransform(scrollYProgress, [0, 0.5], ['blur(0px)', 'blur(20px)']);
+    const wordmarkSpacing = useTransform(scrollYProgress, [0, 1], ['-0.05em', '0.2em']);
 
-      const entranceTl = gsap.timeline({ defaults: { ease: "expo.out" } });
-      entranceTl.to(".hero-reveal", {
-        y: 0,
-        opacity: 1,
-        duration: 1.5,
-        stagger: 0.1,
-      }, 0.2);
+    // Bottom Content Animations
+    const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+    const contentBlur = useTransform(scrollYProgress, [0, 0.3], ['blur(0px)', 'blur(10px)']);
+    const contentOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
-      // 2. Scroll Animation: Increase sizing only
-      gsap.to(image, {
-        scale: 1.5,
-        ease: "none",
-        force3D: true,
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        }
-      });
-
-      // Subtle backdrop text movement
-      gsap.to(backdrop, {
-        scale: 1.2,
-        yPercent: -20,
-        opacity: 0.02,
-        force3D: true,
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        }
-      });
-
-      // Fade content on scroll
-      gsap.to(content, {
-        y: -100,
-        opacity: 0,
-        force3D: true,
-        scrollTrigger: {
-          trigger: hero,
-          start: "top top",
-          end: "30% top",
-          scrub: true,
-        }
-      });
-
-    }, heroRef);
-
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <section
-      id="hero"
-      ref={heroRef}
-      className="relative h-screen flex flex-col justify-between bg-transparent overflow-hidden snap-start pt-24 pb-12"
-    >
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Simplified Kinetic Backdrop Text */}
-        <div ref={backdropTextRef} className="absolute inset-0 flex items-center justify-center select-none">
-          <span className="text-[25vw] font-space font-black text-white/[0.02] leading-none tracking-tighter uppercase whitespace-nowrap">
-            44FINGERS
-          </span>
-        </div>
-      </div>
-
-      {/* 2. TOP CONTENT: MISSION & VISION (CLEAR OF IMAGE) */}
-      <div ref={contentRef} className="container mx-auto px-6 lg:px-12 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          <div className="hero-reveal space-y-6">
-            <div className="flex items-center gap-4">
-              <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[9px] font-space text-indigo-400 capitalize tracking-[0.4em] font-black">
-                Operational_Phase_01
-              </span>
-              <div className="w-8 h-px bg-white/10" />
-            </div>
-
-            <h1 className="text-5xl md:text-7xl lg:text-9xl font-space font-bold text-white tracking-tighter leading-[0.85]">
-              STAY AHEAD <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 italic">THE CURVE.</span>
-            </h1>
-            <span className="sr-only">44fingers mobile development with AI powered solutions. Helping companies reduce operational costs by 30% with AI-powered mobile apps. Mobile apps that don’t die after launch.</span>
-          </div>
-
-          <div className="hero-reveal lg:pt-8 space-y-10">
-            <p className="text-xl md:text-2xl font-space font-light text-white/40 leading-relaxed max-w-xl">
-              We specialize in <span className="text-white">mobile development with AI-powered solutions</span>. Helping companies <span className="text-white">reduce operational costs by 30%</span> with intelligent ecosystems designed for high-frequency growth.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center gap-8">
-              <button
-                onClick={onGrowWithUsClick}
-                className="group relative px-10 py-5 bg-white text-black font-space font-black uppercase text-xs tracking-widest rounded-2xl overflow-hidden shadow-2xl transition-all hover:scale-105 active:scale-95"
-              >
-                <span className="relative z-10 flex items-center gap-3">
-                  Initiate Project <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-2" />
-                </span>
-                <div className="absolute inset-0 bg-indigo-600 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                <style>{`
-                  button:hover span { color: white !important; }
-                `}</style>
-              </button>
-
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-3">
-                  <Cpu className="w-4 h-4" />
-                  <span className="text-[9px] font-space uppercase tracking-[0.2em]">Neural</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Smartphone className="w-4 h-4" />
-                  <span className="text-[9px] font-space uppercase tracking-[0.2em]">Mobile</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. CENTERPIECE: THE IMAGE (IMMEDIATELY SHOWN, ZOOM ONLY ON SCROLL) */}
-      <div className="relative flex-1 flex items-center justify-center z-10">
-        <div
-          ref={imageWrapperRef}
-          className="w-full max-w-[1200px] aspect-video flex items-center justify-center will-change-transform"
+    return (
+        <section
+            ref={containerRef}
+            id="hero"
+            className="relative w-full h-[100svh] overflow-hidden flex items-end"
         >
-          <img
-            src="/iphones.webp"
-            alt="44Fingers High-Performance Mobile Ecosystems"
-            className="w-full h-full object-contain filter drop-shadow-[0_40px_100px_rgba(0,0,0,0.8)]"
-          />
-        </div>
+            {/* Background Image with Parallax */}
+            <motion.div
+                style={{ y, scale }}
+                className="absolute inset-0 w-full h-full select-none"
+            >
+                <video
+                    src="/video.mp4"
+                    poster="/1.jpg"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover object-center"
+                />
+                {/* Overlay for better readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+            </motion.div>
 
-        {/* Depth HUD (Bottom Overlay) */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-12 opacity-10 pointer-events-none">
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-px bg-white/20" />
-            <span className="text-[8px] font-space text-white uppercase tracking-[0.6em]">Architecture_v4.4</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-[8px] font-space text-white uppercase tracking-[0.6em]">Kyiv_Hub</span>
-            <div className="w-12 h-px bg-white/20" />
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+            {/* Centered Agency Wordmark */}
+            <motion.div
+                style={{ opacity, y: wordmarkY, filter: wordmarkBlur }}
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center pointer-events-none select-none"
+            >
+                <motion.div
+                    initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{ duration: 1.5, delay: 0.2, ease: "easeOut" }}
+                    className="text-center"
+                >
+                    <motion.h1
+                        style={{ letterSpacing: wordmarkSpacing }}
+                        className="text-6xl md:text-[9rem] lg:text-[12rem] font-bold text-white/90 leading-none lowercase will-change-transform"
+                    >
+                        44fingers
+                    </motion.h1>
+                    <div className="flex items-center justify-center gap-4 mt-4 md:mt-8">
+                        <div className="h-px w-8 md:w-24 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                        <span className="text-[10px] md:text-sm uppercase tracking-[0.8em] text-white/100 font-light">
+                            proptech engineering studio
+                        </span>
+                        <div className="h-px w-8 md:w-24 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                    </div>
+                </motion.div>
+            </motion.div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+                style={{ opacity: contentOpacity }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2, duration: 1 }}
+                className="absolute left-1/2 bottom-12 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
+            >
+                <div className="relative w-[1px] h-12 bg-white/10 overflow-hidden">
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-white to-transparent animate-scroll-shimmer" />
+                </div>
+                <span className="text-[9px] uppercase tracking-[0.4em] text-white/30 font-light">scroll</span>
+            </motion.div>
+
+            {/* Bottom Content Container */}
+            <motion.div
+                style={{ y: contentY, opacity: contentOpacity, filter: contentBlur }}
+                className="relative z-10 w-full max-w-[1800px] mx-auto px-6 md:px-12 pb-[8vh] md:pb-[12vh] flex flex-col md:flex-row items-center md:items-end justify-between gap-8 md:gap-0"
+            >
+
+                {/* Large lowercase text in Left Bottom Corner */}
+                <motion.div
+                    initial={{ opacity: 0, x: -20, filter: 'blur(5px)' }}
+                    whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                    transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    className="order-1 md:order-1 text-center md:text-left max-w-sm md:max-w-3xl"
+                >
+                    <p className="text-4xl md:text-7xl lowercase tracking-tighter font-light text-white leading-[1] mix-blend-overlay">
+                        digital infrastructure <br className="hidden md:block" /> for modern real estate
+                    </p>
+                </motion.div>
+
+                {/* CTA Button */}
+                <motion.div
+                    initial={{ opacity: 0, x: 20, filter: 'blur(5px)' }}
+                    whileInView={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                    transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    className="order-2 md:order-2"
+                >
+                    <button
+                        onClick={onGrowWithUsClick}
+                        className="group relative overflow-hidden px-10 py-4 rounded-full text-base font-light tracking-[0.2em] text-white transition-all duration-700 active:scale-95"
+                    >
+                        {/* Glass logic */}
+                        <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-md border border-white/20 rounded-full transition-all duration-500 group-hover:bg-white/10 group-hover:scale-105" />
+
+                        <span className="relative z-10 uppercase text-[10px] md:text-xs font-bold">
+                            schedule discovery call
+                        </span>
+                    </button>
+                </motion.div>
+            </motion.div>
+
+            {/* Global Styled Keyframes for the customized Scroll Indicator */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+        @keyframes scroll-shimmer {
+          0% { transform: translateY(-100%); }
+          100% { transform: translateY(100%); }
+        }
+        .animate-scroll-shimmer {
+          animation: scroll-shimmer 2.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        }
+      `}} />
+        </section>
+    );
 };
 
 export default HeroSection;
