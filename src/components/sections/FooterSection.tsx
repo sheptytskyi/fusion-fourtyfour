@@ -68,24 +68,18 @@ const FooterSection = () => {
     <footer
       id="footer"
       ref={footerRef}
-      className="relative min-h-screen bg-[#050505] overflow-hidden flex flex-col justify-end py-20"
+      className="relative min-h-screen overflow-hidden flex flex-col justify-end py-20"
     >
       {/* Architectural Background */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src="/building2.jpg"
+          src="/building2.webp"
           alt=""
-          className="footer-bg-image w-full h-full object-cover opacity-20 scale-125 grayscale"
+          className="footer-bg-image w-full h-full object-cover opacity-20 scale-125"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]" />
       </div>
 
-      {/* Branding Parallax Text */}
-      <div className="absolute top-1/2 left-0 w-full pointer-events-none opacity-[0.02] select-none z-0 -translate-y-1/2 overflow-hidden">
-        <div ref={marqueeRef} className="text-[35vw] font-bold text-white whitespace-nowrap leading-none tracking-tighter lowercase italic">
-          44fingers // proptech engineering
-        </div>
-      </div>
 
       <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-40 items-end pb-32">
@@ -98,7 +92,7 @@ const FooterSection = () => {
                 <div className="h-px w-24 bg-gradient-to-r from-white/20 to-transparent" />
               </div>
 
-              <h2 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white tracking-tight leading-[0.9] lowercase">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-tight leading-[1.05] lowercase">
                 your next <br />
                 <span className="italic text-white/40">platform.</span>
               </h2>
@@ -134,7 +128,7 @@ const FooterSection = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-50" />
               <div className="relative bg-[#080808]/80 backdrop-blur-[60px] p-12 md:p-16 rounded-[2.9rem] border border-white/20 space-y-12">
                 <div className="space-y-6">
-                  <h4 className="text-4xl md:text-5xl font-bold text-white tracking-tight lowercase italic">
+                  <h4 className="text-4xl md:text-5xl font-light text-white tracking-tight lowercase italic">
                     start your <br />
                     <span className="text-white/40">project.</span>
                   </h4>

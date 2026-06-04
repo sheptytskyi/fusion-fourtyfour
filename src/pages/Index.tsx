@@ -4,7 +4,6 @@ import CursorGlow from '../components/CursorGlow';
 import HeroSection from '../components/sections/HeroSection';
 import AboutSection from '../components/sections/AboutSection';
 import ProcessSection from '../components/sections/ProcessSection';
-import SolutionsSection from '../components/sections/SolutionsSection';
 import PortfolioSection from '../components/sections/PortfolioSection';
 import TestimonialsSection from '../components/sections/TestimonialsSection';
 import ContactSection from '../components/sections/ContactSection';
@@ -39,9 +38,8 @@ const Index = () => {
         <HeroSection onGrowWithUsClick={scrollToContact} />
         <AboutSection />
         <ProcessSection />
-        <SolutionsSection onContactClick={scrollToContact} />
         <PortfolioSection onWantSameClick={scrollToContact} />
-        <TestimonialsSection />
+        <TestimonialsSection onContactClick={scrollToContact} />
         <ContactSection />
         <FAQSection />
         <FooterSection />

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface HeroSectionProps {
@@ -20,7 +20,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGrowWithUsClick }) => {
     // Creative Wordmark Animations
     const wordmarkY = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
     const wordmarkBlur = useTransform(scrollYProgress, [0, 0.5], ['blur(0px)', 'blur(20px)']);
-    const wordmarkSpacing = useTransform(scrollYProgress, [0, 1], ['-0.05em', '0.2em']);
+    const wordmarkSpacing = useTransform(scrollYProgress, [0, 1], ['0.0em', '0.3em']);
 
     // Bottom Content Animations
     const contentY = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
@@ -63,8 +63,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGrowWithUsClick }) => {
                     className="text-center"
                 >
                     <motion.h1
-                        style={{ letterSpacing: wordmarkSpacing }}
-                        className="text-6xl md:text-[9rem] lg:text-[12rem] font-bold text-white/90 leading-none lowercase will-change-transform"
+                        style={{ letterSpacing: wordmarkSpacing, fontFamily: '"NauryzRedKeds", sans-serif' }}
+                        className="text-5xl
+                                sm:text-6xl
+                                md:text-[7rem]
+                                lg:text-[9rem] 
+                                text-white
+                                leading-none
+                                uppercase 
+                                font-normal 
+                                will-change-transform"
                     >
                         44fingers
                     </motion.h1>
@@ -106,7 +114,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGrowWithUsClick }) => {
                     viewport={{ once: true }}
                     className="order-1 md:order-1 text-center md:text-left max-w-sm md:max-w-3xl"
                 >
-                    <p className="text-4xl md:text-7xl lowercase tracking-tighter font-light text-white leading-[1] mix-blend-overlay">
+                    <p className="text-3xl
+                                sm:text-4xl
+                                md:text-[2rem]
+                                lg:text-[3rem] lowercase tracking-tighter font-light text-white leading-[1] mix-blend-overlay">
                         digital infrastructure <br className="hidden md:block" /> for modern real estate
                     </p>
                 </motion.div>
@@ -126,7 +137,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onGrowWithUsClick }) => {
                         {/* Glass logic */}
                         <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-md border border-white/20 rounded-full transition-all duration-500 group-hover:bg-white/10 group-hover:scale-105" />
 
-                        <span className="relative z-10 uppercase text-[10px] md:text-xs font-bold">
+                        <span className="relative z-10 uppercase text-[10px] md:text-xs font-light">
                             schedule discovery call
                         </span>
                     </button>

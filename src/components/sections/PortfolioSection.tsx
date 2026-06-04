@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import { useEffect, useRef, useState, useLayoutEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ExternalLink, Users, Clock, Code, AlertCircle, ArrowUpRight, X, ChevronLeft, ChevronRight, Zap } from 'lucide-react';
+import { ArrowUpRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -94,6 +94,9 @@ interface PortfolioSectionProps {
   onWantSameClick: () => void;
 }
 
+/* ───────────────────────────────────────────────────────
+   Project Modal — kept from original, only visual polish
+   ─────────────────────────────────────────────────────── */
 const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onClose: () => void, onWantSameClick: () => void }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -124,19 +127,24 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       className="fixed inset-0 z-[100] flex items-center justify-center md:p-12 p-4"
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/90 backdrop-blur-3xl" />
+      <div className="absolute inset-0 bg-black/85 backdrop-blur-xl" />
 
       <motion.div
-        initial={{ y: 50, opacity: 0, scale: 0.95 }}
-        animate={{ y: 0, opacity: 1, scale: 1 }}
-        exit={{ y: 30, opacity: 0, scale: 0.95 }}
-        className="relative w-full h-full md:max-w-7xl md:h-[85vh] bg-white/[0.05] border border-white/20 md:rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-2xl"
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        exit={{ y: 20, opacity: 0 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1], delay: 0.04 }}
+        className="relative w-full h-full md:max-w-7xl md:h-[85vh] bg-[#0d0d0d] border border-white/15 md:rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <button onClick={onClose} className="absolute top-8 right-8 z-50 p-4 rounded-full bg-white/10 hover:bg-white/20 transition-all text-white border border-white/10">
+        <button
+          onClick={onClose}
+          className="absolute top-8 right-8 z-50 p-4 rounded-full bg-white/8 hover:bg-white/20 transition-colors duration-200 text-white border border-white/10"
+        >
           <X className="w-5 h-5" />
         </button>
 
@@ -148,6 +156,7 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               src={project.images[currentImageIndex]}
               className="w-full h-full object-contain p-12"
             />
@@ -155,10 +164,16 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
 
           <div className="absolute inset-x-8 bottom-12 flex justify-between items-center z-20">
             <div className="flex gap-2">
-              <button onClick={prevImage} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all">
+              <button
+                onClick={prevImage}
+                className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-colors duration-200"
+              >
                 <ChevronLeft className="w-5 h-5" />
               </button>
-              <button onClick={nextImage} className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all">
+              <button
+                onClick={nextImage}
+                className="p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-colors duration-200"
+              >
                 <ChevronRight className="w-5 h-5" />
               </button>
             </div>
@@ -169,11 +184,11 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
         </div>
 
         {/* Modal Info Block */}
-        <div className="w-full md:w-[35%] flex flex-col h-[60vh] md:h-full bg-white/[0.03] backdrop-blur-3xl border-l border-white/10">
+        <div className="w-full md:w-[35%] flex flex-col h-[60vh] md:h-full bg-white/[0.03] border-l border-white/10">
           <div className="flex-1 overflow-y-auto p-12 custom-scrollbar space-y-12">
             <div className="space-y-4">
               <div className="text-[10px] text-white/30 uppercase tracking-[0.5em]">selected project</div>
-              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-none lowercase">{project.name}</h2>
+              <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight leading-none lowercase">{project.name}</h2>
             </div>
 
             <div className="space-y-6">
@@ -205,7 +220,7 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
           <div className="p-12 border-t border-white/10">
             <button
               onClick={() => { onClose(); onWantSameClick(); }}
-              className="w-full py-6 bg-white text-black rounded-2xl font-bold uppercase text-[11px] tracking-[0.2em] hover:bg-white/90 transition-all flex items-center justify-center gap-3"
+              className="w-full py-6 bg-white text-black rounded-2xl font-bold uppercase text-[11px] tracking-[0.2em] hover:bg-white/90 transition-colors duration-200 flex items-center justify-center gap-3"
             >
               build this for me <ArrowUpRight className="w-4 h-4" />
             </button>
@@ -217,188 +232,251 @@ const ProjectModal = ({ project, onClose, onWantSameClick }: { project: any, onC
   );
 };
 
-const ProjectCard = ({ project, onClick, className }: { project: any, onClick: () => void, className?: string }) => {
+/* ───────────────────────────────────────────────────────
+   Project Card — cinematic layout with stacked layout
+   ─────────────────────────────────────────────────────── */
+const ProjectCard = ({ project, index, onClick }: { project: any; index: number; onClick: () => void }) => {
+  const isEven = index % 2 === 0;
+
   return (
     <div
-      className={`portfolio-card group relative overflow-hidden rounded-[2.5rem] bg-white/[0.08] backdrop-blur-[40px] border border-white/30 shadow-[inset_0_0_30px_rgba(255,255,255,0.05),0_20px_50px_rgba(0,0,0,0.5)] cursor-pointer hover:bg-white/[0.15] hover:border-white/60 transition-all duration-700 active:scale-[0.98] opacity-0 translate-y-12 will-change-transform ${className}`}
+      className="pf-reveal-card group relative cursor-pointer"
       onClick={onClick}
     >
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <img src={project.image} alt={project.name} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-[1200ms] ease-out" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-      </div>
+      <div className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-0 lg:gap-12 items-center`}>
+        {/* Image side */}
+        <div className="pf-card-visual w-full lg:w-[55%] relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] aspect-[4/3] lg:aspect-[16/10]">
+          <img
+            src={project.image}
+            alt={project.name}
+            loading="lazy"
+            className="pf-card-img w-full h-full object-cover"
+          />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+          <div className={`absolute inset-0 bg-gradient-to-r ${isEven ? 'from-transparent via-transparent to-black/40' : 'from-black/40 via-transparent to-transparent'} hidden lg:block`} />
 
-      <div className="absolute inset-0 z-10 p-10 flex flex-col justify-between">
-        <div className="flex justify-between items-start">
-          <span></span>
-          <div className="p-3.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
+
+          {/* Arrow icon on hover */}
+          <div className="pf-card-arrow absolute top-6 right-6 lg:top-8 lg:right-8 z-10 p-3 rounded-full bg-white/10 border border-white/10 backdrop-blur-sm">
             <ArrowUpRight className="w-5 h-5 text-white" />
           </div>
+
+          {/* Bottom gradient stripe */}
+          <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
         </div>
 
-        <div className="space-y-4">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-px bg-white/60" />
+        {/* Info side */}
+        <div className={`pf-card-info w-full lg:w-[45%] py-8 lg:py-0 ${isEven ? 'lg:pl-4' : 'lg:pr-4'}`}>
+          <div className="space-y-6">
+
+            <h3 className="text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-tight leading-[1.1] lowercase">
+              {project.name}
+            </h3>
+
+            <p className="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">
+              {project.description}
+            </p>
+
+            {/* Tech tags */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              {project.tech.slice(0, 3).map((t: string) => (
+                <span key={t} className="px-3 py-1.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-white/40 uppercase tracking-wider font-medium">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            {/* Duration & Team */}
+            <div className="flex items-center gap-8 pt-4">
+              <div>
+                <span className="text-[9px] text-white/20 uppercase tracking-widest block mb-1">duration</span>
+                <span className="text-sm text-white/70 font-medium">{project.duration}</span>
+              </div>
+              <div className="w-px h-8 bg-white/10" />
+              <div>
+                <span className="text-[9px] text-white/20 uppercase tracking-widest block mb-1">team</span>
+                <span className="text-sm text-white/70 font-medium">{project.teamSize} engineers</span>
+              </div>
+            </div>
+
+            {/* CTA line */}
+            <div className="pf-card-cta flex items-center gap-3 pt-4">
+              <span className="text-[11px] text-white/50 uppercase tracking-[0.3em] font-bold">explore project</span>
+              <div className="pf-cta-line h-px bg-white/30 transition-all duration-500" style={{ width: 24 }} />
+              <ArrowUpRight className="w-4 h-4 text-white/50" />
+            </div>
           </div>
-          <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-none lowercase">
-            {project.name}
-          </h3>
         </div>
       </div>
 
-      {/* Frozen Shimmer */}
-      <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-1000">
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-[2000ms] ease-out" />
-      </div>
-
-      <style>{`
-        .portfolio-card {
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-      `}</style>
+      {/* Divider between cards */}
+      <div className="pf-card-divider mt-16 lg:mt-24 h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
     </div>
   );
 };
 
+/* ───────────────────────────────────────────────────────
+   Main Section
+   ─────────────────────────────────────────────────────── */
 const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [selectedProject, setSelectedProject] = useState<any | null>(null);
+  const isMobile = useRef(false);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      // ARCHITECTURAL GRID REVEAL
-      gsap.fromTo(".portfolio-grid-line-v",
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          }
-        }
-      );
+    isMobile.current = window.innerWidth < 1024;
 
-      gsap.fromTo(".portfolio-grid-line-h",
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          }
+    const ctx = gsap.context(() => {
+      /* ── Header ── */
+      gsap.set(".pf-header > *", { opacity: 0, y: 50 });
+      gsap.to(".pf-header > *", {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".pf-header",
+          start: "top 85%",
+          toggleActions: "play reverse play reverse",
         }
-      );
+      });
 
-      // Large background text shift
-      gsap.to(".portfolio-bg-text", {
-        x: -300,
+      /* ── Marquee parallax ── */
+      gsap.to(".pf-marquee-track", {
+        xPercent: -15,
+        ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top bottom",
           end: "bottom top",
-          scrub: 1
+          scrub: 0.5,
         }
       });
 
-      // HEADER TEXT REVEAL
-      gsap.fromTo(".portfolio-header > *",
-        { opacity: 0, y: 50, rotateX: -20, filter: 'blur(10px)', transformPerspective: 1000 },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          filter: 'blur(0px)',
-          duration: 1,
-          stagger: 0.1,
-          ease: "power2.out",
+      /* ── Per-card cinematic reveals ── */
+      const cards = gsap.utils.toArray<HTMLElement>(".pf-reveal-card");
+
+      cards.forEach((card, i) => {
+        const isEven = i % 2 === 0;
+        const visual = card.querySelector(".pf-card-visual") as HTMLElement;
+        const info = card.querySelector(".pf-card-info") as HTMLElement;
+        const divider = card.querySelector(".pf-card-divider") as HTMLElement;
+
+        if (!visual || !info) return;
+
+        // Use compositor-friendly transforms only
+        const xOffset = isMobile.current ? 0 : (isEven ? -60 : 60);
+        const infoXOffset = isMobile.current ? 0 : (isEven ? 60 : -60);
+
+        // Set initial states
+        gsap.set(visual, { opacity: 0, x: xOffset, scale: 0.95 });
+        gsap.set(info, { opacity: 0, x: infoXOffset });
+        if (divider) gsap.set(divider, { scaleX: 0 });
+
+        // Entrance timeline — scrubbed to scroll for bidirectional animation
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            trigger: card,
+            start: isMobile.current ? "top 90%" : "top 80%",
+            end: isMobile.current ? "top 30%" : "top 30%",
+            scrub: isMobile.current ? 0.3 : 0.6,
+            // toggleActions not needed with scrub — it's inherently bidirectional
+          }
+        });
+
+        tl.to(visual, {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+        }, 0);
+
+        tl.to(info, {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          ease: "power3.out",
+        }, 0.15);
+
+        if (divider) {
+          tl.to(divider, {
+            scaleX: 1,
+            duration: 0.6,
+            ease: "power2.inOut",
+          }, 0.3);
+        }
+
+        // Parallax on the image within the visual — subtle, compositor-safe
+        if (!isMobile.current) {
+          const img = visual.querySelector(".pf-card-img") as HTMLElement;
+          if (img) {
+            gsap.to(img, {
+              yPercent: -8,
+              ease: "none",
+              scrollTrigger: {
+                trigger: card,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.5,
+              }
+            });
           }
         }
-      );
+      });
 
-      // Stable Staggered Card Entrance
-      gsap.to(".portfolio-card", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power4.out",
+      /* ── Floating progress line ── */
+      gsap.to(".pf-progress-line", {
+        scaleY: 1,
+        ease: "none",
         scrollTrigger: {
-          trigger: ".portfolio-grid",
-          start: "top 80%",
-          once: true
+          trigger: sectionRef.current,
+          start: "top center",
+          end: "bottom center",
+          scrub: 0.3,
         }
       });
+
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
-  const getBentoClass = (index: number) => {
-    const mobileBase = "col-span-1 aspect-[4/5]";
-    switch (index) {
-      case 0: return `${mobileBase} lg:col-span-2 lg:aspect-[16/8]`; // 2 columns wide on desktop
-      case 1: return `${mobileBase} lg:col-span-1 lg:aspect-[8/8]`;  // 1 column wide
-      case 2: return `${mobileBase} lg:col-span-1 lg:aspect-[8/8]`;
-      case 3: return `${mobileBase} lg:col-span-1 lg:aspect-[8/8]`;
-      case 4: return `${mobileBase} lg:col-span-1 lg:aspect-[8/8]`;
-      case 5: return `${mobileBase} lg:col-span-3 lg:aspect-[16/5]`; // Full width highlight
-      default: return `${mobileBase} lg:col-span-1 lg:aspect-[8/8]`;
-    }
-  };
-
   return (
-    <section id="portfolio" ref={sectionRef} className="relative py-32 lg:py-60 overflow-hidden bg-transparent">
-      {/* Architectural Grid */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="portfolio-grid-line-v absolute left-1/4 top-0 w-px h-full bg-white/5 origin-top" />
-        <div className="portfolio-grid-line-v absolute left-2/4 top-0 w-px h-full bg-white/5 origin-top" />
-        <div className="portfolio-grid-line-v absolute left-3/4 top-0 w-px h-full bg-white/5 origin-top" />
-        <div className="portfolio-grid-line-h absolute top-1/2 left-0 w-full h-px bg-white/5 origin-left" />
+    <section id="portfolio" ref={sectionRef} className="relative py-24 lg:py-40 overflow-hidden bg-transparent">
+      {/* Vertical progress line — left edge */}
+      <div className="absolute left-6 lg:left-12 top-0 bottom-0 z-0 pointer-events-none hidden lg:block">
+        <div className="pf-progress-line absolute left-0 top-0 w-px h-full bg-gradient-to-b from-white/20 via-white/10 to-transparent origin-top" style={{ transform: 'scaleY(0)' }} />
       </div>
 
-      {/* Background Parallax Narrative */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0 w-full overflow-hidden">
-        <span className="portfolio-bg-text text-[30vw] font-bold text-white/[0.01] leading-none whitespace-nowrap lowercase italic inline-block">
-          production // grade // code
-        </span>
-      </div>
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
 
-
-      <div className="max-w-[1600px] mx-auto px-6 lg:px-12 relative z-10">
-        <div className="portfolio-header max-w-4xl mb-32 relative">
-          <div className="flex items-center gap-6 mb-12">
+        {/* Header */}
+        <div className="pf-header max-w-4xl mb-24 lg:mb-40 relative">
+          <div className="flex items-center gap-6 mb-10">
             <span className="text-[10px] text-white/40 uppercase tracking-[1.2em] font-light">shipped projects</span>
             <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
           </div>
 
-          <h2 className="text-6xl md:text-9xl font-bold text-white tracking-tight leading-[0.9] lowercase mb-12">
-            platforms we've
-            <span className="italic text-white/40 font-light"> delivered.</span>
+          <h2 className="text-5xl md:text-7xl lg:text-[5.5rem] font-light text-white tracking-tight leading-[1.05] lowercase">
+            platforms we've <br />
+            <span className="italic text-white/40">delivered.</span>
           </h2>
 
-          <p className="text-xl md:text-2xl text-white/50 font-light max-w-xl leading-relaxed lowercase">
+          <p className="text-lg md:text-xl lg:text-2xl text-white/45 font-light max-w-xl leading-relaxed lowercase mt-8">
             real systems for real businesses. each project below is a production platform serving thousands of daily users in the real estate industry.
           </p>
         </div>
 
-        <div className="portfolio-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 auto-rows-fr">
+        {/* Cards — stacked cinematic list */}
+        <div className="space-y-0">
           {portfolioData['Real Estate'].map((project, idx) => (
             <ProjectCard
               key={project.id}
               project={project}
-              className={getBentoClass(idx)}
+              index={idx}
               onClick={() => setSelectedProject(project)}
             />
           ))}
@@ -414,6 +492,97 @@ const PortfolioSection = ({ onWantSameClick }: PortfolioSectionProps) => {
           />
         )}
       </AnimatePresence>
+
+      <style>{`
+        /* ── Card visuals ── */
+        .pf-reveal-card {
+          transform: translateZ(0);
+          will-change: transform;
+        }
+        .pf-card-visual {
+          transform: translateZ(0);
+          will-change: transform, opacity;
+        }
+        .pf-card-info {
+          will-change: transform, opacity;
+        }
+        .pf-card-img {
+          opacity: 0.7;
+          transform: scale(1.1) translateZ(0);
+          transition: opacity 0.7s ease;
+          will-change: transform;
+        }
+        .pf-reveal-card:hover .pf-card-img {
+          opacity: 0.9;
+        }
+        /* Arrow hover */
+        .pf-card-arrow {
+          opacity: 0;
+          transform: translate(8px, -8px) translateZ(0);
+          transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .pf-reveal-card:hover .pf-card-arrow {
+          opacity: 1;
+          transform: translate(0, 0) translateZ(0);
+        }
+        /* CTA line expansion */
+        .pf-cta-line {
+          width: 24px;
+        }
+        .pf-reveal-card:hover .pf-cta-line {
+          width: 48px;
+        }
+        .pf-reveal-card:hover .pf-card-cta span {
+          color: rgba(255,255,255,0.8);
+        }
+        .pf-card-cta span {
+          transition: color 0.3s ease;
+        }
+
+        /* Card visual hover — subtle lift */
+        .pf-card-visual {
+          transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        @media (hover: hover) {
+          .pf-reveal-card:hover .pf-card-visual {
+            transform: translateY(-4px) translateZ(0) !important;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+          }
+        }
+
+        /* Divider */
+        .pf-card-divider {
+          transform-origin: left center;
+          will-change: transform;
+        }
+
+        /* Progress line */
+        .pf-progress-line {
+          will-change: transform;
+        }
+
+        /* Marquee */
+        .pf-marquee-track {
+          will-change: transform;
+        }
+
+        /* Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(255,255,255,0.1);
+          border-radius: 10px;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 1023px) {
+          .pf-card-arrow {
+            opacity: 0.6;
+            transform: translate(0, 0) translateZ(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };

@@ -6,6 +6,17 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
 
+/* NauryzRedKeds Font - Licensed by CC BY 4.0 (font made from www.onlinewebfonts.com) */
+@font-face {
+  font-family: "NauryzRedKeds";
+  src: url("https://db.onlinewebfonts.com/t/1efc9dc7414e979667bdca47989dff12.woff2") format("woff2"),
+    url("https://db.onlinewebfonts.com/t/1efc9dc7414e979667bdca47989dff12.woff") format("woff"),
+    url("https://db.onlinewebfonts.com/t/1efc9dc7414e979667bdca47989dff12.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     /* Base Colors */
@@ -310,6 +321,7 @@
     transform: translate(-50%, -50%);
     transition: opacity 0.3s ease;
     z-index: 0;
+    will-change: transform;
   }
 }
 

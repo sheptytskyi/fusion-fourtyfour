@@ -16,7 +16,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
 
   useEffect(() => {
     // 1. SECTION TRACKING
-    const sections = ['hero', 'about', 'process', 'solutions', 'portfolio', 'testimonials', 'contact', 'faq'];
+    const sections = ['hero', 'about', 'process', 'portfolio', 'testimonials', 'contact', 'faq'];
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -69,11 +69,10 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
   const navItems = [
     { id: 'about', label: 'About' },
     { id: 'process', label: 'Process' },
-    { id: 'solutions', label: 'Solutions' },
     { id: 'portfolio', label: 'Portfolio' },
     { id: 'testimonials', label: 'Testimonials' },
-    { id: 'faq', label: 'FAQ' },
     { id: 'contact', label: 'Contact' },
+    { id: 'faq', label: 'FAQ' },
   ];
 
   return (
@@ -147,20 +146,6 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
             </AnimatePresence>
           </button>
 
-          {/* Action Button - Desktop only */}
-          <div className="h-4 w-px bg-white/10 mx-1 hidden md:block" />
-
-          <button
-            onClick={onContactClick}
-            className="relative z-10 px-5 py-2 group/btn hidden md:block"
-          >
-            <div className="relative flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse group-hover/btn:scale-125 transition-transform" />
-              <span className="absolute left-full ml-4 opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap text-[10px] font-onest text-indigo-400 font-bold uppercase tracking-widest">
-                Initiate
-              </span>
-            </div>
-          </button>
         </div>
       </nav>
 

@@ -1,11 +1,21 @@
 
+import { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 const UnifiedScrollBackground = () => {
+    const [isMobile, setIsMobile] = useState(false);
     const { scrollYProgress } = useScroll();
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.matchMedia('(max-width: 768px)').matches);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     const smooth = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 30,
+        stiffness: isMobile ? 80 : 100,
+        damping: isMobile ? 40 : 30,
         restDelta: 0.001
     });
 
@@ -54,11 +64,11 @@ const UnifiedScrollBackground = () => {
             {/* ========== LAYER 1: Static Faint Grid ========== */}
             <div className="absolute inset-0 opacity-[0.015]">
                 {/* Vertical */}
-                {[8, 16, 25, 33, 42, 50, 58, 67, 75, 83, 92].map((pos) => (
+                {(isMobile ? [25, 50, 75] : [8, 16, 25, 33, 42, 50, 58, 67, 75, 83, 92]).map((pos) => (
                     <div key={`sv-${pos}`} className="absolute top-0 w-px h-full bg-white" style={{ left: `${pos}%` }} />
                 ))}
                 {/* Horizontal */}
-                {[10, 25, 40, 55, 70, 85].map((pos) => (
+                {(isMobile ? [25, 50, 75] : [10, 25, 40, 55, 70, 85]).map((pos) => (
                     <div key={`sh-${pos}`} className="absolute left-0 w-full h-px bg-white" style={{ top: `${pos}%` }} />
                 ))}
             </div>
@@ -67,7 +77,7 @@ const UnifiedScrollBackground = () => {
 
             {/* Line 1 — Left edge, grows down */}
             <motion.div
-                style={{ height: growDown, opacity: fadeInOut }}
+                style={{ height: growDown, opacity: fadeInOut, willChange: 'height' }}
                 className="absolute top-0 left-[8%] w-px bg-gradient-to-b from-white/30 via-white/10 to-transparent"
             />
 
@@ -79,13 +89,13 @@ const UnifiedScrollBackground = () => {
 
             {/* Line 3 — Center, grows down fast */}
             <motion.div
-                style={{ height: growFast, opacity: fadeInOut }}
+                style={{ height: growFast, opacity: fadeInOut, willChange: 'height' }}
                 className="absolute top-0 left-[50%] w-px bg-gradient-to-b from-white/20 via-white/8 to-transparent shadow-[0_0_8px_rgba(255,255,255,0.05)]"
             />
 
             {/* Line 4 — 75% from left, grows UP from bottom */}
             <motion.div
-                style={{ height: growUp, opacity: fadeInOut }}
+                style={{ height: growUp, opacity: fadeInOut, willChange: 'height' }}
                 className="absolute bottom-0 left-[75%] w-px bg-gradient-to-t from-white/25 via-white/8 to-transparent"
             />
 
@@ -201,7 +211,9 @@ const UnifiedScrollBackground = () => {
             <div className="absolute top-[40%] left-[30%] w-[30vw] h-[30vw] bg-white/[0.01] rounded-full blur-[120px]" />
 
             {/* ========== LAYER 8: Grain Texture ========== */}
-            <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+            {!isMobile && (
+                <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+            )}
         </div>
     );
 };

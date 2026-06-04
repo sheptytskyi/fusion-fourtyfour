@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Search, PenTool, Code2, Rocket } from 'lucide-react';
+import { Search, PenTool, Code2, Rocket, FileChartColumnIncreasing, SquareActivity } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,30 +10,50 @@ const steps = [
     {
         id: '01',
         title: 'Audit & Discovery',
-        description: 'We deconstruct your current workflows to find friction points. No assumptions—just data-driven analysis of your real estate operations.',
+        description: 'A deep dive into current operations. We deconstruct the customer journey (from the first ad click to key handover) and the property lifecycle. We identify bottlenecks where agents lose time or owners lose money',
+        result: 'A documented process map of “As-Is” and “To-Be” states with clearly defined automation points.',
         icon: Search,
-        tags: ['Stakeholder Interviews', 'Tech Audit', 'User Personas']
+        tags: ['#Stakeholder Interviews', '#Tech Audit', '#User Personas']
     },
     {
         id: '02',
         title: 'Architecture & UX',
-        description: 'Blueprinting the solution. We design high-fidelity prototypes that solve specific problems before writing a single line of code.',
+        description: 'Selection of the technology stack and design of system interaction logic. We define how data flows between CRM, website, listing portals, and messaging platforms. We design the database schema and integration architecture (APIs, Webhooks)',
+        result: 'A Business/Functional Requirements Document (BRD/FRD) and system architecture diagram aligned with business objectives.',
         icon: PenTool,
-        tags: ['System Design', 'Figma Prototypes', 'Database Schema']
+        tags: ['#System Design', '#Figma Prototypes', '#Database Schema']
     },
     {
         id: '03',
-        title: 'Agile Engineering',
-        description: 'Production-grade development in two-week sprints. You see progress every 14 days, not at the finish line.',
+        title: 'Development & Integration Build',
+        description: 'Active technical implementation phase. Workspace setup, custom script development, CRM pipeline configuration, bot creation, and automated messaging flows. Integration of third-party services into a unified ecosystem',
+        result: 'A fully functional system prototype deployed in a sandbox (test) environment.',
         icon: Code2,
-        tags: ['React/Next.js', 'Go/Python', 'CI/CD Pipelines']
+        tags: ['#AgileDev', '#SoftwareBuilding', '#AutomationBuild', '#SystemIntegration']
     },
     {
         id: '04',
-        title: 'Launch & Scale',
-        description: 'Seamless deployment with zero downtime. We train your team, hand over documentation, and monitor performance.',
+        title: 'Stress Testing & Lead Simulation',
+        description: 'Simulation of real-world business scenarios, from peak loads (multiple simultaneous leads) to edge-case user behavior. Verification of data integrity across services and proper execution of all automated triggers.',
+        result: 'A validated QA report and a system ready for live data.',
+        icon: FileChartColumnIncreasing,
+        tags: ['#QA', '#StressTesting', '#UserAcceptance', '#DataIntegrity']
+    },
+    {
+        id: '05',
+        title: 'Deployment & Adoption',
+        description: 'Transition to production environment. The most critical component is team training. We demonstrate to agents how automation removes routine work, and to administrators how to manage the system. User roles and access permissions are configured.',
+        result: 'A live system operating on real data and a trained team capable of using it effectively.',
         icon: Rocket,
-        tags: ['Cloud Deployment', 'Team Training', 'SLA Support']
+        tags: ['#Deployment', '#UserOnboarding', '#ChangeManagement', '#GoLive']
+    },
+    {
+        id: '06',
+        title: 'Hyper-Care & Monitoring',
+        description: 'Intensive post-launch support period. We collect real-time agent feedback, resolve minor UX friction points, and ensure all processes remain stable during the first weeks of operation.',
+        result: 'Stable system performance with zero critical failures and a high adoption rate.',
+        icon: SquareActivity,
+        tags: ['#PostLaunchSupport', '#Monitoring', '#CustomerSuccess', '#HyperCare']
     }
 ];
 
@@ -180,21 +200,12 @@ const ProcessSection = () => {
                 <div className="process-grid-line-h absolute top-1/2 left-0 w-full h-px bg-white/5 origin-left" />
             </div>
 
-            {/* Background Parallax Narrative */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0 w-full overflow-hidden">
-                <span className="process-bg-text text-[30vw] font-bold text-white/[0.01] leading-none whitespace-nowrap lowercase italic inline-block">
-                    our // execution // layer
-                </span>
-            </div>
-
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 <div className="process-header text-center mb-24">
-                    <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tight lowercase mb-6">
-                        how we <span className="text-white/40 italic">execute.</span>
-                    </h2>
-                    <p className="text-white/50 max-w-2xl mx-auto text-lg lowercase font-light">
-                        a transparent, military-grade process designed to eliminate risk and guarantee delivery.
-                    </p>
+                    <h2 className="text-5xl md:text-7xl lg:text-8xl font-light text-white tracking-tight leading-[1.05] lowercase">
+                 how we <br />
+                <span className="italic text-white/40">execute.</span>
+              </h2>
                 </div>
 
                 <div className="relative">
@@ -217,10 +228,10 @@ const ProcessSection = () => {
                                                 <div className="p-3 bg-white/5 rounded-xl border border-white/10 text-white group-hover:scale-110 transition-transform duration-300">
                                                     <step.icon size={24} />
                                                 </div>
-                                                <span className="text-4xl font-bold text-white/10 select-none">{step.id}</span>
+                                                <span className="text-4xl font-light text-white/10 select-none">{step.id}</span>
                                             </div>
-                                            <h3 className="text-2xl font-bold text-white mb-3 lowercase">{step.title}</h3>
-                                            <p className="text-white/60 font-light leading-relaxed mb-6 lowercase text-sm md:text-base">
+                                            <h3 className="text-2xl font-light text-white mb-3 lowercase">{step.title}</h3>
+                                            <p className="text-white/60 font-light leading-relaxed lowercase mb-6 text-sm md:text-base">
                                                 {step.description}
                                             </p>
                                             <div className="flex flex-wrap gap-2">

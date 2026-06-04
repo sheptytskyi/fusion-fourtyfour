@@ -149,54 +149,6 @@ const AboutSection = () => {
           }
         }
       );
-
-
-
-      // 5. MOUSE REACTIVE HOVER (IMAGE ONLY)
-      const imageContainer = imageContainerRef.current;
-      const isTouch = window.matchMedia('(pointer: coarse)').matches;
-
-      if (imageContainer && !isTouch) {
-        const xSetter = gsap.quickSetter(imageContainer, "rotationY", "deg");
-        const ySetter = gsap.quickSetter(imageContainer, "rotationX", "deg");
-        const sSetter = gsap.quickSetter(imageContainer, "scale");
-        const oXSetter = gsap.quickSetter(".image-hover-overlay", "x", "px");
-        const oYSetter = gsap.quickSetter(".image-hover-overlay", "y", "px");
-
-        const handleMouseMove = (e: MouseEvent) => {
-          const rect = imageContainer.getBoundingClientRect();
-          const x = (e.clientX - rect.left) / rect.width - 0.5;
-          const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-          xSetter(x * 30);
-          ySetter(-y * 30);
-          sSetter(1.05);
-
-          gsap.to(".image-hover-overlay", { opacity: 1, duration: 0.4 });
-          oXSetter(x * 20);
-          oYSetter(y * 20);
-        };
-
-        const handleMouseLeave = () => {
-          gsap.to(imageContainer, {
-            rotateY: 5,
-            rotateX: -5,
-            scale: 1,
-            duration: 1.2,
-            ease: "elastic.out(1, 0.3)",
-            force3D: true
-          });
-
-          gsap.to(".image-hover-overlay", {
-            opacity: 0,
-            duration: 0.8
-          });
-        };
-
-        imageContainer.addEventListener('mousemove', handleMouseMove, { passive: true });
-        imageContainer.addEventListener('mouseleave', handleMouseLeave);
-      }
-
     }, sectionRef);
 
     return () => ctx.revert();
@@ -222,13 +174,6 @@ const AboutSection = () => {
           <div className="about-grid-line-h absolute top-3/4 left-0 w-full h-px bg-white/5 origin-left" />
         </div>
 
-        {/* Background Parallax Narrative */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none z-0 w-full overflow-hidden">
-          <span className="bg-parallax-text text-[30vw] font-bold text-white/[0.01] leading-none whitespace-nowrap lowercase italic inline-block">
-            44fingers // proptech engineering
-          </span>
-        </div>
-
         <div className="container mx-auto px-6 lg:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -248,7 +193,7 @@ const AboutSection = () => {
                   we engineer digital platforms that help real estate businesses close faster, manage smarter, and scale without friction.
                 </p>
                 <p className="text-base md:text-lg font-light text-white/40 leading-relaxed">
-                  from multi-listing portals and <span className="italic text-white/60">AI-powered lead scoring</span> to IoT building management — we've delivered 140+ projects for agencies, developers, and property managers across 12 markets. mobile apps, web platforms, cloud backends — whatever the system demands.
+                  from multi-listing portals and <span className="italic text-white/60">AI-powered lead scoring</span> to IoT building management — we've delivered 15+ projects for agencies, developers, and property managers across 12 markets. mobile apps, web platforms, cloud backends — whatever the system demands.
                 </p>
               </div>
 
@@ -264,52 +209,19 @@ const AboutSection = () => {
               </div>
             </div>
 
-            <div className="relative group">
+            <div className="relative">
               <div
                 ref={imageContainerRef}
-                className="image-container relative aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/5 bg-white/[0.02] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] cursor-none"
+                className="image-container relative aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/5 bg-white/[0.02] shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)]"
               >
                 <img
                   ref={imageRef}
                   src="/team.webp"
-                  alt="44Fingers Team"
-                  className="w-full h-full object-cover brightness-110 contrast-105 transition-transform duration-700"
+                  alt="44FINGERS proptech software development team in Kyiv"
+                  className="w-full h-full object-cover brightness-110 contrast-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80" />
-
-                {/* Creative Hover Overlay */}
-                <div className="image-hover-overlay absolute inset-0 opacity-0 pointer-events-none">
-                  {/* Digital Mesh */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(99,102,241,0.1)_100%)]" />
-                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] opacity-20" />
-
-                  {/* Corner Targets */}
-                  <div className="absolute top-8 left-8 w-4 h-4 border-t-2 border-l-2 border-indigo-500/50" />
-                  <div className="absolute top-8 right-8 w-4 h-4 border-t-2 border-r-2 border-indigo-500/50" />
-                  <div className="absolute bottom-8 left-8 w-4 h-4 border-b-2 border-l-2 border-indigo-500/50" />
-                  <div className="absolute bottom-8 right-8 w-4 h-4 border-b-2 border-r-2 border-indigo-500/50" />
-
-                  {/* Scanner Beam */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent animate-scan" />
-                </div>
-
-                {/* Custom Cursor for Image */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="w-12 h-12 rounded-full border border-white/20 backdrop-blur-md flex items-center justify-center">
-                    <div className="w-1 h-1 bg-white rounded-full animate-ping" />
-                  </div>
-                </div>
               </div>
-
-              <style>{`
-                @keyframes scan {
-                    0% { transform: translateY(-100%); }
-                    100% { transform: translateY(1000%); }
-                }
-                .animate-scan {
-                    animation: scan 3s linear infinite;
-                }
-            `}</style>
             </div>
 
           </div>
