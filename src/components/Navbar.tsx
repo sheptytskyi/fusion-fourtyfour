@@ -16,7 +16,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
 
   useEffect(() => {
     // 1. SECTION TRACKING
-    const sections = ['hero', 'about', 'portfolio', 'contact'];
+    const sections = ['hero', 'about', 'process', 'portfolio', 'testimonials', 'contact', 'faq'];
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -67,9 +67,12 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
   };
 
   const navItems = [
-    { id: 'about', label: 'Unit' },
-    { id: 'portfolio', label: 'Work' },
-    { id: 'contact', label: 'Sync' },
+    { id: 'about', label: 'About' },
+    { id: 'process', label: 'Process' },
+    { id: 'portfolio', label: 'Portfolio' },
+    { id: 'testimonials', label: 'Testimonials' },
+    { id: 'contact', label: 'Contact' },
+    { id: 'faq', label: 'FAQ' },
   ];
 
   return (
@@ -88,7 +91,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
           <button
             data-nav="hero"
             onClick={() => scrollToSection('hero')}
-            className={`relative z-10 px-4 py-2 font-space font-black text-sm transition-all duration-500 ${activeSection === 'hero' ? 'text-white' : 'text-white/40 hover:text-white'
+            className={`relative z-10 px-4 py-2 font-onest font-black text-sm transition-all duration-500 ${activeSection === 'hero' ? 'text-white' : 'text-white/40 hover:text-white'
               }`}
           >
             44F
@@ -107,7 +110,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
                 key={item.id}
                 data-nav={item.id}
                 onClick={() => scrollToSection(item.id)}
-                className={`relative z-10 px-6 py-2 rounded-full font-space text-[11px] uppercase tracking-[0.2em] transition-all duration-500 ${activeSection === item.id ? 'text-white' : 'text-white/40 hover:text-white'
+                className={`relative z-10 px-6 py-2 rounded-full font-onest text-[11px] uppercase tracking-[0.2em] transition-all duration-500 ${activeSection === item.id ? 'text-white' : 'text-white/40 hover:text-white'
                   }`}
               >
                 {item.label}
@@ -143,20 +146,6 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
             </AnimatePresence>
           </button>
 
-          {/* Action Button - Desktop only */}
-          <div className="h-4 w-px bg-white/10 mx-1 hidden md:block" />
-
-          <button
-            onClick={onContactClick}
-            className="relative z-10 px-5 py-2 group/btn hidden md:block"
-          >
-            <div className="relative flex items-center justify-center">
-              <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse group-hover/btn:scale-125 transition-transform" />
-              <span className="absolute left-full ml-4 opacity-0 group-hover/btn:opacity-100 transition-opacity whitespace-nowrap text-[10px] font-space text-indigo-400 font-bold uppercase tracking-widest">
-                Initiate
-              </span>
-            </div>
-          </button>
         </div>
       </nav>
 
@@ -171,7 +160,7 @@ const Navbar = ({ onContactClick }: NavbarProps) => {
           >
             <div className="space-y-12">
               <div className="space-y-4">
-                <span className="text-[10px] font-space font-black tracking-[0.5em] text-indigo-500 uppercase">Navigation</span>
+                <span className="text-[10px] font-onest font-black tracking-[0.5em] text-indigo-500 uppercase">Navigation</span>
                 <div className="w-12 h-[1px] bg-indigo-500/30" />
               </div>
 
